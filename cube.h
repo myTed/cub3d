@@ -5,22 +5,23 @@
 #define SCREEN_WIDTH        640
 #define SCREEN_HEIGHT       480
 
-typedef struct s_RGB
+typedef struct s_color
 {
-    unsigned char red;
-    unsigned char green;
-    unsigned char blue;
-} t_RGB;
+	unsigned int	blue:8;
+	unsigned int	green:8;
+	unsigned int	red:8;
+	unsigned int	padd:8;
+}	t_color;
 
 typedef struct s_map_info
 {
-    char    path_north_texture[PATH_MAX];
-    char    path_south_texture[PATH_MAX];
-    char    path_west_texture[PATH_MAX];
-    char    path_east_texture[PATH_MAX];
-    t_RGB   floor;
-    t_RGB   ceil;
-	int     **map;
+    char    	path_north_texture[PATH_MAX];
+    char    	path_south_texture[PATH_MAX];
+    char    	path_west_texture[PATH_MAX];
+    char    	path_east_texture[PATH_MAX];
+    t_color 	floor;
+    t_color 	 ceil;
+	int     	**map;
 } t_map_info;
 
 typedef struct s_pos
