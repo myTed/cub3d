@@ -101,8 +101,29 @@ double get_screen_height(double revised_wall_dist)
 	return (SCREEN_HEIGHT/revised_wall_dist);
 }
 
-int main()
+
+void init_map_info(void)
+{
+	printf("init_map_info\n");
+}
+
+void parse_map(void)
+{
+	printf(parse_map);
+}
+
+void	main_loop(void)
 {
 	
+}
+
+
+int main()
+{
+	init_map_info();
+	parse_map();
+	mlx_key_hook();
+	mlx_hook(main_loop);
+	mlx_loop();
     return (0);
 }
