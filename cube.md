@@ -95,6 +95,8 @@ game 구조체
 	t_vector	ray;
 	t_map		map;
 
+	buf[500][500]; // 초기화 불필요
+	
 	while (너비 픽셀 위치 < 너비 픽셀 끝)
 	{
 		1. 광선 벡터 업데이트(&game_info.player, &ray);
@@ -114,10 +116,26 @@ game 구조체
 				2.8.2	map.x, map.y 업데이트
 				2.8.3	hited_side 업데이트
 				2.8.4	맵에서 벽이 있는지 체크
-			2.9	correctedDist 계산 (hited_side 에 따라)
-			2.10. 수직거리에 해당하는 높이 계산
-		4. 높이 그리기
-		너비 픽셀++;
+			2.0. screen에 얼마나 그릴지 계산
+				correctedDist 계산 (hited_side 에 따라)
+				drawheight 구하기 (correctedDist로)
+				<drawTop, drawBottom> 을 drawHeight로계산
+			2.0. bitmap의 어떤 x지점을 그릴지 계산
+				offset_x_wall 계산
+				<offset_x_bitmap> 계산 (offset_x_wall 사용)
+			2.0. screen에 bitmap의 bit를 얼마나 사용해서 그릴지 계산
+				stepY_Bitmap 계산 (bitmapHeight, drawHeight 이용)
+				offset_y_bitmap 
+					drawstart가 음수일 때 offset_y_bitmap 보정
+					음수 아니면 offset_y_bitmap = 0
+			2.0. 그리기!!
+				offset_x_bitmap, offset_y_bitmap부터
+				stepY_Bitmap 만큼 늘리면서, 비트맵의 컬러값을 가져온다.
+				drawstart ~ drawend까지 컬러값을 찍어준다
+					1. ceiling: buf[x][0~drawheight]
+					2. wall: buf[x][drawwheight~drawbottom]
+					3. floor: buf[x][drawbottom+1~screenheight]
+		너비 픽셀 x++;
 	}
 }
 
@@ -129,7 +147,6 @@ game 구조체
 
 	1. 맵 관련 구조체 초기화(&game_info)
 	2. 맵 파싱(&game_info);
-
 	3. 키 훅 등록
 	4. 메인 루프 등록(&game_info);
 	5. 루프 시작
