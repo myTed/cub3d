@@ -1,6 +1,7 @@
-#include "mlx.h"
+//#include <mlx.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #define	SCREEN_HEIGHTS	1000
 #define SCREEN_WIDTHS	1000
@@ -27,7 +28,7 @@ typedef struct s_mlx
 	void	*win_ptr;
 	void	*img_ptr;
 }	t_mlx;
-
+/*
 int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 {
 	if (pmin == 0)
@@ -55,7 +56,7 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 	}
 	return (0);
 }
-
+*/
 int	set_pixel(t_img *pimg, int y, int x, t_color color)
 {
 	if (pimg == 0)
@@ -91,15 +92,18 @@ int	main(void)
 	t_img		img;
 	t_color		color;
 
-
+	/*
 	if (init_mlx_lib(&mlx, &img) < 0)
 		exit(1);
+	*/
 	memset(&color, 0, sizeof(t_color));
 	color.green = 255;
-	color.red = 255;
-
+	color.blue = 255;
+	printf("%u\n", *((unsigned int*)&color));
+/*
 	draw_square(&img, 100, 100, 200, 200, color);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
 	mlx_loop(mlx.mlx_ptr);
+*/
 	return (0);
 }

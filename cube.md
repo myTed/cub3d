@@ -11,6 +11,7 @@
 	맵 실패 여부
 } map_info;
 
+
 플레이어 구조체
 {
 	double	x;
@@ -41,6 +42,10 @@
 	int	y;
 } map;
 
+
+
+
+
 맵 관련 구조체 초기화
 {
 	= 0;
@@ -62,9 +67,9 @@
 광선 벡터 업데이트
 {
 	// view_factor range (-1 ~ 1)
-	view_factor_range = (2 * width_idx / SCREEN_WIDTH) - 1;
-	ray.x = dir.x + (view.x * view_factor_range);
-	ray.y = dir.y + (view.y * view_factor_range);
+	view_factor = (2 * width_idx / SCREEN_WIDTH) - 1;
+	ray.x = dir.x + (view.x * view_factor);
+	ray.y = dir.y + (view.y * view_factor);
 }
 
 레이쏘기(DDA)
