@@ -1,19 +1,24 @@
 #include "cube.h"
 #include <math.h>
 
-void   cube_assert(void *p)
-{
-    if ((char *)p == 0)
+
+void   ft_assert(
+		void *p,
+		const char *file,
+		unsigned int line,
+		const char *func
+){
+    if (p == 0)
     {
-        printf("null point Error!\n");
+        printf("%s : %s : %d\n", file, func, line);
         exit(1);
     }
 }
 
 int init_dist_value(t_dda *p_dda, t_vector *p_vector)
 {
-    cube_assert(p_dda);
-    cube_assert(p_vector);    
+    ft_assert(p_dda != 0, __FILE__, __LINE__, __func__);
+    ft_assert(p_vector != 0, __FILE__, __LINE__, __func__); 
     
     p_dda->map.x = (int)p_vector->pos.x;
     p_dda->map.y = (int)p_vector->pos.y;
@@ -42,8 +47,8 @@ int	find_wall(t_vector *p_vector, t_map_info *pmi)
     double  cur_dist_h;
     int		hited;
 
-	cube_assert(p_vector);
-	cube_assert(pmi);
+	ft_assert(p_vector);
+	ft_assert(pmi);
     init_dist_value(&dda, p_vector);
     cur_dist_v = dda.first_dist_vertical;
     cur_dist_h = dda.first_dist_horizon;

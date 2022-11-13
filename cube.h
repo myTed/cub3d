@@ -44,14 +44,14 @@ typedef enum e_hit
 
 typedef struct s_dda
 {
-    double  	delta_dist_horizon;
-    double  	delta_dist_vertical;
-    double  	first_dist_horizon;
-    double  	first_dist_vertical;
-    int			step_horizon;
-    int			step_vertical;
-	t_hit		hit_side;
-    t_map_pos	map_pos;
+    double  		delta_dist_horizon;
+    double  		delta_dist_vertical;
+    double  		first_dist_horizon;
+    double  		first_dist_vertical;
+    int				step_horizon;
+    int				step_vertical;
+	t_hit			hit_side;
+    t_map_pos		map_pos;
 } t_dda;
 
 typedef struct s_player
