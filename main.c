@@ -47,8 +47,9 @@ int	find_wall(t_vector *p_vector, t_map_info *pmi)
     double  cur_dist_h;
     int		hited;
 
-	ft_assert(p_vector);
-	ft_assert(pmi);
+	ft_assert(p_vector != 0, __FILE__, __LINE__, __func__);
+	ft_assert(pmi !=0, __FILE__, __LINE__, __func__);
+
     init_dist_value(&dda, p_vector);
     cur_dist_v = dda.first_dist_vertical;
     cur_dist_h = dda.first_dist_horizon;
@@ -95,9 +96,13 @@ double get_revised_wall_distance(t_dda *pd, t_vector *pv)
 	exit(1);
 }
 
+double get_screen_height(double revised_wall_dist)
+{
+	return (SCREEN_HEIGHT/revised_wall_dist);
+}
 
 int main()
 {
-		
+	
     return (0);
 }
