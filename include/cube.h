@@ -38,8 +38,8 @@ typedef struct s_map
 typedef enum e_hit
 {
 	NO = 0,
-	HORIZON,
-	VERTICAL
+	WALL_HORIZON,
+	WALL_VERTICAL
 } t_hit;
 
 typedef struct s_bitmap_slice
