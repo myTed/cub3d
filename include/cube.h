@@ -3,6 +3,8 @@
 
 #define SCREEN_WIDTH        640
 #define SCREEN_HEIGHT       480
+#define TEXTURE_WIDTH        64
+#define TEXTURE_HEIGHT       64
 
 typedef struct s_color
 {
@@ -29,36 +31,18 @@ typedef struct s_vector
 	double	y;
 } t_vector;
 
-typedef struct s_map
+typedef struct s_wall_pos
 {
 	int	x;
 	int	y;
-} t_map_pos;
+} t_wall_pos;
 
 typedef enum e_hit
 {
 	NO = 0,
-	HORIZON,
-	VERTICAL
+	WALL_HORIZON,
+	WALL_VERTICAL
 } t_hit;
-
-typedef struct s_bitmap_slice
-{
-	int	offset_x;
-	int	offset_y;
-} t_bitmap_slice;
-
-typedef struct s_screen_slice
-{	
-	int	draw_top;
-	int	draw_bottom;
-} t_screen_slice;
-
-typedef struct s_draw_info
-{
-	t_bitmap_slice	bitmap;
-	t_screen_slice	screen;
-} t_draw_info;
 
 typedef struct s_player
 {
@@ -72,5 +56,13 @@ typedef struct s_game_info
 	t_map_info	map;
 	t_player	player;
 } t_game_info;
+
+typedef struct s_distance
+{
+	t_vector	ray;
+	t_wall_pos	wall_pos;
+	double corrected_distance;
+	t_hit hit_side;
+} t_distance;
 
 #endif
