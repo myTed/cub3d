@@ -143,8 +143,7 @@ f: 레이 쏘기 (DDA) (부딪힐때 까지) (game, map, ray)
 메인 루프(game_info)
 {
 	t_vector	ray;//x, y
-	t_map		map;//x, y
-	correcttedDist;
+	t_distance_info distance;
 	buffer[][];
 
 	너비 픽셀  = 0;

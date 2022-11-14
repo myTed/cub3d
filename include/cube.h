@@ -14,7 +14,7 @@ typedef struct s_color
 	unsigned int	padd:8;
 }	t_color;
 
-typedef struct s_map_info
+typedef struct s_parse_info
 {
     char    	*path_north_texture;
     char    	*path_south_texture;
@@ -22,20 +22,14 @@ typedef struct s_map_info
     char    	*path_east_texture;
     t_color 	floor;
     t_color 	 ceil;
-	int     	**map;
-} t_map_info;
+		int     	**map;
+} t_parse_info;
 
 typedef struct s_vector
 {
 	double	x;
 	double	y;
 } t_vector;
-
-typedef struct s_wall_pos
-{
-	int	x;
-	int	y;
-} t_wall_pos;
 
 typedef enum e_hit
 {
@@ -44,25 +38,30 @@ typedef enum e_hit
 	WALL_VERTICAL
 } t_hit;
 
-typedef struct s_player
+typedef struct s_player_info
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	view;
-} t_player;
+} t_player_info;
 
 typedef struct s_game_info
 {
-	t_map_info	map;
-	t_player	player;
+	t_parse_info parse;
+	t_player_info player;
 } t_game_info;
 
-typedef struct s_distance
+typedef struct s_wall_pos
 {
-	t_vector	ray;
-	t_wall_pos	wall_pos;
+	int	x;
+	int	y;
+} t_wall_pos;
+
+typedef struct s_wall_info
+{
+	t_wall_pos	pos;
 	double corrected_distance;
 	t_hit hit_side;
-} t_distance;
+} t_wall_info;
 
 #endif
