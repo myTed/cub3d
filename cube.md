@@ -161,9 +161,9 @@ f: 레이 쏘기 (DDA) (부딪힐때 까지) (game, map, ray)
 		3. fill_slice_info(correcttedDist, game): bitmap 관련 변수 구조체에 채우기
 			t_drawing_info drawgin_info;
 
-				(hitside 계산)
 			1. <drawTop, drawBottom> 을 drawHeight로계산
 				(correctedDist로 drawheight 계산)	
+				
 			2. offset_x_bitmap (bitmap의 어떤 x지점을 그릴지 계산)
 				offset_x_wall 계산  (correctedDist, pos, ray)
 				<offset_x_bitmap> 계산 (offset_x_wall 사용)
