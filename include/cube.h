@@ -42,24 +42,35 @@ typedef enum e_hit
 	VERTICAL
 } t_hit;
 
-typedef struct s_dda
+typedef struct s_bitmap_slice
 {
-    double  		delta_dist_horizon;
-    double  		delta_dist_vertical;
-    double  		first_dist_horizon;
-    double  		first_dist_vertical;
-    int				step_horizon;
-    int				step_vertical;
-	t_hit			hit_side;
-    t_map_pos		map_pos;
-} t_dda;
+	int	offset_x;
+	int	offset_y;
+} t_bitmap_slice;
+
+typedef struct s_screen_slice
+{	
+	int	draw_top;
+	int	draw_bottom;
+} t_screen_slice;
+
+typedef struct s_draw_info
+{
+	t_bitmap_slice	bitmap;
+	t_screen_slice	screen;
+} t_draw_info;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	view;
-	t_vector	ray;
 } t_player;
+
+typedef struct s_game_info
+{
+	t_map_info	map;
+	t_player	player;
+} t_game_info;
 
 #endif
