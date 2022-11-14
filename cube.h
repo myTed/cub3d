@@ -3,6 +3,8 @@
 
 #define SCREEN_WIDTH        640
 #define SCREEN_HEIGHT       480
+#define TEXTURE_WIDTH        64
+#define TEXTURE_HEIGHT       64
 
 typedef struct s_color
 {
@@ -29,30 +31,18 @@ typedef struct s_vector
 	double	y;
 } t_vector;
 
-typedef struct s_map
+typedef struct s_wall_pos
 {
 	int	x;
 	int	y;
-} t_map_pos;
+} t_wall_pos;
 
 typedef enum e_hit
 {
 	NO = 0,
-	HORIZON,
-	VERTICAL
+	WALL_HORIZON,
+	WALL_VERTICAL
 } t_hit;
-
-typedef struct s_dda
-{
-    double  		delta_dist_horizon;
-    double  		delta_dist_vertical;
-    double  		first_dist_horizon;
-    double  		first_dist_vertical;
-    int				step_horizon;
-    int				step_vertical;
-	t_hit			hit_side;
-    t_map_pos		map_pos;
-} t_dda;
 
 typedef struct s_player
 {
@@ -61,5 +51,13 @@ typedef struct s_player
 	t_vector	view;
 	t_vector	ray;
 } t_player;
+
+typedef struct s_distance
+{
+	t_vector	ray;
+	t_wall_pos	wall_pos;
+	double corrected_distance;
+	t_hit hit_side;
+} t_distance;
 
 #endif
