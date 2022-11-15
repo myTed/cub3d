@@ -41,7 +41,8 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg);
 int	find_wall_distance(
 		t_game_info *pgi,
 		t_vector *pray,
-		t_hit *phit
+		t_hit *phit,
+		t_wall_info *p_wall
 );
 
 int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
@@ -83,7 +84,7 @@ int	game_loop(void *param)
 	{
 		if (update_ray_vector(&(p_game->player), width_idx, &ray) < 0)
 			return (-1);
-		if (find_wall_distance(p_game, &ray, &wall.hit_side) < 0)
+		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
 		set_correct_wall_distance(p_game, &wall, &ray);
 		fill_wall_slice_pixel(p_game->mlx.img_ptr, width_idx, wall.corrected_distance);
