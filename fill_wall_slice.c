@@ -1,83 +1,113 @@
 #include "cube.h"
 
-typedef struct s_slice_info
-{
-	int draw_top;
-	int draw_bottom;
-	double texture_offset_x;
-	double texture_offset_y;
-	double texture_step_y;//movement per screen pixel y
-} t_slice_info;
-
-int get_texture_offset_x(t_vector pos, t_vector ray, t_hit hitted_side, double corrected_distance)
+static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray)
 {
 	double map_offset_x;
 	double wall_offset_x;
 
 	//1. map 상에서 어디인지
-	if (hitted_side == WALL_VERTICAL)
-		map_offset_x = pos.y + (corrected_distance - ray.y);
-	else /* (hitted_side == WALL_HORIZON) */
-		map_offset_x = pos.x + (corrected_distance - ray.x);
+	if (p_wall->hit_side == WALL_VERTICAL)
+		map_offset_x = p_wall->pos.y + (p_wall->corrected_distance - p_ray->y);
+	else /* (hit_side == WALL_HORIZON) */
+		map_offset_x = p_wall->pos.x + (p_wall->corrected_distance - p_ray->x);
 
 	//2. wall 상에서 어디인지
-	if (hitted_side < WALL_VERTICAL && ray.x > 0 || \
-		hitted_side < WALL_HORIZON && ray.y < 0)
+	if (p_wall->hit_side < WALL_VERTICAL && p_ray->x > 0 || \
+		p_wall->hit_side < WALL_HORIZON && p_ray->y < 0)
 			wall_offset_x = map_offset_x - floor(map_offset_x);
 	else /* 보정 */
 			wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
 
 	//3. texture 상에서 어디인지
-return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
+	return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
+}		
+
+static double get_texture_offset_y(t_slice_info *p_slice)
+{
+	if (p_slice->draw_top < 0)
+		return (-(p_slice->draw_top) * p_slice->texture_step_y);
+	else
+		return (0);
 }
 
-static int get_texture_offset_y(int *draw_top, double texture_step_y)
+static t_hit get_texture_kind(t_wall_info *p_wall, t_vector *p_ray)
 {
-	double texture_offset_y;
-
-	if (*draw_top < 0)
+	if (p_wall->hit_side == WALL_VERTICAL)
 	{
-		texture_offset_y = -(*draw_top) * texture_step_y;
-		*draw_top = 0;
+		if (p_ray->x > 0)
+			return (EAST);
+		else
+			return (WEST);
 	}
 	else
-		texture_offset_y = 0;
-	return (texture_offset_y);
+	{
+		if (p_ray->y > 0)
+			return (SOUTH);
+		else
+			return (NORTH);
+	}
 }
 
-static void fill_slice_info(t_slice *p_slice, t_vector pos, t_vector ray, double corrected_distance)
-//hitted_side
+void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
 {
 	double draw_height;
 
-	draw_height = SCREEN_HEIGHT / corrected_distance;
-	//1. screen slice
-	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (draw_height / 2);
-	p_slice->draw_bottom = (SCREEN_HEIGHT / 2) + (draw_height / 2);
+	draw_height = SCREEN_HEIGHT / p_wall->corrected_distance;
 	
-	//2-1.
-	p_slice->texture_offset_x = get_texture_offset_x(pos, ray, hitted_side, corrected_distance);
+	//texture_offset_x
+	p_slice->texture_offset_x = get_texture_offset_x(p_wall, p_ray);
 	
-	//2-2.
+	//texture_step_y
 	p_slice->texture_step_y = TEXTURE_HEIGHT / draw_height;
 	
-	//2-3. texture_offset_y
+	//draw_top
+	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (draw_height / 2);
+	
+	//texture_offset_y
+	p_slice->texture_offset_y = get_texture_offset_y(p_slice);
 	if (p_slice->draw_top < 0)
-	{
-		p_slice->texture_offset_y = -(p_slice->draw_top) * p_slice->texture_step_y;
 		p_slice->draw_top = 0;
-	}
-	else
-		p_slice->texture_offset_y = 0;
+
+	//draw_bottom
+	p_slice->draw_bottom = (SCREEN_HEIGHT / 2) + (draw_height / 2);
+
+	//동서남북
+	p_slice->texture_kind = get_texture_kind(p_wall, p_ray);
 }
 
-static void fill_buffer_slice(screen_buffer, &slice_info);
+//--------------------------------------------------//
 
-
-void fill_wall_slice(int **screen_buffer, double corrected_distance, t_vector ray, t_hit hitted_side, const t_game *p_game)
+void fill_buffer_x(int *buf[], const t_slice_info *p_slice, const t_parse_info *p_parse, const int width_idx)
 {
-	t_slice slice_info;
+	int screen_y;
+	int draw_top;
+	int draw_bottom;
 
-	fill_slice_info(&slice_info);
-	fill_buffer_slice(screen_buffer, &slice_info);
+	draw_top = p_slice->draw_top;
+	draw_bottom = p_slice->draw_bottom;
+
+	screen_y = 0;
+	while (screen_y < draw_top - 1)
+	{
+		//buf[*p_screen_x][screen_y] = mlx(p_parse->ceiling)
+		screen_y++;
+	}
+	while (screen_y < draw_bottom)
+	{
+		//buf[width_idx][screen_y] = 
+		screen_y++;
+	}
+	while (screen_y > draw_bottom)
+	{
+		//buf[*p_screen_x][screen_y] = mlx(p_parse->floor)
+		screen_y++;
+	}
+}
+
+void fill_wall_slice(int *buf[], const t_vector *p_ray, const t_wall_info *p_wall, const t_parse_info *p_parse, const int width_idx)
+{
+	t_slice_info slice;
+
+	fill_slice_info(&slice, p_wall, p_ray);
+	fill_buffer_x(buf, &slice, p_parse, width_idx);
 }
