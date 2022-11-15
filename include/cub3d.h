@@ -38,7 +38,7 @@ typedef struct s_parse_info
     unsigned int	*east_texture;
     t_color 		floor;
     t_color 		ceiling;
-	unsigned int    **map;
+	int    **map;
 } t_parse_info;
 
 typedef struct s_vector

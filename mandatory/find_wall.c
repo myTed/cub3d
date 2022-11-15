@@ -63,10 +63,12 @@ int	get_step_distance_and_side_to_nearest_wall(
 		t_hit *p_hit_side
 ){
 	int		hitted;
-
+	int		(*p_map)[10];
+	
 	if ((p_wall_dist == 0) || (p_hit_side == 0))
 		return (-1);
 	hitted = 0;
+	p_map = (int(*)[10])(p_parse->map);
 	while (hitted == 0)
 	{
 		if (p_wall_dist->dist_horizon < p_wall_dist->dist_vertical)
@@ -81,7 +83,7 @@ int	get_step_distance_and_side_to_nearest_wall(
 			p_wall->pos.x += p_wall_dist->step_vertical;
 			*p_hit_side = HORIZON;
 		}
-		if (p_parse->map[p_wall->pos.y][p_wall->pos.x] == 1)
+		if (p_map[p_wall->pos.y][p_wall->pos.x] == 1)
 			hitted = 1;
 	}
 	return (0);
@@ -95,12 +97,14 @@ int	find_wall_distance(
 ){
 	t_wall_dist_info	wall_dist;
 
-	if ((p_game == 0) || (p_ray == 0))
+	if ((p_game == 0) || (p_ray == 0) || (p_hit_side == 0) || (p_wall == 0))
 		return (-1);
 	if (init_distance_info(p_game, p_ray, &wall_dist, p_wall) < 0)
 		return (-1);
 	if (init_step_info(p_ray, &wall_dist) < 0)
 		return (-1);
+	p_wall->pos.x = (int)(p_game->player.pos.x);
+	p_wall->pos.y = (int)(p_game->player.pos.y);
 	if (get_step_distance_and_side_to_nearest_wall(&(p_game->parse), &wall_dist, p_wall, p_hit_side) < 0)
 		return (-1);
 	return (0);

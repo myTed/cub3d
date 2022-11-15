@@ -1,8 +1,8 @@
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -I./include
+CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c find_wall.c fill_wall_slice.c mlx_draw.c correct_wall_distance.c
+SRCS= main.c find_wall.c fill_wall_slice.c mlx_draw.c correct_wall_distance.c 
 
 
 BONUS_DIR=bonus/

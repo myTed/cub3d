@@ -2,6 +2,8 @@
 #include <mlx.h>
 #include <math.h>
 #include <stdio.h>
+#include "../libft/libft.h"
+
 /*
 void   ft_assert(
 		void *p,
@@ -17,6 +19,21 @@ void   ft_assert(
 }
 */
 
+int world_map[10][10]=
+{
+	{1,1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,3,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,1},
+	{1,1,1,1,1,1,1,1,1,1}
+};
+
+
 int	set_pixel(t_img *pimg, int y, int x, t_color color);
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
 void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
@@ -26,9 +43,6 @@ int	find_wall_distance(
 		t_vector *pray,
 		t_hit *phit
 );
-
-
-
 
 int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
 {
@@ -81,12 +95,48 @@ int	game_loop(void *param)
 }
 
 
+int	init_parse_info(t_parse_info *p_parse)
+{
+	t_color floor;
+	t_color	ceiling;
+
+	if (p_parse == 0)
+		return (-1);
+	ft_memset(p_parse, 0, sizeof(t_parse_info));
+	ft_memset(&floor, 0, sizeof(t_color));
+	ft_memset(&ceiling, 0, sizeof(t_color));
+	floor.blue = 100;
+	ceiling.green = 100;
+	p_parse->floor = floor;
+	p_parse->ceiling = ceiling;
+	p_parse->map = (int **)world_map;
+	return (0);
+}
+
+int	init_player_info(t_player_info *p_player)
+{
+	if (p_player == 0)
+		return (-1);
+	p_player->dir.x = 0;
+	p_player->dir.y = -1;
+	p_player->pos.x = 5;
+	p_player->pos.y = 5;
+	p_player->view.x = 0.66;
+	p_player->view.y = 0;
+	return (0);
+}
+
 int main()
 {
 	t_game_info	game;
+
+	if (init_parse_info(&game.parse) < 0)
+		return (1);
+	if (init_player_info(&game.player) < 0)
+		return (1);
 	if (init_mlx_lib(&game.mlx, &game.img) < 0)
 		return (1);
-	mlx_loop_hook(&game.mlx.mlx_ptr, game_loop, &game);
-	mlx_loop(&game.mlx.mlx_ptr);	
+	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	mlx_loop(game.mlx.mlx_ptr);	
 	return (0);
 }
