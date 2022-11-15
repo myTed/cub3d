@@ -1,6 +1,6 @@
 #include "cube.h"
 
-double correcting_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray) {
+double corrected_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray) {
 	if (p_wall->hit_side == WALL_VERTICAL)
 	{
 		if (p_ray->x > 0)
