@@ -75,13 +75,13 @@ int	get_step_distance_and_side_to_nearest_wall(
 		{
 			p_wall_dist->dist_horizon += p_wall_dist->delta_dist_horizon;
 			p_wall->pos.y += p_wall_dist->step_horizon;
-			*p_hit_side = VERTICAL;
+			*p_hit_side = HORIZON;
 		}
 		else
 		{
 			p_wall_dist->dist_vertical += p_wall_dist->delta_dist_vertical;
 			p_wall->pos.x += p_wall_dist->step_vertical;
-			*p_hit_side = HORIZON;
+			*p_hit_side = VERTICAL;
 		}
 		if (p_map[p_wall->pos.y][p_wall->pos.x] == 1)
 			hitted = 1;

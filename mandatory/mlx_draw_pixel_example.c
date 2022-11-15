@@ -1,5 +1,5 @@
-#include "mlx.h"
-#include "cube.h"
+#include <mlx.h>
+#include "../include/cub3d.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -12,12 +12,12 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 	pmin->mlx_ptr = mlx_init();
 	if (pmin->mlx_ptr == 0)
 		return (-1);
-	pmin->win_ptr = mlx_new_window(pmin->mlx_ptr, SCREEN_WIDTHS,
-			SCREEN_HEIGHTS, "cub3D");
+	pmin->win_ptr = mlx_new_window(pmin->mlx_ptr, SCREEN_WIDTH,
+			SCREEN_HEIGHT, "cub3D");
 	if (pmin->win_ptr == 0)
 		return (-1);
-	pmin->img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTHS,
-			SCREEN_HEIGHTS);
+	pmin->img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTH,
+			SCREEN_HEIGHT);
 	if (pmin->img_ptr == 0)
 	{
 		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);

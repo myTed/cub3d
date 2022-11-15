@@ -1,5 +1,5 @@
 #CC=gcc
-CC=cc
+CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 

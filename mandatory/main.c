@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include "mlx.h"
+#include <mlx.h>
 #include <math.h>
 #include <stdio.h>
 #include "../libft/libft.h"
@@ -23,12 +23,12 @@ int world_map[10][10]=
 {
 	{1,1,1,1,1,1,1,1,1,1},
 	{1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,1,0,0,0,0,1},
+	{1,0,0,1,0,1,0,0,0,1},
+	{1,0,1,0,0,0,1,0,0,1},
+	{1,1,0,0,0,0,0,1,0,1},
+	{1,0,0,0,0,0,0,0,1,1},
 	{1,0,0,0,3,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1}
 };
@@ -60,6 +60,7 @@ int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
 		set_pixel(p_img, y_idx, width_idx, color);
 		y_idx++;
 	}
+	
 	return (0);
 }
 
@@ -88,7 +89,7 @@ int	game_loop(void *param)
 		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
 		set_correct_wall_distance(p_game, &wall, &ray);
-		fill_wall_slice_pixel(p_game->mlx.img_ptr, width_idx, wall.corrected_distance);
+		fill_wall_slice_pixel(&p_game->img, width_idx, wall.corrected_distance * 10);
 		width_idx++;
 	}
 	if (draw_screen(p_game) < 0)

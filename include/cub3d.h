@@ -1,8 +1,8 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#define SCREEN_WIDTH        640
-#define SCREEN_HEIGHT       480
+#define SCREEN_WIDTH        30
+#define SCREEN_HEIGHT       20
 #define TEXTURE_WIDTH        64
 #define TEXTURE_HEIGHT       64
 
