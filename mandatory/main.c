@@ -80,7 +80,7 @@ int	game_loop(void *param)
 		if (find_wall_distance(p_game, &ray, &wall.hit_side) < 0)
 			return (-1);
 		wall.corrected_distance = corrected_wall_distance(p_game, &wall, &ray);
-		
+		fill_wall_slice_pixel(
 		width_idx++;
 	}
 	if (draw_screen(p_game, buff) < 0)
