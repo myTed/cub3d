@@ -1,18 +1,17 @@
-#ifndef CUBE_H
-#define CUBE_H
+#ifndef CUB3D_H
+#define CUB3D_H
 
 #define SCREEN_WIDTH        640
 #define SCREEN_HEIGHT       480
 #define TEXTURE_WIDTH        64
 #define TEXTURE_HEIGHT       64
 
-
 typedef struct s_img
 {
 	unsigned int	*addr;
-	int				bpp;
-	int				size_line;
-	int				endian;
+	int						bpp;
+	int						size_line;
+	int						endian;
 }	t_img;
 
 typedef struct s_mlx
@@ -36,9 +35,9 @@ typedef struct s_parse_info
     unsigned int	*south_texture;
     unsigned int	*west_texture;
     unsigned int	*east_texture;
-    t_color 		floor;
-    t_color 		ceiling;
-	unsigned int    **map;
+    t_color 			floor;
+    t_color 			ceiling;
+		unsigned int    **map;
 } t_parse_info;
 
 typedef struct s_vector
