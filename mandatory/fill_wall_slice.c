@@ -1,4 +1,8 @@
 #include "cub3d.h"
+#include <math.h>
+
+int	set_pixel(t_img *pimg, int y, int x, t_color color);
+
 
 static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray)
 {
@@ -6,69 +10,19 @@ static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray
 	double wall_offset_x;
 
 	//1. map 상에서 어디인지
-	if (p_wall->hit_side == WALL_VERTICAL)
+	if (p_wall->hit_side == VERTICAL)
 		map_offset_x = p_wall->pos.y + (p_wall->corrected_distance - p_ray->y);
 	else /* (hit_side == WALL_HORIZON) */
 		map_offset_x = p_wall->pos.x + (p_wall->corrected_distance - p_ray->x);
 
 	//2. wall 상에서 어디인지
-	if (p_wall->hit_side < WALL_VERTICAL && p_ray->x > 0 || \
-		p_wall->hit_side < WALL_HORIZON && p_ray->y < 0)
+	if ((p_wall->hit_side < VERTICAL && p_ray->x > 0) || \
+		(p_wall->hit_side < HORIZON && p_ray->y < 0))
 			wall_offset_x = map_offset_x - floor(map_offset_x);
 	else /* 보정 */
 			wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
 
 	//3. texture 상에서 어디인지
-	return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
-}
-
-static int get_texture_offset_y(int *draw_top, double texture_step_y)
-{
-	double texture_offset_y;
-
-	if (*draw_top < 0)
-	{
-		texture_offset_y = -(*draw_top) * texture_step_y;
-		*draw_top = 0;
-	}
-	else
-		texture_offset_y = 0;
-	return (texture_offset_y);
-}
-
-static void fill_slice_info(t_slice *p_slice, double corrected_distance)
-{
-	double draw_height;
-
-	draw_height = SCREEN_HEIGHT / corrected_distance;
-	//1. screen slice
-	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (draw_height / 2);
-	p_slice->draw_bottom = (SCREEN_HEIGHT / 2) + (draw_height / 2);
-	
-	//2. texture slice
-	p_slice->texture_offset_x = get_texture_offset_x(pos, ray, hitted_side, corrected_distance);
-	
-	p_slice->texture_step_y = TEXTURE_HEIGHT / draw_height;
-	
-	p_slice->texture_offset_y = get_texture_offset_y();
-	if (p_slice->draw_top < 0)
-	{
-		p_slice->texture_offset_y = -(p_slice->draw_top) * p_slice->texture_step_y;
-		p_slice->draw_top = 0;
-	}
-	else
-		p_slice->texture_offset_y = 0;
-}
-
-static void fill_buffer_slice(screen_buffer, &slice_info);
-
-
-void fill_wall_slice(int **screen_buffer, double corrected_distance, const t_game *p_game_info)
-{
-	t_slice slice_info;
-
-	fill_slice_info(&slice_info);
-	fill_buffer_slice(screen_buffer, &slice_info);
 	return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
 }		
 
@@ -80,9 +34,9 @@ static double get_texture_offset_y(t_slice_info *p_slice)
 		return (0);
 }
 
-static t_hit get_texture_kind(t_wall_info *p_wall, t_vector *p_ray)
+static t_texture_kind get_texture_kind(const t_wall_info *p_wall, const t_vector *p_ray)
 {
-	if (p_wall->hit_side == WALL_VERTICAL)
+	if (p_wall->hit_side == VERTICAL)
 	{
 		if (p_ray->x > 0)
 			return (EAST);
@@ -148,10 +102,10 @@ void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info
 	}
 	while (hieght_idx < draw_bottom)
 	{
-		set_pixel(p_img, hieght_idx, width_idx, 0xFF0000);
+		// set_pixel(p_img, hieght_idx, width_idx, (t_color)0xFF0000);
 		/*get_pixel((int)texture_offset_x, (int)texture_offset_y)*/
 		hieght_idx++;
-		texture_offset_y + p_slice->texture_step_y;
+		texture_offset_y = texture_offset_y + p_slice->texture_step_y;
 	}
 	while (hieght_idx > SCREEN_HEIGHT)
 	{

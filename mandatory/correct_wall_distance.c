@@ -1,4 +1,5 @@
-#include "cube.h"
+#include "cub3d.h"
+#include <stdio.h>
 
 void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray) {
 	if (p_wall->hit_side == VERTICAL)

@@ -77,6 +77,16 @@ typedef struct s_game_info
 	t_img			img;
 }	t_game_info;
 
+typedef struct s_wall_dist_info
+{
+	double	dist_vertical;
+	double	dist_horizon;
+	double	delta_dist_vertical;
+	double	delta_dist_horizon;
+	int		step_vertical;
+	int		step_horizon;
+} t_wall_dist_info;
+
 typedef struct s_wall_pos
 {
 	int	x;
