@@ -1,6 +1,8 @@
-#include "cube.h"
+#include "cub3d.h"
+#include <mlx.h>
 #include <math.h>
-
+#include <stdio.h>
+/*
 void   ft_assert(
 		void *p,
 		const char *file,
@@ -13,28 +15,19 @@ void   ft_assert(
         exit(1);
     }
 }
+*/
 
-int	fill_img_pixel(t_img *p_img, t_color *(*buff)[SCREEN_HEIGHT])
-{
-	int	x_idx;
-	int	y_idx;
+int	set_pixel(t_img *pimg, int y, int x, t_color color);
+int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
+void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
+int	init_mlx_lib(t_mlx *pmin, t_img *pimg);
+int	find_wall_distance(
+		t_game_info *pgi,
+		t_vector *pray,
+		t_hit *phit
+);
 
-	if ((pimg == 0) || (buff == 0))
-		return (-1);
-	x_idx = 0;
-	y_idx = 0;
-	while (y_idx < SCREEN_HEIGHT)
-	{
-		x_idx = 0;
-		while (x_idx < SCREEN_WIDTH)
-		{
-			set_pixel(p_img, y_idx, x_idx, buff[y_idx][x_idx]);
-			x_idx++;
-		}
-		y_idx++;
-	}
-	return (0);
-}
+
 
 
 int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
@@ -51,15 +44,14 @@ int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
 		set_pixel(p_img, y_idx, width_idx, color);
 		y_idx++;
 	}
+	return (0);
 }
 
-int	draw_screen(t_game_info *p_game, void *buff)
+int	draw_screen(t_game_info *p_game)
 {
-	if ((p_game == 0) || (buff == 0))
+	if (p_game == 0)
 		return (-1);
-	if (fill_img_pixel(p_game->mlx.img, buff) < 0)
-		return (-1);
-	mlx_put_image(p_game->mlx.mlx_ptr,
+	mlx_put_image_to_window(p_game->mlx.mlx_ptr,
 		p_game->mlx.win_ptr, p_game->mlx.img_ptr, 0, 0);
 	return (0);
 }
@@ -79,11 +71,11 @@ int	game_loop(void *param)
 			return (-1);
 		if (find_wall_distance(p_game, &ray, &wall.hit_side) < 0)
 			return (-1);
-		wall.corrected_distance = corrected_wall_distance(p_game, &wall, &ray);
-		fill_wall_slice_pixel(
+		set_correct_wall_distance(p_game, &wall, &ray);
+		fill_wall_slice_pixel(p_game->mlx.img_ptr, width_idx, wall.corrected_distance);
 		width_idx++;
 	}
-	if (draw_screen(p_game, buff) < 0)
+	if (draw_screen(p_game) < 0)
 		return (-1);
 	return (0);
 }
@@ -92,14 +84,9 @@ int	game_loop(void *param)
 int main()
 {
 	t_game_info	game;
-	/*
-	init_map_info();
-	parse_map();
-	mlx_key_hook();
-	*/
 	if (init_mlx_lib(&game.mlx, &game.img) < 0)
 		return (1);
-	mlx_loop_hook(mlx.mlx_ptr, game_loop, &game);
-	mlx_loop(mlx.mlx_ptr);	
+	mlx_loop_hook(&game.mlx.mlx_ptr, game_loop, &game);
+	mlx_loop(&game.mlx.mlx_ptr);	
 	return (0);
 }

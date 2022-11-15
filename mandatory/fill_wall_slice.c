@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "cub3d.h"
 
 static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray)
 {

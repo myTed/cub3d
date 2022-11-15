@@ -6,12 +6,6 @@
 #define TEXTURE_WIDTH        64
 #define TEXTURE_HEIGHT       64
 
-typedef struct s_game_info
-{
-	
-	t_parse_info parse;
-	t_player_info player;
-} t_game_info;
 
 typedef struct s_img
 {
@@ -79,6 +73,8 @@ typedef struct s_game_info
 {
 	t_parse_info	parse;
 	t_player_info	player;
+	t_mlx			mlx;
+	t_img			img;
 }	t_game_info;
 
 typedef struct s_wall_pos
