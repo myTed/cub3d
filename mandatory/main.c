@@ -37,6 +37,22 @@ int	fill_img_pixel(t_img *p_img, t_color *(*buff)[SCREEN_HEIGHT])
 }
 
 
+int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
+{
+	int	y_idx;
+	t_color	color;
+
+	if (p_img == 0)
+		return (-1);
+	y_idx = 0;
+	color.green = 255;
+	while (y_idx < height)
+	{
+		set_pixel(p_img, y_idx, width_idx, color);
+		y_idx++;
+	}
+}
+
 int	draw_screen(t_game_info *p_game, void *buff)
 {
 	if ((p_game == 0) || (buff == 0))
@@ -54,7 +70,6 @@ int	game_loop(void *param)
 	t_vector		ray;
 	t_wall_info		wall;
 	int				width_idx;
-	t_color			buff[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 	p_game = param;
 	width_idx = 0;
@@ -62,7 +77,10 @@ int	game_loop(void *param)
 	{
 		if (update_ray_vector(&(p_game->player), width_idx, &ray) < 0)
 			return (-1);
-		if (find_wall_distance(
+		if (find_wall_distance(p_game, &ray, &wall.hit_side) < 0)
+			return (-1);
+		wall.corrected_distance = corrected_wall_distance(p_game, &wall, &ray);
+		
 		width_idx++;
 	}
 	if (draw_screen(p_game, buff) < 0)
