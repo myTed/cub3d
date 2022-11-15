@@ -1,14 +1,5 @@
 #include "cube.h"
 
-typedef struct s_slice
-{
-	int draw_top;
-	int draw_bottom;
-	double texture_offset_x;
-	double texture_offset_y;
-	double texture_step_y;//movement per screen pixel y
-} t_slice;
-
 static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray)
 {
 	double map_offset_x;
@@ -79,6 +70,8 @@ void fill_wall_slice(int **screen_buffer, double corrected_distance, const t_gam
 	fill_slice_info(&slice_info);
 	fill_buffer_slice(screen_buffer, &slice_info);
 	return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
+=======
+>>>>>>> 77dfecbc58268727df7142fb27ce9f4e19a10ff0
 }		
 
 static double get_texture_offset_y(t_slice_info *p_slice)
