@@ -1,7 +1,6 @@
 #include "cube.h"
 #include <math.h>
 
-
 void   ft_assert(
 		void *p,
 		const char *file,
@@ -15,115 +14,74 @@ void   ft_assert(
     }
 }
 
-int init_dist_value(t_dda *p_dda, t_vector *p_vector)
+int	fill_img_pixel(t_img *p_img, t_color *(*buff)[SCREEN_HEIGHT])
 {
-    ft_assert(p_dda != 0, __FILE__, __LINE__, __func__);
-    ft_assert(p_vector != 0, __FILE__, __LINE__, __func__); 
-    
-    p_dda->map.x = (int)p_vector->pos.x;
-    p_dda->map.y = (int)p_vector->pos.y;
-    p_dda->delta_dist_horizon = fabs(1 / (p_vector->ray.y));
-    p_dda->delta_dist_vertical = fabs(1 / (p_vector->ray.x));
-    p_dda->first_dist_horizon = 
-        p_dda->delta_dist_horizon * (p_dda->map.x);
-    p_dda->first_dist_vertical =
-        p_dda->delta_dist_vertical * (p_dda->map.y);
-    if (p_vector->ray.y < 0)
-        p_dda->step_horizon = -1;
-    else
-		p_dda->step_vertical = 1;
-	if (p_vector->ray.x < 0)
-		p_dda->step_vertical = -1;
-	else
-		p_dda->step_vertical = 1;
-    return (0);
-}
+	int	x_idx;
+	int	y_idx;
 
-
-int	find_wall(t_vector *p_vector, t_map_info *pmi)
-{
-    t_dda   dda;
-    double  cur_dist_v;
-    double  cur_dist_h;
-    int		hited;
-
-	ft_assert(p_vector != 0, __FILE__, __LINE__, __func__);
-	ft_assert(pmi !=0, __FILE__, __LINE__, __func__);
-
-    init_dist_value(&dda, p_vector);
-    cur_dist_v = dda.first_dist_vertical;
-    cur_dist_h = dda.first_dist_horizon;
-	hited = 0;
-	while (hited == 0)
+	if ((pimg == 0) || (buff == 0))
+		return (-1);
+	x_idx = 0;
+	y_idx = 0;
+	while (y_idx < SCREEN_HEIGHT)
 	{
-    	if (cur_dist_h < cur_dist_v)
-    	{
-        	cur_dist_h += dda.delta_dist_horizon;
-        	dda.map_pos.y += dda.step_horizon;
-			hit_side = horizon;
-    	}
-    	else
-    	{
-			cur_dist_v += dda.delta_dist_vertical;
-			dda.map_pos.x += dda.step_vertical;
-			hit_side = vertical;
-    	}
-		if (pmi->map[dda.map_pos.y][dda.map_pos.x] == 1)
-			hited = 1;
+		x_idx = 0;
+		while (x_idx < SCREEN_WIDTH)
+		{
+			set_pixel(p_img, y_idx, x_idx, buff[y_idx][x_idx]);
+			x_idx++;
+		}
+		y_idx++;
 	}
 	return (0);
 }
 
-double get_revised_wall_distance(t_dda *pd, t_vector *pv)
+
+int	draw_screen(t_game_info *p_game, void *buff)
 {
-	cube_assert(pd);
-	cube_assert(pv);
-	if (pd->hit_side == HORIZON)
+	if ((p_game == 0) || (buff == 0))
+		return (-1);
+	if (fill_img_pixel(p_game->mlx.img, buff) < 0)
+		return (-1);
+	mlx_put_image(p_game->mlx.mlx_ptr,
+		p_game->mlx.win_ptr, p_game->mlx.img_ptr, 0, 0);
+	return (0);
+}
+
+int	game_loop(void *param)
+{
+	t_game_info 	*p_game;
+	t_vector		ray;
+	t_wall_info		wall;
+	int				width_idx;
+	t_color			buff[SCREEN_HEIGHT][SCREEN_WIDTH];
+
+	p_game = param;
+	width_idx = 0;
+	while (width_idx < SCREEN_WIDTH)
 	{
-		if (pv->ray.y < 0)
-			return ((pv->map.y - pv->pos.y + 1) / pv->ray.y);
-		else
-			return ((pv->map.y -pv->pos.y) / pv->ray.y);
+		if (update_ray_vector(&(p_game->player), width_idx, &ray) < 0)
+			return (-1);
+		if (find_wall_distance(
+		width_idx++;
 	}
-	else if (pd->hit_side == VERTICAL)
-	{
-		if (pv->ray.x < 0)
-			return ((pv->map.x - pv->pos.x + 1) / pv->ray.x);
-		else
-			return ((pv->map.x - pv->pos.x) / pv->ray.x);
-	}
-	printf("Not comming here!\n");
-	exit(1);
-}
-
-double get_screen_height(double revised_wall_dist)
-{
-	return (SCREEN_HEIGHT/revised_wall_dist);
-}
-
-
-void init_map_info(void)
-{
-	printf("init_map_info\n");
-}
-
-void parse_map(void)
-{
-	printf(parse_map);
-}
-
-void	main_loop(void)
-{
-	
+	if (draw_screen(p_game, buff) < 0)
+		return (-1);
+	return (0);
 }
 
 
 int main()
 {
+	t_game_info	game;
+	/*
 	init_map_info();
 	parse_map();
 	mlx_key_hook();
-	mlx_hook(main_loop);
-	mlx_loop();
-    return (0);
+	*/
+	if (init_mlx_lib(&game.mlx, &game.img) < 0)
+		return (1);
+	mlx_loop_hook(mlx.mlx_ptr, game_loop, &game);
+	mlx_loop(mlx.mlx_ptr);	
+	return (0);
 }

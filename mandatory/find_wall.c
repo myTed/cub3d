@@ -9,9 +9,9 @@ typedef struct s_wall_info
 	double	delta_dist_horizon;
 	int		step_vertical;
 	int		step_horizon;
-} t_wall_info;
+} t_wall_dist_info;
 
-static int	update_ray_vector(const *t_player p_player, int width_idx, t_vector *p_ray)
+int	update_ray_vector(const *t_player p_player, int width_idx, t_vector *p_ray)
 {
 	double view_factor;
 
@@ -23,8 +23,11 @@ static int	update_ray_vector(const *t_player p_player, int width_idx, t_vector *
 	return (0);
 }
 
-static int	init_distance_info(t_game_info *pgi, t_vector *p_ray, t_wall_info *pwi)
-{
+static int	init_distance_info(
+				t_game_info *pgi,
+				t_vector *p_ray,
+				t_wall_dist_info *pwi
+){
 	if ((pgi == 0) || || (p_ray == 0) || (pwi == 0))
 		return (-1);
 	pwi->delta_dist_horizon = fabs(1/p_ray->y);
@@ -44,23 +47,27 @@ static int	init_distance_info(t_game_info *pgi, t_vector *p_ray, t_wall_info *pw
 	return (0);
 }
 
-static int	init_distance_info(const t_vector *p_ray, t_wall_info *pwi)
-{
-	if ((pgi == 0) || || (p_ray == 0) || (pwi == 0))
+static int	init_step_info(
+				const t_vector *p_ray,
+				t_wall_dist_info *p_walldist
+){
+	if ((p_ray == 0) || (p_walldist == 0))
 		return (-1);
 	if (p_ray->y < 0)
-		pwi->step_horizon = -1;
+		p_walldist->step_horizon = -1;
 	else
-		pwi->step_horizon = 1;
+		p_walldist->step_horizon = 1;
 	if (p_ray->x < 0)
-		pwi->step_vertical = -1;
+		p_walldist->step_vertical = -1;
 	else
-		pwi->step_vertical = 1;
+		p_walldist->step_vertical = 1;
 	return (0);
 }
 
-int	get_step_distance_and_side_to_nearest_wall(t_wall_info *pwi, t_hit *phit_side)
-{
+int	get_step_distance_and_side_to_nearest_wall(
+		t_wall_dist_info *pwi, 
+		t_hit *phit_side
+){
 	int		hitted;
 
 	if ((pwi == 0) || (phit_side == 0))
@@ -86,23 +93,22 @@ int	get_step_distance_and_side_to_nearest_wall(t_wall_info *pwi, t_hit *phit_sid
 	return (0);
 }
 
-int	find_wall_distance(t_map *pmap, t_game_info *pgi, t_vector *pray, t_hit *phit)
-{
-	t_wall_info		wall;
-	int				hitted;
+int	find_wall_distance(
+		t_game_info *pgi,
+		t_vector *pray,
+		t_hit *phit
+){
+	t_wall_dist_info	wall_dist;
+	int					hitted;
 
 	if ((pmap == 0) || (pgi == 0) || (pray == 0))
 		return (-1);
-	if (init_distance_info(&wall) < 0)
+	if (init_distance_info(&wall_dist) < 0)
 		return (-1);
-	if (init_step_info(p_ray, &wall) < 0)
+	if (init_step_info(p_ray, &wall_dist) < 0)
 		return (-1);
-	if (get_step_distance_and_side_to_nearest_wall(&wall, phit) < 0)
+	if (get_step_distance_and_side_to_nearest_wall(&wall_dist, phit) < 0)
 		return (-1);
 	return (0);
 }
 
-int	correct_wall_distance(t_wall_info *pwi, t_map *pmap)
-{
-
-}

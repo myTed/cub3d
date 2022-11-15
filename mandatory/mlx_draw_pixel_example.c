@@ -1,33 +1,9 @@
-#include <mlx.h>
+#include "mlx.h"
+#include "cube.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-#define	SCREEN_HEIGHTS	1000
-#define SCREEN_WIDTHS	1000
-
-typedef struct s_color
-{
-	unsigned int	blue:8;
-	unsigned int	green:8;
-	unsigned int	red:8;
-	unsigned int	padd:8;
-}	t_color;
-
-typedef struct s_img
-{
-	unsigned int	*addr;
-	int				bpp;
-	int				size_line;
-	int				endian;
-}	t_img;
-
-typedef struct s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-}	t_mlx;
 
 int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 {
@@ -37,7 +13,7 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 	if (pmin->mlx_ptr == 0)
 		return (-1);
 	pmin->win_ptr = mlx_new_window(pmin->mlx_ptr, SCREEN_WIDTHS,
-			SCREEN_HEIGHTS, "FDF");
+			SCREEN_HEIGHTS, "cub3D");
 	if (pmin->win_ptr == 0)
 		return (-1);
 	pmin->img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTHS,
