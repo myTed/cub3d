@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include <mlx.h>
+#include "mlx.h"
 #include <math.h>
 #include <stdio.h>
 #include "../libft/libft.h"
@@ -53,6 +53,7 @@ int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
 	if (p_img == 0)
 		return (-1);
 	y_idx = 0;
+	ft_memset(&color, 0, sizeof(t_color));
 	color.green = 255;
 	while (y_idx < height)
 	{

@@ -86,12 +86,12 @@ void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info
 	int hieght_idx;
 	int draw_top;
 	int draw_bottom;
-	double texture_offset_x;
+	//double texture_offset_x;
 	double texture_offset_y;
 
 	draw_top = p_slice->draw_top;
 	draw_bottom = p_slice->draw_bottom;
-	texture_offset_x = p_slice->texture_offset_x;
+	//texture_offset_x = p_slice->texture_offset_x;
 	texture_offset_y = p_slice->texture_offset_y;
 
 	hieght_idx = 0;

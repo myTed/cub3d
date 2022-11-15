@@ -99,12 +99,13 @@ int	find_wall_distance(
 
 	if ((p_game == 0) || (p_ray == 0) || (p_hit_side == 0) || (p_wall == 0))
 		return (-1);
+	p_wall->pos.x = (int)(p_game->player.pos.x);
+	p_wall->pos.y = (int)(p_game->player.pos.y);
 	if (init_distance_info(p_game, p_ray, &wall_dist, p_wall) < 0)
 		return (-1);
 	if (init_step_info(p_ray, &wall_dist) < 0)
 		return (-1);
-	p_wall->pos.x = (int)(p_game->player.pos.x);
-	p_wall->pos.y = (int)(p_game->player.pos.y);
+	
 	if (get_step_distance_and_side_to_nearest_wall(&(p_game->parse), &wall_dist, p_wall, p_hit_side) < 0)
 		return (-1);
 	return (0);

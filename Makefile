@@ -1,4 +1,6 @@
+#CC=gcc
 CC=cc
+#CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
@@ -25,7 +27,7 @@ all:$(NAME)
 
 $(NAME):$(OBJECTS) $(LIB_SRCS)
 	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
-#$(CC) $(CFLAGS) -o $@ $^ -L../../ -lmlx -lXext -lX11 -lm
+#$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 # -fsanitize=address 
 $(LIB_SRCS) :
 	cd libft && make
