@@ -127,37 +127,43 @@ void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_v
 
 //--------------------------------------------------//
 
-void fill_buffer_x(int *buf[], const t_slice_info *p_slice, const t_parse_info *p_parse, const int width_idx)
+void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info *p_parse, const int width_idx)
 {
-	int screen_y;
+	int hieght_idx;
 	int draw_top;
 	int draw_bottom;
+	double texture_offset_x;
+	double texture_offset_y;
 
 	draw_top = p_slice->draw_top;
 	draw_bottom = p_slice->draw_bottom;
+	texture_offset_x = p_slice->texture_offset_x;
+	texture_offset_y = p_slice->texture_offset_y;
 
-	screen_y = 0;
-	while (screen_y < draw_top - 1)
+	hieght_idx = 0;
+	while (hieght_idx < draw_top - 1)
 	{
-		//buf[*p_screen_x][screen_y] = mlx(p_parse->ceiling)
-		screen_y++;
+		set_pixel(p_img, hieght_idx, width_idx, p_parse->ceiling);
+		hieght_idx++;
 	}
-	while (screen_y < draw_bottom)
+	while (hieght_idx < draw_bottom)
 	{
-		//buf[width_idx][screen_y] = 
-		screen_y++;
+		set_pixel(p_img, hieght_idx, width_idx, 0xFF0000);
+		/*get_pixel((int)texture_offset_x, (int)texture_offset_y)*/
+		hieght_idx++;
+		texture_offset_y + p_slice->texture_step_y;
 	}
-	while (screen_y > draw_bottom)
+	while (hieght_idx > SCREEN_HEIGHT)
 	{
-		//buf[*p_screen_x][screen_y] = mlx(p_parse->floor)
-		screen_y++;
+		set_pixel(p_img, hieght_idx, width_idx, p_parse->floor);
+		hieght_idx++;
 	}
 }
 
-void fill_wall_slice(int *buf[], const t_vector *p_ray, const t_wall_info *p_wall, const t_parse_info *p_parse, const int width_idx)
+void fill_wall_slice(t_img *p_img, const t_vector *p_ray, const t_wall_info *p_wall, const t_parse_info *p_parse, const int width_idx)
 {
 	t_slice_info slice;
 
 	fill_slice_info(&slice, p_wall, p_ray);
-	fill_buffer_x(buf, &slice, p_parse, width_idx);
+	fill_buffer_x(p_img, &slice, p_parse, width_idx);
 }
