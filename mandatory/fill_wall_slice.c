@@ -81,7 +81,9 @@ void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_v
 
 //--------------------------------------------------//
 
-void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info *p_parse, const int width_idx)
+
+
+void fill_buffer_x(t_game_info *p_game, const t_slice_info *p_slice, const int width_idx)
 {
 	int hieght_idx;
 	int draw_top;
@@ -97,7 +99,7 @@ void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info
 	hieght_idx = 0;
 	while (hieght_idx < draw_top - 1)
 	{
-		set_pixel(p_img, hieght_idx, width_idx, p_parse->ceiling);
+		set_pixel(&p_game->img, hieght_idx, width_idx, p_game->parse.ceiling);
 		hieght_idx++;
 	}
 	while (hieght_idx < draw_bottom)
@@ -109,15 +111,15 @@ void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info
 	}
 	while (hieght_idx < SCREEN_HEIGHT)
 	{
-		set_pixel(p_img, hieght_idx, width_idx, p_parse->floor);
+		set_pixel(&p_game->img, hieght_idx, width_idx, p_game->parse.floor);
 		hieght_idx++;
 	}
 }
 
-void fill_wall_slice(t_img *p_img, const t_vector *p_ray, const t_wall_info *p_wall, const t_parse_info *p_parse, const int width_idx)
+void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx)
 {
 	t_slice_info slice;
 
 	fill_slice_info(&slice, p_wall, p_ray);
-	fill_buffer_x(p_img, &slice, p_parse, width_idx);
+	fill_buffer_x(p_game, &slice, width_idx);
 }

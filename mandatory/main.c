@@ -43,6 +43,7 @@ int	find_wall_distance(
 		t_hit *phit,
 		t_wall_info *p_wall
 );
+void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx);
 
 int	fill_wall_slice_pixel(t_img *p_img, int width_idx, double height)
 {
@@ -95,7 +96,7 @@ int	game_loop(void *param)
 		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
 		set_correct_wall_distance(p_game, &wall, &ray);
-		fill_wall_slice_pixel(&p_game->img, width_idx, wall.corrected_distance);
+		fill_wall_slice(p_game, &ray, &wall, width_idx);
 		width_idx++;
 	}
 	if (draw_screen(p_game) < 0)
