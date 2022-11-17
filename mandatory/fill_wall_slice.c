@@ -107,7 +107,7 @@ void fill_buffer_x(t_img *p_img, const t_slice_info *p_slice, const t_parse_info
 		hieght_idx++;
 		texture_offset_y = texture_offset_y + p_slice->texture_step_y;
 	}
-	while (hieght_idx > SCREEN_HEIGHT)
+	while (hieght_idx < SCREEN_HEIGHT)
 	{
 		set_pixel(p_img, hieght_idx, width_idx, p_parse->floor);
 		hieght_idx++;
