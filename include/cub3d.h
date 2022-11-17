@@ -3,9 +3,6 @@
 
 #define SCREEN_WIDTH        1920
 #define SCREEN_HEIGHT       1028
-#define TEXTURE_WIDTH        64
-#define TEXTURE_HEIGHT       64
-
 
 /*
  * UTILS of s_game_info 
@@ -15,6 +12,8 @@ typedef struct s_img
 {
 	void					*img_ptr;
 	unsigned int	*addr;
+	int						width;
+	int						height;
 	int						bpp;
 	int						size_line;
 	int						endian;

@@ -23,7 +23,7 @@ static int get_texture_offset_x(const t_wall_info *p_wall, const t_vector *p_ray
 			wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
 
 	//3. texture 상에서 어디인지
-	return ((int)(wall_offset_x * (double)TEXTURE_WIDTH));
+	return ((int)(wall_offset_x * (double)game.parse.north_texture.width));
 }		
 
 static double get_texture_offset_y(t_slice_info *p_slice)
@@ -52,7 +52,7 @@ static t_texture_kind get_texture_kind(const t_wall_info *p_wall, const t_vector
 	}
 }
 
-void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
+void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
 {
 	double draw_height;
 
@@ -62,7 +62,7 @@ void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_v
 	p_slice->texture_offset_x = get_texture_offset_x(p_wall, p_ray);
 	
 	//texture_step_y
-	p_slice->texture_step_y = TEXTURE_HEIGHT / draw_height;
+	p_slice->texture_step_y = p_game->parse.north_texture.height / draw_height;////////////////temp
 	
 	//draw_top
 	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (draw_height / 2);
@@ -124,6 +124,6 @@ void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_in
 {
 	t_slice_info slice;
 
-	fill_slice_info(&slice, p_wall, p_ray);
+	fill_slice_info(p_game, &slice, p_wall, p_ray);
 	fill_buffer_x(p_game, &slice, width_idx);
 }
