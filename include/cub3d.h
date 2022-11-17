@@ -1,10 +1,18 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#define SCREEN_WIDTH        1920
-#define SCREEN_HEIGHT       1028
-#define TEXTURE_WIDTH        64
-#define TEXTURE_HEIGHT       64
+#define SCREEN_WIDTH        2000
+#define SCREEN_HEIGHT       2000
+#define TEXTURE_WIDTH        128
+#define TEXTURE_HEIGHT       128
+
+
+#define PLAYER_DIR_X 0
+#define PLAYER_DIR_Y -1
+#define PLAYER_POS_X 14.5
+#define PLAYER_POS_Y 28
+#define MAP_SIZE_Y 30
+#define MAP_SIZE_X 30
 
 
 /*

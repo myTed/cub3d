@@ -93,7 +93,7 @@ t_color get_pixel(t_img *p_img, const int x, const int y)
 void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_idx)
 {
 	int hieght_idx;
-	t_color texture;
+	//t_color texture;
 	//unsigned int *addr;
 
 	hieght_idx = 0;
@@ -107,8 +107,8 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 	while (hieght_idx < p_slice->draw_bottom)
 	{
 		//texture = get_pixel(addr, (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		 texture = get_pixel(&(p_game->parse.north_texture), (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
+		// texture = get_pixel(&(p_game->parse.north_texture), (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
+		//set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
 		hieght_idx++;
 		p_slice->texture_offset_y = p_slice->texture_offset_y + p_slice->texture_step_y;
 	}
