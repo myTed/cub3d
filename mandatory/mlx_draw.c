@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include <mlx.h>
+#include "mlx.h"
 
 int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 {
