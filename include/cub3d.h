@@ -74,13 +74,13 @@ typedef struct s_game_info
  * of s_wall_dist_info, s_wall_info, s_slice_info
  */
 
-typedef enum e_texture_kind
-{
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST
-} t_texture_kind;
+//typedef enum e_texture_kind
+//{
+//	NORTH,
+//	SOUTH,
+//	WEST,
+//	EAST
+//} t_texture_kind;
 
 typedef enum e_hit
 {
@@ -119,12 +119,12 @@ typedef struct s_wall_info
 
 typedef struct s_slice_info//single slice to work at
 {
-	int							draw_top;//start-pixel in screen
-	int							draw_bottom;
-	double					texture_offset_x;
-	double					texture_offset_y;//usually 0
-	double					texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
-	t_texture_kind	texture_kind;
+	const t_img		*texture;
+	int						draw_top;//start-pixel in screen
+	int						draw_bottom;
+	double				texture_offset_x;
+	double				texture_offset_y;//usually 0
+	double				texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
 } t_slice_info;
 
 #endif

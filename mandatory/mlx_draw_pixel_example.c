@@ -5,29 +5,29 @@
 #include <stdio.h>
 
 
-int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
+int	init_mlx_lib(t_mlx *p_mlx, t_img *p_img)
 {
-	if (pmin == 0)
+	if (p_mlx == 0)
 		return (-1);
-	pmin->mlx_ptr = mlx_init();
-	if (pmin->mlx_ptr == 0)
+	p_mlx->mlx_ptr = mlx_init();
+	if (p_mlx->mlx_ptr == 0)
 		return (-1);
-	pmin->win_ptr = mlx_new_window(pmin->mlx_ptr, SCREEN_WIDTH,
+	p_mlx->win_ptr = mlx_new_window(p_mlx->mlx_ptr, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "cub3D");
-	if (pmin->win_ptr == 0)
+	if (p_mlx->win_ptr == 0)
 		return (-1);
-	pmin->img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTH,
+	p_mlx->screen.img_ptr = mlx_new_image(p_mlx->mlx_ptr, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
-	if (pmin->img_ptr == 0)
+	if (p_mlx->screen.img_ptr == 0)
 	{
-		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);
+		mlx_destroy_window(p_mlx->mlx_ptr, p_mlx->win_ptr);
 		return (-1);
 	}
-	pimg->addr = (unsigned int *)mlx_get_data_addr(pmin->img_ptr, &pimg->bpp,
+	p_img->addr = (unsigned int *)mlx_get_data_addr(p_mlx->screen.img_ptr, &pimg->bpp,
 			&pimg->size_line, &pimg->endian);
 	if (pimg->addr == 0)
 	{
-		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);
+		mlx_destroy_window(p_mlx->mlx_ptr, p_mlx->win_ptr);
 		return (-1);
 	}
 	return (0);
@@ -39,44 +39,5 @@ int	set_pixel(t_img *pimg, int y, int x, t_color color)
 		return (-1);
 	*(pimg->addr + (y * (pimg->size_line / (pimg->bpp / 8))) + x)
 		= *(unsigned int *)&color;
-	return (0);
-}
-
-int	draw_square(t_img *p_img, int start_x, int start_y, int width, int height, t_color color)
-{
-	int	x_idx;
-	int	y_idx;
-
-	x_idx = 0;
-	y_idx = 0;
-	while (y_idx < height)
-	{
-		x_idx = 0;
-		while (x_idx < width)
-		{
-			set_pixel(p_img, start_y + y_idx, start_x + x_idx, color);
-			x_idx++;
-		}
-		y_idx++;
-	}
-	return (0);
-}
-
-int	main(void)
-{
-	t_mlx		mlx;
-	t_img		img;
-	t_color		color;
-
-	if (init_mlx_lib(&mlx, &img) < 0)
-		exit(1);
-	memset(&color, 0, sizeof(t_color));
-	color.green = 255;
-	color.blue = 255;
-	printf("%u\n", *((unsigned int*)&color));
-	
-	draw_square(&img, 100, 100, 200, 200, color);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
-	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
