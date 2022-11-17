@@ -66,7 +66,7 @@ int	get_step_distance_and_side_to_nearest_wall(
 ){
 	int		hitted;
 	int		(*p_map)[9];
-	
+	(void)p_ray;
 	if ((p_wall_dist == 0) || (p_hit_side == 0))
 		return (-1);
 	hitted = 0;
@@ -87,7 +87,7 @@ int	get_step_distance_and_side_to_nearest_wall(
 		}
 		if (p_map[p_wall->pos.y][p_wall->pos.x] == 1)
 		{
-			printf("p_wall.y : %d, x : %d ray_y : %f ray_x: %f\n", p_wall->pos.y, p_wall->pos.x, p_ray->y, p_ray->x);
+			//printf("p_wall.y : %d, x : %d ray_y : %f ray_x: %f\n", p_wall->pos.y, p_wall->pos.x, p_ray->y, p_ray->x);
 			hitted = 1;
 		}
 	}

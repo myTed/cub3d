@@ -81,15 +81,20 @@ void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_v
 
 //--------------------------------------------------//
 
-//t_color get_pixel(const int x, const int y)
-//{
-//	return ();
-//}
+t_color get_pixel(t_img *p_img, const int x, const int y)
+{
+	int rgb;
+
+	rgb = *(p_img->addr + (y * (p_img->size_line / (p_img->bpp / 8))) + x);
+	return (*(t_color *)&rgb);
+
+}
 
 void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_idx)
 {
 	int hieght_idx;
-	//t_color texture;
+	t_color texture;
+	//unsigned int *addr;
 
 	hieght_idx = 0;
 	while (hieght_idx < p_slice->draw_top - 1)
@@ -97,13 +102,17 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, p_game->parse.ceiling);
 		hieght_idx++;
 	}
+	
+	//addr = get_addr_of_texture_kind(p_slice->texture_kind);//벽 kind 넣으면 주소 반환
 	while (hieght_idx < p_slice->draw_bottom)
 	{
-		//texture = get_pixel((int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		//set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
+		//texture = get_pixel(addr, (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
+		 texture = get_pixel(&(p_game->parse.north_texture), (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
+		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
 		hieght_idx++;
 		p_slice->texture_offset_y = p_slice->texture_offset_y + p_slice->texture_step_y;
 	}
+	
 	while (hieght_idx < SCREEN_HEIGHT)
 	{
 		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, p_game->parse.floor);

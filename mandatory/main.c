@@ -137,7 +137,7 @@ int	init_player_info(t_player_info *p_player)
 	p_player->view.y = 0;
 	return (0);
 }
-
+#include <stdio.h>
 int main()
 {
 	t_game_info	game;
@@ -149,8 +149,12 @@ int main()
 	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
 		return (1);
 
-	// mlx_xpm_file_to_image(game.mlx.mlx_ptr, "test.xpm", TEXTURE_HEIGHT, TEXTURE_WIDTH);
-	// game.parse.north_texture =mlx_get_data_addr(game.mlx.img_ptr, )
+		int h;
+		int w;
+	 game.parse.north_texture.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "test.xpm", &h, &w);
+	// printf("%p\n", game.parse.north_texture.img_ptr);
+	 game.parse.north_texture.addr = (unsigned int *)mlx_get_data_addr(game.parse.north_texture.img_ptr, &(game.parse.north_texture.bpp), &(game.parse.north_texture.size_line), &(game.parse.north_texture.endian));
+	// printf("%p\n", game.parse.north_texture.addr);
 
 	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	game_loop(&game);
