@@ -65,12 +65,12 @@ int	get_step_distance_and_side_to_nearest_wall(
 		t_vector *p_ray
 ){
 	int		hitted;
-	int		(*p_map)[9];
+	int		(*p_map)[MAP_SIZE_X];
 	(void)p_ray;
 	if ((p_wall_dist == 0) || (p_hit_side == 0))
 		return (-1);
 	hitted = 0;
-	p_map = (int(*)[9])(p_parse->map);
+	p_map = (int(*)[MAP_SIZE_X])(p_parse->map);
 	while (hitted == 0)
 	{
 		if (p_wall_dist->horizon < p_wall_dist->vertical)
