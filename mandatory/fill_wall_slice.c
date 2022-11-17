@@ -81,37 +81,32 @@ void fill_slice_info(t_slice_info *p_slice, const t_wall_info *p_wall, const t_v
 
 //--------------------------------------------------//
 
+//t_color get_pixel(const int x, const int y)
+//{
+//	return ();
+//}
 
-
-void fill_buffer_x(t_game_info *p_game, const t_slice_info *p_slice, const int width_idx)
+void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_idx)
 {
 	int hieght_idx;
-	int draw_top;
-	int draw_bottom;
-	//double texture_offset_x;
-	double texture_offset_y;
-
-	draw_top = p_slice->draw_top;
-	draw_bottom = p_slice->draw_bottom;
-	//texture_offset_x = p_slice->texture_offset_x;
-	texture_offset_y = p_slice->texture_offset_y;
+	//t_color texture;
 
 	hieght_idx = 0;
-	while (hieght_idx < draw_top - 1)
+	while (hieght_idx < p_slice->draw_top - 1)
 	{
-		set_pixel(&p_game->img, hieght_idx, width_idx, p_game->parse.ceiling);
+		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, p_game->parse.ceiling);
 		hieght_idx++;
 	}
-	while (hieght_idx < draw_bottom)
+	while (hieght_idx < p_slice->draw_bottom)
 	{
-		// set_pixel(p_img, hieght_idx, width_idx, (t_color)0xFF0000);
-		/*get_pixel((int)texture_offset_x, (int)texture_offset_y)*/
+		//texture = get_pixel((int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
+		//set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
 		hieght_idx++;
-		texture_offset_y = texture_offset_y + p_slice->texture_step_y;
+		p_slice->texture_offset_y = p_slice->texture_offset_y + p_slice->texture_step_y;
 	}
 	while (hieght_idx < SCREEN_HEIGHT)
 	{
-		set_pixel(&p_game->img, hieght_idx, width_idx, p_game->parse.floor);
+		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, p_game->parse.floor);
 		hieght_idx++;
 	}
 }

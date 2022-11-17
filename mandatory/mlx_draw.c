@@ -12,14 +12,14 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 			SCREEN_HEIGHT, "cub3D");
 	if (pmin->win_ptr == 0)
 		return (-1);
-	pmin->img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTH,
+	pmin->screen.img_ptr = mlx_new_image(pmin->mlx_ptr, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
-	if (pmin->img_ptr == 0)
+	if (pmin->screen.img_ptr == 0)
 	{
 		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);
 		return (-1);
 	}
-	pimg->addr = (unsigned int *)mlx_get_data_addr(pmin->img_ptr, &pimg->bpp,
+	pimg->addr = (unsigned int *)mlx_get_data_addr(pmin->screen.img_ptr, &pimg->bpp,
 			&pimg->size_line, &pimg->endian);
 	if (pimg->addr == 0)
 	{

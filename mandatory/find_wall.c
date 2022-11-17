@@ -23,19 +23,19 @@ static int	init_distance_info(
 ){
 	if ((p_game == 0) || (p_ray == 0) || (p_wall_dist == 0))
 		return (-1);
-	p_wall_dist->delta_dist_horizon = fabs(1/p_ray->y);
-	p_wall_dist->delta_dist_vertical = fabs(1/p_ray->x);
+	p_wall_dist->delta_horizon = fabs(1/p_ray->y);
+	p_wall_dist->delta_vertical = fabs(1/p_ray->x);
 	if (p_ray->y < 0)
-		p_wall_dist->dist_horizon = p_wall_dist->delta_dist_horizon *\
+		p_wall_dist->horizon = p_wall_dist->delta_horizon *\
 							(p_game->player.pos.y - p_wall->pos.y);
 	else
-		p_wall_dist->dist_horizon = p_wall_dist->delta_dist_horizon *\
+		p_wall_dist->horizon = p_wall_dist->delta_horizon *\
 							(p_wall->pos.y + 1 - p_game->player.pos.y);
 	if (p_ray->x < 0)
-		p_wall_dist->dist_vertical = p_wall_dist->delta_dist_vertical *\
+		p_wall_dist->vertical = p_wall_dist->delta_vertical *\
 							 (p_game->player.pos.x - p_wall->pos.x);
 	else
-		p_wall_dist->dist_vertical = p_wall_dist->delta_dist_vertical *\
+		p_wall_dist->vertical = p_wall_dist->delta_vertical *\
 							 (p_wall->pos.x + 1- p_game->player.pos.x);
 	return (0);
 }
@@ -73,15 +73,15 @@ int	get_step_distance_and_side_to_nearest_wall(
 	p_map = (int(*)[9])(p_parse->map);
 	while (hitted == 0)
 	{
-		if (p_wall_dist->dist_horizon < p_wall_dist->dist_vertical)
+		if (p_wall_dist->horizon < p_wall_dist->vertical)
 		{
-			p_wall_dist->dist_horizon += p_wall_dist->delta_dist_horizon;
+			p_wall_dist->horizon += p_wall_dist->delta_horizon;
 			p_wall->pos.y += p_wall_dist->step_horizon;
 			*p_hit_side = HORIZON;
 		}
 		else
 		{
-			p_wall_dist->dist_vertical += p_wall_dist->delta_dist_vertical;
+			p_wall_dist->vertical += p_wall_dist->delta_vertical;
 			p_wall->pos.x += p_wall_dist->step_vertical;
 			*p_hit_side = VERTICAL;
 		}

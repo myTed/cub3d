@@ -76,7 +76,7 @@ int	draw_screen(t_game_info *p_game)
 	if (p_game == 0)
 		return (-1);
 	mlx_put_image_to_window(p_game->mlx.mlx_ptr,
-		p_game->mlx.win_ptr, p_game->mlx.img_ptr, 0, 0);
+		p_game->mlx.win_ptr, p_game->mlx.screen.img_ptr, 0, 0);
 	return (0);
 }
 
@@ -119,6 +119,8 @@ int	init_parse_info(t_parse_info *p_parse)
 	ceiling.green = 100;
 	p_parse->floor = floor;
 	p_parse->ceiling = ceiling;
+
+
 	p_parse->map = (int **)world_map;
 	return (0);
 }
@@ -144,8 +146,12 @@ int main()
 		return (1);
 	if (init_player_info(&game.player) < 0)
 		return (1);
-	if (init_mlx_lib(&game.mlx, &game.img) < 0)
+	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
 		return (1);
+
+	// mlx_xpm_file_to_image(game.mlx.mlx_ptr, "test.xpm", TEXTURE_HEIGHT, TEXTURE_WIDTH);
+	// game.parse.north_texture =mlx_get_data_addr(game.mlx.img_ptr, )
+
 	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	game_loop(&game);
 	mlx_loop(game.mlx.mlx_ptr);	
