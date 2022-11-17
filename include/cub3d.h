@@ -3,14 +3,14 @@
 
 #define SCREEN_WIDTH        2000
 #define SCREEN_HEIGHT       2000
-#define TEXTURE_WIDTH        128
-#define TEXTURE_HEIGHT       128
+//#define TEXTURE_WIDTH        128
+//#define TEXTURE_HEIGHT       128
 
 
 #define PLAYER_DIR_X 0
 #define PLAYER_DIR_Y -1
 #define PLAYER_POS_X 14.5
-#define PLAYER_POS_Y 28
+#define PLAYER_POS_Y 7
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
 
@@ -50,10 +50,10 @@ typedef struct s_vector
 
 typedef struct s_parse_info
 {
-    t_img			north_texture;
-    t_img			south_texture;
-    t_img			west_texture;
-    t_img			east_texture;
+    t_img			north_img;
+    t_img			south_img;
+    t_img			west_img;
+    t_img			east_img;
     t_color 	floor;
     t_color 	ceiling;
 		int  		  **map;
@@ -130,12 +130,12 @@ typedef struct s_wall_info
 
 typedef struct s_slice_info//single slice to work at
 {
-	const t_img		*texture;
-	int						draw_top;//start-pixel in screen
-	int						draw_bottom;
-	double				texture_offset_x;
-	double				texture_offset_y;//usually 0
-	double				texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
+	t_img			*p_texture_img;
+	int				draw_top;//start-pixel in screen
+	int				draw_bottom;
+	double		texture_offset_x;
+	double		texture_offset_y;//usually 0
+	double		texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
 } t_slice_info;
 
 #endif

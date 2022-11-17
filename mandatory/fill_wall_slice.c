@@ -3,21 +3,21 @@
 
 int	set_pixel(t_img *pimg, int y, int x, t_color color);
 
-static const t_img *get_texture(const t_game_info *p_game, const t_wall_info *p_wall, const t_vector *p_ray)
+static t_img *get_texture(t_game_info *p_game, const t_wall_info *p_wall, const t_vector *p_ray)
 {
 	if (p_wall->hit_side == VERTICAL)
 	{
 		if (p_ray->x > 0)
-			return (&(p_game->parse.east_texture));
+			return (&(p_game->parse.east_img));
 		else
-			return (&(p_game->parse.west_texture));
+			return (&(p_game->parse.west_img));
 	}
 	else
 	{
 		if (p_ray->y > 0)
-			return (&(p_game->parse.south_texture));
+			return (&(p_game->parse.south_img));
 		else
-			return (&(p_game->parse.north_texture));
+			return (&(p_game->parse.north_img));
 	}
 }
 
@@ -40,7 +40,7 @@ static int get_texture_offset_x(const t_slice_info *p_slice, const t_wall_info *
 			wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
 
 	//3. texture 상에서 어디인지
-	return ((int)(wall_offset_x * (double)(p_slice->texture->width)));
+	return ((int)(wall_offset_x * (double)(p_slice->p_texture_img->width)));
 }
 
 static double get_texture_offset_y(t_slice_info *p_slice)
@@ -58,13 +58,13 @@ void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_in
 	draw_height = SCREEN_HEIGHT / p_wall->corrected_distance;
 	
 	//동서남북
-	p_slice->texture = get_texture(p_game, p_wall, p_ray);
+	p_slice->p_texture_img = get_texture(p_game, p_wall, p_ray);
 	
 	//texture_offset_x
 	p_slice->texture_offset_x = get_texture_offset_x(p_slice, p_wall, p_ray);
 	
 	//texture_step_y
-	p_slice->texture_step_y = p_slice->texture->height / draw_height;
+	p_slice->texture_step_y = p_slice->p_texture_img->height / draw_height;
 	
 	//draw_top
 	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (draw_height / 2);
@@ -93,8 +93,7 @@ t_color get_pixel(t_img *p_img, const int x, const int y)
 void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_idx)
 {
 	int hieght_idx;
-	//t_color texture;
-	//unsigned int *addr;
+	t_color texture;
 
 	hieght_idx = 0;
 	while (hieght_idx < p_slice->draw_top - 1)
@@ -105,9 +104,8 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 	
 	while (hieght_idx < p_slice->draw_bottom)
 	{
-		//texture = get_pixel(addr, (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		// texture = get_pixel(&(p_slice->texture->addr), (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		//set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
+		texture = get_pixel(p_slice->p_texture_img, (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
+		set_pixel(&p_game->mlx.screen, hieght_idx, width_idx, texture);
 		hieght_idx++;
 		p_slice->texture_offset_y = p_slice->texture_offset_y + p_slice->texture_step_y;
 	}
