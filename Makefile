@@ -1,5 +1,5 @@
+CC=cc
 #CC=gcc
-CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 
@@ -27,7 +27,7 @@ all:$(NAME)
 
 $(NAME):$(OBJECTS) $(LIB_SRCS)
 	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
-#$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
+#	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 # -fsanitize=address 
 $(LIB_SRCS) :
 	cd libft && make
@@ -44,9 +44,10 @@ clean:
 	cd gnl && make clean
 	rm -rf $(MANDATORY_OBJS) $(BONUS_OBJS)
 
-fclean:clean
+fclean:
 	cd libft && make fclean
 	cd gnl && make fclean
+	rm -rf $(MANDATORY_OBJS) $(BONSU_OBJS)
 	rm -rf $(NAME)
 
 re:fclean all

@@ -19,18 +19,17 @@ void   ft_assert(
 }
 */
 
-int world_map[10][10]=
+int world_map[9][9]=
 {
-	{1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,1,0,0,0,0,1},
-	{1,0,0,1,0,1,0,0,0,1},
-	{1,0,1,0,0,0,1,0,0,1},
-	{1,1,0,0,0,0,0,1,0,1},
-	{1,0,0,0,0,0,0,0,1,1},
-	{1,0,0,0,3,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1}
+	{1,1,1,1,1,1,1,1,1},
+	{1,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,1},
+	{1,0,0,0,1,0,0,0,1},
+	{1,0,0,1,0,1,0,0,1},
+	{1,0,1,0,0,0,1,0,1},
+	{1,1,0,0,0,0,0,1,1},
+	{1,1,0,0,3,0,0,1,1},
+	{1,1,1,1,1,1,1,1,1}
 };
 
 
@@ -45,22 +44,29 @@ int	find_wall_distance(
 		t_wall_info *p_wall
 );
 
-int	fill_wall_slice_pixel(t_img *p_img, int width_idx, int height)
+int	fill_wall_slice_pixel(t_img *p_img, int width_idx, double height)
 {
-	int	y_idx;
+	double	screen_wall_height;
+	int		start_point;
+	int		end_point;
 	t_color	color;
 
 	if (p_img == 0)
 		return (-1);
-	y_idx = 0;
 	ft_memset(&color, 0, sizeof(t_color));
 	color.green = 255;
-	while (y_idx < height)
+	screen_wall_height = (double)(SCREEN_HEIGHT) / height;
+	start_point = ((double)SCREEN_HEIGHT / 2) - (screen_wall_height / 2);
+	if (start_point < 0)
+		start_point = 0;
+	end_point = ((double)SCREEN_HEIGHT / 2) + (screen_wall_height / 2);
+	if (end_point > SCREEN_HEIGHT - 1)
+		end_point = SCREEN_HEIGHT - 1;
+	while (start_point <= end_point)
 	{
-		set_pixel(p_img, y_idx, width_idx, color);
-		y_idx++;
+		set_pixel(p_img, start_point, width_idx, color);
+		start_point++;
 	}
-	
 	return (0);
 }
 
@@ -89,7 +95,7 @@ int	game_loop(void *param)
 		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
 		set_correct_wall_distance(p_game, &wall, &ray);
-		fill_wall_slice_pixel(&p_game->img, width_idx, wall.corrected_distance * 10);
+		fill_wall_slice_pixel(&p_game->img, width_idx, wall.corrected_distance);
 		width_idx++;
 	}
 	if (draw_screen(p_game) < 0)
@@ -122,8 +128,8 @@ int	init_player_info(t_player_info *p_player)
 		return (-1);
 	p_player->dir.x = 0;
 	p_player->dir.y = -1;
-	p_player->pos.x = 5;
-	p_player->pos.y = 5;
+	p_player->pos.x = 4.5;
+	p_player->pos.y = 7;
 	p_player->view.x = 0.66;
 	p_player->view.y = 0;
 	return (0);
@@ -139,7 +145,8 @@ int main()
 		return (1);
 	if (init_mlx_lib(&game.mlx, &game.img) < 0)
 		return (1);
-	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	game_loop(&game);
 	mlx_loop(game.mlx.mlx_ptr);	
 	return (0);
 }

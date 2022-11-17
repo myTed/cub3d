@@ -1,5 +1,6 @@
 #include "cub3d.h"
 #include <math.h>
+#include <stdio.h>
 
 
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray)
@@ -8,7 +9,7 @@ int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_
 
 	if ((p_player == 0) || (p_ray == 0))
 		return (-1);
-	view_factor = (2 * width_idx / SCREEN_WIDTH) - 1;
+	view_factor = ((double)(2 * width_idx) / SCREEN_WIDTH) - 1;
 	p_ray->x = p_player->dir.x + (p_player->view.x * view_factor);
 	p_ray->y = p_player->dir.y + (p_player->view.y * view_factor);
 	return (0);
@@ -60,15 +61,16 @@ int	get_step_distance_and_side_to_nearest_wall(
 		t_parse_info *p_parse, 
 		t_wall_dist_info *p_wall_dist, 
 		t_wall_info *p_wall, 
-		t_hit *p_hit_side
+		t_hit *p_hit_side,
+		t_vector *p_ray
 ){
 	int		hitted;
-	int		(*p_map)[10];
+	int		(*p_map)[9];
 	
 	if ((p_wall_dist == 0) || (p_hit_side == 0))
 		return (-1);
 	hitted = 0;
-	p_map = (int(*)[10])(p_parse->map);
+	p_map = (int(*)[9])(p_parse->map);
 	while (hitted == 0)
 	{
 		if (p_wall_dist->dist_horizon < p_wall_dist->dist_vertical)
@@ -84,7 +86,10 @@ int	get_step_distance_and_side_to_nearest_wall(
 			*p_hit_side = VERTICAL;
 		}
 		if (p_map[p_wall->pos.y][p_wall->pos.x] == 1)
+		{
+			printf("p_wall.y : %d, x : %d ray_y : %f ray_x: %f\n", p_wall->pos.y, p_wall->pos.x, p_ray->y, p_ray->x);
 			hitted = 1;
+		}
 	}
 	return (0);
 }
@@ -105,8 +110,7 @@ int	find_wall_distance(
 		return (-1);
 	if (init_step_info(p_ray, &wall_dist) < 0)
 		return (-1);
-	
-	if (get_step_distance_and_side_to_nearest_wall(&(p_game->parse), &wall_dist, p_wall, p_hit_side) < 0)
+	if (get_step_distance_and_side_to_nearest_wall(&(p_game->parse), &wall_dist, p_wall, p_hit_side, p_ray) < 0)
 		return (-1);
 	return (0);
 }
