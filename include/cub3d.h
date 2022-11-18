@@ -7,9 +7,41 @@
 #define PLAYER_DIR_X 0
 #define PLAYER_DIR_Y -1
 #define PLAYER_POS_X 15
-#define PLAYER_POS_Y 28
+#define PLAYER_POS_Y 15
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
+/*
+ * PARSE_TYPE
+ *
+ */
+
+typedef enum e_type_idx
+{
+	NORTH_IDX = 0,
+	SOUTH_IDX,
+	WEST_IDX,
+	EAST_IDX,
+	FLOOR_IDX,
+	CEILING_IDX
+} t_type_idx;
+
+typedef union u_path_info
+{
+	int	arry[TEXTURE_MAX];
+	struct {
+		char	*north;
+		char	*south;
+		char	*west;
+		char	*east;
+	} texture;
+} t_path_info;
+
+typedef struct s_type
+{
+	char 		*str[TYPE_MAX];
+	int			found[TYPE_MAX];
+	t_type_idx	idx;
+} t_type_ident;
 
 
 /*
@@ -19,7 +51,7 @@
 typedef struct s_img
 {
 	void					*img_ptr;
-	unsigned int	*addr;
+	unsigned int			*addr;
 	int						width;
 	int						height;
 	int						bpp;
@@ -45,15 +77,17 @@ typedef struct s_vector
  * KEY STUCTS of s_game_info
  */
 
+
 typedef struct s_parse_info
 {
     t_img			north_img;
     t_img			south_img;
     t_img			west_img;
     t_img			east_img;
-    t_color 	floor;
-    t_color 	ceiling;
-		int  		  **map;
+	t_path_info		path;	
+    t_color			floor;
+    t_color			ceiling;
+	int				**map;
 } t_parse_info;
 
 typedef struct s_player_info
