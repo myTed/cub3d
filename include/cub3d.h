@@ -18,8 +18,8 @@
 
 typedef struct s_img
 {
-	void					*img_ptr;
-	unsigned int	*addr;
+	void					*ptr;//addr
+	unsigned int	*p_data;//addr
 	int						width;
 	int						height;
 	int						bpp;
@@ -45,6 +45,13 @@ typedef struct s_vector
  * KEY STUCTS of s_game_info
  */
 
+typedef struct s_map_info
+{
+	int	**data;//allocate
+	int width;
+	int height;
+} t_map_info;
+
 typedef struct s_parse_info
 {
     t_img			north_img;
@@ -53,7 +60,8 @@ typedef struct s_parse_info
     t_img			east_img;
     t_color 	floor;
     t_color 	ceiling;
-		int  		  **map;
+		//int  		  **map;
+		t_map_info	map;
 } t_parse_info;
 
 typedef struct s_player_info
