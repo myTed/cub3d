@@ -4,9 +4,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define TRUE 1
 #define FALSE 0
+
+#define FAIL 1
+#define SUCCESS 0
+
+int set_map_data(char *file_name, t_map_info *p_map, int map_start_count);
 
 int is_empty_line(char *line)
 {
@@ -30,7 +36,7 @@ char *find_first_line(int file_fd, int *read_count)
 	{
 		if (line == 0)
 		{
-			printf("Error: no map");
+			printf("Error\n: no map!!");
 			return (0);
 		}
 		free(line);
@@ -49,21 +55,17 @@ int is_remains(int file_fd, char *line)
 			free(line);
 			line = get_next_line(file_fd);
 		}
-		printf("Error: contents after map");
+		printf("Error\n: contents after map!!");
 		return (TRUE);
 }
-int set_map_size(int file_fd, t_map_info *p_map, int pre_read_count)
+
+int set_map_size(int file_fd, t_map_info *p_map, int read_count)
 {
 	char *line;
-	int read_count;
-	int map_start_count;
 	int line_len;
+	int map_start_count;
 
-	//빈 라인 넘어가기
-	read_count = pre_read_count;
-	line = find_first_line(file_fd, &read_count);
-
-	// 맵이 시작지점 저장
+	// 맵 시작지점 저장
 	map_start_count = read_count;
 
 	//map 가로, 세로 저장
@@ -81,23 +83,52 @@ int set_map_size(int file_fd, t_map_info *p_map, int pre_read_count)
 
 	//3. 맵 뒤에 정보 더 있는지 체크
 	if (is_remains(file_fd, line) == TRUE)
-		return (1);
+		return (FAIL);
 
-	return (0);
+	return (SUCCESS);
 }
 
 int main()
 {
-	t_map_info map;
-	int read_count;
+	t_map_info	map;
+	int 				read_count;
+	char 				*line;
 
 	int fd = open("map.cub", O_RDONLY);
 	if (fd == -1)
 		return (1);
+
 	read_count = 0;
-	set_map_size(fd, &map, read_count);
-	allocate_map(fd, &map);
-	//printf("%d, %d", map.width, map.height);
+
+	//kyolee님 함수
+
+	//빈 라인 넘어가기
+	line = find_first_line(fd, &read_count);
+	if (line == 0)
+		return (FAIL);
+	
+	//맵사이즈 얻고 (read_count는 map의 처음으로 픽스)
+	if (set_map_size(fd, &map, read_count) == FAIL)
+	{
+		close(fd);
+		return (FAIL);
+	}
+	close(fd);
+
+	//printf("%d, %d\n", map.width, map.height);
+
+	//read_count부터 맵 정보 저장
+	set_map_data("map.cub", &map, read_count);
+
+	//if (is_map_error(&map) == TRUE)
 
 
+	//체크용 함수
+	int i = 0;
+	while (i < map.height)
+	{
+		printf("%s\n", map.data[i]);
+		//printf("%d", i);
+		i++;
+	}
 }
