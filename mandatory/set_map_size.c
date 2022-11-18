@@ -102,12 +102,14 @@ int main()
 
 	//kyolee님 함수
 
-	//빈 라인 넘어가기
+	//yehan function: read_count, map, game 받아온다
+
+	//0.빈 라인 넘어가기
 	line = find_first_line(fd, &read_count);
 	if (line == 0)
 		return (FAIL);
 	
-	//맵사이즈 얻고 (read_count는 map의 처음으로 픽스)
+	//0.맵사이즈 얻고 (read_count는 map의 처음으로 픽스)
 	if (set_map_size(fd, &map, read_count) == FAIL)
 	{
 		close(fd);
@@ -117,11 +119,12 @@ int main()
 
 	//printf("%d, %d\n", map.width, map.height);
 
-	//read_count부터 맵 정보 저장
+	//0.read_count부터 맵 정보 저장
 	set_map_data("map.cub", &map, read_count);
 
+	//0.맵 체크 및 정보 저장
 	//if (is_map_error(&map) == TRUE)
-
+	//	return (FAIL);
 
 	//체크용 함수
 	int i = 0;
