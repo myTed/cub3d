@@ -37,6 +37,7 @@ char *find_first_line(int file_fd, int *read_count)
 		if (line == 0)
 		{
 			printf("Error\n: no map!!");
+			free(line);
 			return (0);
 		}
 		free(line);
@@ -51,11 +52,16 @@ int is_remains(int file_fd, char *line)
 		while (is_empty_line(line) == TRUE)
 		{
 			if (line == 0)
+			{
+				free(line);
 				return (FALSE);
+			}
 			free(line);
 			line = get_next_line(file_fd);
 		}
 		printf("Error\n: contents after map!!");
+
+		free(line);
 		return (TRUE);
 }
 
@@ -72,7 +78,8 @@ int set_map_size(int file_fd, t_map_info *p_map, int read_count)
 	p_map->width = 0;
 	while (line != 0 && is_empty_line(line) == FALSE)
 	{
-		line_len = ft_strlen(line);//newline 같이 저장
+		line = ft_strtrim(line, "\n");
+		line_len = ft_strlen(line);
 		if (p_map->width < line_len)
 	 		p_map->width = line_len;
 		free(line);
@@ -108,7 +115,7 @@ int main()
 	line = find_first_line(fd, &read_count);
 	if (line == 0)
 		return (FAIL);
-	
+
 	//0.맵사이즈 얻고 (read_count는 map의 처음으로 픽스)
 	if (set_map_size(fd, &map, read_count) == FAIL)
 	{

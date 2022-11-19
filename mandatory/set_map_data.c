@@ -39,8 +39,9 @@ int set_all_line(int file_fd, t_map_info *p_map)
 			return (FAIL);
 		}
 		line_src = get_next_line(file_fd);
+		line_src = ft_strtrim(line_src, "\n");
 		//printf("%s", line_src);//////////////////////////////////////
-		ft_strlcpy(line_dest, line_src, ft_strlen(line_src));
+		ft_strlcpy(line_dest, line_src, ft_strlen(line_src) + 1);
 		p_map->data[i] = line_dest;
 		free(line_src);
 		i++;
@@ -58,7 +59,7 @@ int set_map_data(char *file_name, t_map_info *p_map, int map_start_count)
 		printf("Error\n: less than minimum size!!");
 		return (FAIL);
 	}
-	
+
 	//파일 열기
 	file_fd = open(file_name, O_RDONLY);
 	if (file_fd < 0)
