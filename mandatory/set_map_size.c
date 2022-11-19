@@ -13,6 +13,7 @@
 #define SUCCESS 0
 
 int set_map_data(char *file_name, t_map_info *p_map, int map_start_count);
+int is_map_error(t_map_info *p_map/*, t_game_info *p_game*/);
 
 int is_empty_line(char *line)
 {
@@ -141,4 +142,6 @@ int main()
 		//printf("%d", i);
 		i++;
 	}
+
+	is_map_error(&map);
 }
