@@ -10,10 +10,17 @@
 #define PLAYER_POS_Y 15
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
+
+
+
 /*
- * PARSE_TYPE
+ * PARSE_IDENTIFI
  *
  */
+#define	TYPE_MAX		6
+#define	TEXTURE_MAX		4
+#define	COLOR_NUM_MAX	3
+#define	COLOR_VALUE_MAX	255
 
 typedef enum e_type_idx
 {
@@ -27,8 +34,8 @@ typedef enum e_type_idx
 
 typedef union u_path_info
 {
-	int	arry[TEXTURE_MAX];
-	struct {
+	char *arry[TEXTURE_MAX];
+	struct s_texture{
 		char	*north;
 		char	*south;
 		char	*west;
@@ -40,10 +47,7 @@ typedef struct s_type
 {
 	char 		*str[TYPE_MAX];
 	int			found[TYPE_MAX];
-	t_type_idx	idx;
 } t_type_ident;
-
-
 /*
  * UTILS of s_game_info 
  */
@@ -76,8 +80,6 @@ typedef struct s_vector
 /*
  * KEY STUCTS of s_game_info
  */
-
-
 typedef struct s_parse_info
 {
     t_img			north_img;
