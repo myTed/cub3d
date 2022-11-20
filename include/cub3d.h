@@ -18,7 +18,7 @@
 typedef struct s_img
 {
 	void					*img_ptr;
-	unsigned int	*addr;
+	unsigned int	*p_data;
 	int						width;
 	int						height;
 	int						bpp;
