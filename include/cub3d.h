@@ -1,13 +1,22 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#define SCREEN_WIDTH        1000
-#define SCREEN_HEIGHT       1000
+#define SCREEN_WIDTH	1000
+#define SCREEN_HEIGHT	1000
+
+#define VIEW_X 0.66
+#define VIEW_Y 0
+
+#define TRUE 1
+#define FALSE 0
+
+#define SUCCESS 0
+#define FAIL 1
 
 /*
  * PARSE_IDENTIFI
- *
  */
+
 #define	TYPE_MAX		6
 #define	TEXTURE_MAX		4
 #define	COLOR_NUM_MAX	3
@@ -39,7 +48,8 @@ typedef enum e_charset
 typedef union u_path_info
 {
 	char *arry[TEXTURE_MAX];
-	struct s_texture{
+	struct s_texture
+	{
 		char	*north;
 		char	*south;
 		char	*west;
@@ -52,6 +62,7 @@ typedef struct s_type
 	char 		*str[TYPE_MAX];
 	int			found[TYPE_MAX];
 } t_type_ident;
+
 /*
  * UTILS of s_game_info 
  */
@@ -94,10 +105,6 @@ typedef struct s_map_info
 
 typedef struct s_parse_info
 {
-    t_img				north_img;
-    t_img				south_img;
-    t_img				west_img;
-    t_img				east_img;
 		t_path_info	path;
     t_color			floor;
     t_color			ceiling;
@@ -115,7 +122,11 @@ typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_img		screen;
+	t_img	screen;
+	t_img	north_img;
+	t_img	south_img;
+	t_img	west_img;
+	t_img	east_img;
 }	t_mlx;
 
 typedef struct s_game_info

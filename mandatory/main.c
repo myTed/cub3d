@@ -4,52 +4,12 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
-int	set_pixel(t_img *pimg, int y, int x, t_color color);
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
 void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
-int	init_mlx_lib(t_mlx *pmin, t_img *pimg);
-int	find_wall_distance(
-		t_game_info *pgi,
-		t_vector *pray,
-		t_hit *phit,
-		t_wall_info *p_wall
-);
+int	init_mlx_info(t_mlx *p_mlx, t_img *p_screen, t_parse_info *p_parse);
+int	find_wall_distance(t_game_info *pgi, t_vector *pray, t_hit *phit, t_wall_info *p_wall);
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx);
-
-int	fill_wall_slice_pixel(t_img *p_img, int width_idx, double height)
-{
-	double	screen_wall_height;
-	int		start_point;
-	int		end_point;
-	t_color	color;
-
-	if (p_img == 0)
-		return (-1);
-	ft_memset(&color, 0, sizeof(t_color));
-	color.green = 255;
-	screen_wall_height = (double)(SCREEN_HEIGHT) / height;
-	start_point = ((double)SCREEN_HEIGHT / 2) - (screen_wall_height / 2);
-	if (start_point < 0)
-		start_point = 0;
-	end_point = ((double)SCREEN_HEIGHT / 2) + (screen_wall_height / 2);
-	if (end_point > SCREEN_HEIGHT - 1)
-		end_point = SCREEN_HEIGHT - 1;
-	while (start_point <= end_point)
-	{
-		set_pixel(p_img, start_point, width_idx, color);
-		start_point++;
-	}
-	return (0);
-}
-
-int	draw_screen(t_game_info *p_game)
-{
-	if (p_game == 0)
-		return (-1);
-	mlx_put_image_to_window(p_game->mlx.mlx_ptr,
-		p_game->mlx.win_ptr, p_game->mlx.screen.img_ptr, 0, 0);
-	return (0);
-}
+int	draw_screen(t_game_info *p_game);
 
 int	game_loop(void *param)
 {
@@ -67,7 +27,6 @@ int	game_loop(void *param)
 		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
 		set_correct_wall_distance(p_game, &wall, &ray);
-		//fill_wall_slice_pixel(&(p_game->mlx.screen), width_idx, wall.corrected_distance);
 		fill_wall_slice(p_game, &ray, &wall, width_idx);
 		width_idx++;
 	}
@@ -76,45 +35,33 @@ int	game_loop(void *param)
 	return (0);
 }
 
-
 int	parsing_file(t_game_info *p_game, char *file_name);
+int	init_game_info(t_game_info *p_game, char *file_name)
+{
+	ft_memset(p_game, 0, sizeof(t_game_info));	
+	if (parsing_file(p_game, file_name) == FAIL)
+		return (FAIL);
+	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) < FAIL)
+		return (FAIL);
+	return (SUCCESS);
+}
 
-#include <stdio.h>
 int main(int argc, char *argv[])
 {
 	t_game_info	game;
-	int				ret;
 
 	if (argc != 2)
-		return (1);
-	
-	ft_memset(&game, 0, sizeof(t_game_info));	
-	ret = parsing_file(&game, argv[1]);
+	{
+		printf("Error\n: ./cub3D *.cub");
+		return (FAIL);
+	}
 
-	game.player.view.x = 0.66;
-	game.player.view.y = 0;
-	game.player.dir.x = 0;
-	game.player.dir.y = -1;
-	game.player.pos.x = 11.5;
-	game.player.pos.y = 5.5;
+	if (init_game_info(&game, argv[1]) == FAIL)
+		return (FAIL);
 
-	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
-		return (1);
-
-	 game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
-	 game.parse.north_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
-	
-	 game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
-	 game.parse.south_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
-
-	 game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
-	 game.parse.east_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
-	
-	 game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
-	 game.parse.west_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
-
-	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
-	game_loop(&game);
+	//key_hook
+	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	//game_loop(&game);
 	mlx_loop(game.mlx.mlx_ptr);	
 	return (0);
 }

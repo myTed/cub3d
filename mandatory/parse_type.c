@@ -396,7 +396,6 @@ int	parsing_file(t_game_info *p_game, char *file_name)
 	if (get_map(file_fd, file_name, p_game, read_count) == FAIL)
 		return (FAIL);
 
-
 	return (SUCCESS);
 }
 
