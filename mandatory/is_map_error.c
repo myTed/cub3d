@@ -7,17 +7,7 @@
 #define FAIL 1
 #define SUCCESS 0
 
-typedef enum e_charset
-{
-	WALL = '1',
-	GROUND = '0',
-	PLAYER_NORTH = 'N',
-	PLAYER_SOUTH = 'S',
-	PLAYER_WEST = 'W',
-	PLAYER_EAST = 'E',
-	OUTSIDE1 = ' ',
-	OUTSIDE2 = '\0'
-} t_charset;
+
 
 int is_valid_char(char c)
 {

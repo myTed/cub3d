@@ -4,54 +4,6 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
-int world_map[MAP_SIZE_Y][MAP_SIZE_X]=
-{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
-//int world_map[MAP_SIZE_Y][MAP_SIZE_X]=
-//{
-//	{1,1,1,1,1,1,1,1,1,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,0,0,0,0,0,0,0,0,1},
-//	{1,1,1,1,1,1,1,1,1,1}
-//};
-
 int	set_pixel(t_img *pimg, int y, int x, t_color color);
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
 void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
@@ -125,61 +77,41 @@ int	game_loop(void *param)
 }
 
 
-int	init_parse_info(t_parse_info *p_parse)
-{
-	t_color floor;
-	t_color	ceiling;
+int	parsing_file(t_game_info *p_game, char *file_name);
 
-	if (p_parse == 0)
-		return (-1);
-	ft_memset(p_parse, 0, sizeof(t_parse_info));
-	ft_memset(&floor, 0, sizeof(t_color));
-	ft_memset(&ceiling, 0, sizeof(t_color));
-	floor.blue = 100;
-	ceiling.green = 100;
-	p_parse->floor = floor;
-	p_parse->ceiling = ceiling;
-
-
-	p_parse->map = (int **)world_map;
-	return (0);
-}
-
-int	init_player_info(t_player_info *p_player)
-{
-	if (p_player == 0)
-		return (-1);
-	p_player->dir.x = PLAYER_DIR_X;
-	p_player->dir.y = PLAYER_DIR_Y;
-	p_player->pos.x = PLAYER_POS_X;
-	p_player->pos.y = PLAYER_POS_Y;
-	p_player->view.x = 1;
-	p_player->view.y = 0;
-	return (0);
-}
 #include <stdio.h>
-int main()
+int main(int argc, char *argv[])
 {
 	t_game_info	game;
+	int				ret;
 
-	if (init_parse_info(&game.parse) < 0)
+	if (argc != 2)
 		return (1);
-	if (init_player_info(&game.player) < 0)
-		return (1);
+	
+	ft_memset(&game, 0, sizeof(t_game_info));	
+	ret = parsing_file(&game, argv[1]);
+
+	game.player.view.x = 0.66;
+	game.player.view.y = 0;
+	game.player.dir.x = 0;
+	game.player.dir.y = -1;
+	game.player.pos.x = 11.5;
+	game.player.pos.y = 5.5;
+
 	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
 		return (1);
 
-	// game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
-	// game.parse.north_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
+	 game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
+	 game.parse.north_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
 	
-	// game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
-	// game.parse.south_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
+	 game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
+	 game.parse.south_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
 
-	// game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
-	// game.parse.east_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
+	 game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
+	 game.parse.east_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
 	
-	// game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
-	// game.parse.west_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
+	 game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
+	 game.parse.west_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
 
 	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	game_loop(&game);

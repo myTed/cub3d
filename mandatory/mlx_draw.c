@@ -19,9 +19,9 @@ int	init_mlx_lib(t_mlx *pmin, t_img *pimg)
 		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);
 		return (-1);
 	}
-	pimg->addr = (unsigned int *)mlx_get_data_addr(pmin->screen.img_ptr, &pimg->bpp,
+	pimg->p_data = (unsigned int *)mlx_get_data_addr(pmin->screen.img_ptr, &pimg->bpp,
 			&pimg->size_line, &pimg->endian);
-	if (pimg->addr == 0)
+	if (pimg->p_data == 0)
 	{
 		mlx_destroy_window(pmin->mlx_ptr, pmin->win_ptr);
 		return (-1);
@@ -33,7 +33,7 @@ int	set_pixel(t_img *pimg, int y, int x, t_color color)
 {
 	if (pimg == 0)
 		return (-1);
-	*(pimg->addr + (y * (pimg->size_line / (pimg->bpp / 8))) + x)
+	*(pimg->p_data + (y * (pimg->size_line / (pimg->bpp / 8))) + x)
 		= *(unsigned int *)&color;
 	return (0);
 }

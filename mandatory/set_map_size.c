@@ -31,7 +31,6 @@ int is_remains(int file_fd, char *line)
 		free(line);
 		return (TRUE);
 }
-
 int set_map_size(int file_fd, t_map_info *p_map, int read_count)
 {
 	char *line;
@@ -43,6 +42,8 @@ int set_map_size(int file_fd, t_map_info *p_map, int read_count)
 
 	//map 가로, 세로 저장
 	p_map->width = 0;
+	line = get_next_line(file_fd);
+	read_count++;
 	while (line != 0 && is_empty_line(line) == FALSE)
 	{
 		line = ft_strtrim(line, "\n");
