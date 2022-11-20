@@ -1,14 +1,6 @@
 #include "../include/cub3d.h"
 #include <stdio.h>
 
-#define TRUE 1
-#define FALSE 0
-
-#define FAIL 1
-#define SUCCESS 0
-
-
-
 int is_valid_char(char c)
 {
 	if (c == WALL || c == GROUND ||
@@ -38,10 +30,8 @@ int is_outside(char c)
 
 int is_ground_meet_outside(t_map_info *p_map, int x,  int y)
 {
-	//맵 가(끄트머리)에 있거나
 	if (x == 0 || x == p_map->width
 		|| y == 0 || y == p_map->height
-	//맵 안쪽에 있는데, 주변에 바깥을 의미하는 문자가 있다
 		|| is_outside(p_map->data[y][x + 1]) == TRUE
 		|| is_outside(p_map->data[y][x - 1]) == TRUE
 		|| is_outside(p_map->data[y + 1][x]) == TRUE
@@ -60,20 +50,11 @@ int	is_player(char c)
 	return (FALSE);
 }
 
-int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y)
+void	init_player_dir(t_game_info *p_game, t_map_info *p_map, int x, int y)
 {
-	static int is_done = FALSE;
 	static char dir_x[4] = {0, 0, -1, 1};
 	static char dir_y[4] = {-1, 1, 0, 0};
 
-	if (is_done == 1)
-		return (FAIL);
-
-	//pos
-	p_game->player.pos.x = x;
-	p_game->player.pos.y = y;
-
-	//dir
 	if (p_map->data[y][x] == 'N')
 	{
 		p_game->player.dir.x = dir_x[0];
@@ -94,7 +75,19 @@ int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y)
 		p_game->player.dir.x = dir_x[3];
 		p_game->player.dir.y = dir_y[3];
 	}
+}
 
+int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y)
+{
+	static int is_done = FALSE;
+
+	if (is_done == 1)
+		return (FAIL);
+	p_game->player.pos.x = x;
+	p_game->player.pos.y = y;
+	p_game->player.view.x = VIEW_X;
+	p_game->player.view.x = VIEW_Y;
+	init_player_dir(p_game, p_map, x, y);
 	is_done = TRUE;
 	return (SUCCESS);
 }
@@ -110,14 +103,11 @@ int is_map_error(t_map_info *p_map, t_game_info *p_game)
 		x = 0;
 		while (x < p_map->width)
 		{
-			//허용된 문자인지 체크
 			if (is_valid_char(p_map->data[y][x]) == FALSE)
 			{
 				printf("Error\n: invalid character!!\n");
 				return (FAIL);
 			}
-
-			//길일 때 둘러싸여 있는지 체크
 			if (is_ground(p_map->data[y][x]) == TRUE)
 			{
 				if (is_ground_meet_outside(p_map, x, y) == TRUE)
@@ -126,8 +116,6 @@ int is_map_error(t_map_info *p_map, t_game_info *p_game)
 					return (FAIL);
 				}
 			}
-
-			//player일 때 정보 저장
 			if (is_player(p_map->data[y][x]) == TRUE)
 			{
 				if (init_player_info(p_game, p_map, x, y) == FAIL)
@@ -141,13 +129,10 @@ int is_map_error(t_map_info *p_map, t_game_info *p_game)
 		}
 		y++;
 	}
-
-	//플레이어 세팅됐는지 체크
 	if (init_player_info(p_game, p_map, 0, 0) == SUCCESS)
 	{
 			printf("Error\n: no player!!\n");
 			return (FAIL);
 	}
-
 	return (SUCCESS);
 }
