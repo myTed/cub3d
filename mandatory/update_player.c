@@ -16,11 +16,11 @@ int	is_wall(t_game_info *p_game, double delta_x, double delta_y)
 	int	new_x;
 	int	new_y;
 
-	printf("%s\n", (char *)p_game->parse.map[0]);
+	printf("%s\n", (char *)p_game->parse.map.data[0]);
 
 	new_x = (int)(p_game->player.pos.x + delta_x);
 	new_y = (int)(p_game->player.pos.y + delta_y);
-	if (p_game->parse.map/*.data*/[new_y][new_x] == WALL)
+	if (p_game->parse.map.data[new_y][new_x] == WALL)
 		return (TRUE);
 	else
 		return (FALSE);

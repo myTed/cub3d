@@ -18,7 +18,7 @@
 typedef struct s_img
 {
 	void					*img_ptr;
-	unsigned int	*addr;
+	unsigned int	*p_data;
 	int						width;
 	int						height;
 	int						bpp;
@@ -50,15 +50,22 @@ typedef enum e_key_staus
  * KEY STUCTS of s_game_info
  */
 
+typedef struct s_map_info
+{
+	char	**data;
+	int		width;
+	int		height;
+} t_map_info;
+
 typedef struct s_parse_info
 {
-    t_img			north_img;
-    t_img			south_img;
-    t_img			west_img;
-    t_img			east_img;
-    t_color 	floor;
-    t_color 	ceiling;
-		int  		  **map;
+    t_img				north_img;
+    t_img				south_img;
+    t_img				west_img;
+    t_img				east_img;
+    t_color			floor;
+    t_color			ceiling;
+		t_map_info	map;
 } t_parse_info;
 
 typedef struct s_player_info

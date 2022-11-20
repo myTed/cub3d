@@ -32,15 +32,6 @@ static int get_texture_offset_x(const t_slice_info *p_slice, const t_wall_info *
 	else /* (hit_side == WALL_HORIZON) */
 		map_offset_x = p_wall->pos.x + (p_wall->corrected_distance * p_ray->x);
 
-	//wall_offset_x = map_offset_x - floor(map_offset_x);
-	
-	
-	//if ((p_wall->hit_side == VERTICAL && p_ray->x > 0) || \
-	//	(p_wall->hit_side == HORIZON && p_ray->y < 0))
-	//else /* 보정 */
-	//		wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
-	//return ((int)(wall_offset_x * (double)(p_slice->p_texture_img->width)));
-
 	//2. wall 상에서 어디인지
 	if ((p_wall->hit_side == VERTICAL && p_ray->x > 0) || \
 		(p_wall->hit_side == HORIZON && p_ray->y < 0))
@@ -94,7 +85,7 @@ t_color get_pixel(t_img *p_img, const int x, const int y)
 {
 	int rgb;
 
-	rgb = *(p_img->addr + (y * (p_img->size_line / (p_img->bpp / 8))) + x);
+	rgb = *(p_img->p_data + (y * (p_img->size_line / (p_img->bpp / 8))) + x);
 	return (*(t_color *)&rgb);
 
 }
@@ -125,14 +116,12 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 		hieght_idx++;
 	}
 }
-#include <stdio.h>
+//#include <stdio.h>
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx)
 {
 	t_slice_info slice;
 
 	fill_slice_info(p_game, &slice, p_wall, p_ray);
-
-	printf("width idx: %d, texture offset x: %d\n", width_idx, (int)slice.texture_offset_x);
-
+	//printf("width idx: %d, texture offset x: %d\n", width_idx, (int)slice.texture_offset_x);
 	fill_buffer_x(p_game, &slice, width_idx);
 }
