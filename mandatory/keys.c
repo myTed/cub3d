@@ -17,7 +17,7 @@ int	exit_game(t_game_info *p_game, int status)
 	return (status);
 }
 
-int	exit_hook(t_game_info *game)
+int	key_exit(t_game_info *game)
 {
 	return (exit_game(game, EXIT_SUCCESS));
 }
@@ -26,8 +26,18 @@ int	key_press(int keycode, t_game_info *p_game)
 {
 	if (keycode == KEY_W)
 		p_game->key.move_forward = PRESS;
+	else if (keycode == KEY_S)
+		p_game->key.move_backward = PRESS;
+	else if (keycode == KEY_A)
+		p_game->key.move_left = PRESS;
+	else if (keycode == KEY_D)
+		p_game->key.move_right = PRESS;
+	else if (keycode == KEY_LEFT)
+		p_game->key.turn_left = PRESS;
+	else if (keycode == KEY_RIGHT)
+		p_game->key.turn_right = PRESS;
 
-	if (keycode == KEY_ESC)
+	else if (keycode == KEY_ESC)
 		return (exit_game(p_game, EXIT_SUCCESS));
 
 	return (0);
@@ -36,9 +46,19 @@ int	key_press(int keycode, t_game_info *p_game)
 int	key_release(int keycode, t_game_info *p_game)
 {
 	if (keycode == KEY_W)
-		p_game->key.move_forward = PRESS;
+		p_game->key.move_forward = RELEASE;
+	else if (keycode == KEY_S)
+		p_game->key.move_backward = RELEASE;
+	else if (keycode == KEY_A)
+		p_game->key.move_left = RELEASE;
+	else if (keycode == KEY_D)
+		p_game->key.move_right = RELEASE;
+	else if (keycode == KEY_LEFT)
+		p_game->key.turn_left = RELEASE;
+	else if (keycode == KEY_RIGHT)
+		p_game->key.turn_right = RELEASE;
 
-	if (keycode == KEY_ESC)
+	else if (keycode == KEY_ESC)
 		return (exit_game(p_game, EXIT_SUCCESS));
 
 	return (0);

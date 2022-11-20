@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
 SRCS= main.c find_wall.c fill_wall_slice.c mlx_draw.c correct_wall_distance.c \
-			keys.c
+			keys.c update_player.c
 
 
 BONUS_DIR=bonus/
