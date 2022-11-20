@@ -18,7 +18,7 @@
 typedef struct s_img
 {
 	void					*img_ptr;
-	unsigned int	*p_data;
+	unsigned int	*addr;
 	int						width;
 	int						height;
 	int						bpp;
@@ -65,7 +65,8 @@ typedef struct s_parse_info
     t_img				east_img;
     t_color			floor;
     t_color			ceiling;
-		t_map_info	map;
+		//t_map_info	map;
+		int					**map;
 } t_parse_info;
 
 typedef struct s_player_info

@@ -43,23 +43,23 @@ int	key_press(int keycode, t_game_info *p_game)
 	return (0);
 }
 
-int	key_release(int keycode, t_game_info *p_game)
-{
-	if (keycode == KEY_W)
-		p_game->key.move_forward = RELEASE;
-	else if (keycode == KEY_S)
-		p_game->key.move_backward = RELEASE;
-	else if (keycode == KEY_A)
-		p_game->key.move_left = RELEASE;
-	else if (keycode == KEY_D)
-		p_game->key.move_right = RELEASE;
-	else if (keycode == KEY_LEFT)
-		p_game->key.turn_left = RELEASE;
-	else if (keycode == KEY_RIGHT)
-		p_game->key.turn_right = RELEASE;
+//int	key_release(int keycode, t_game_info *p_game)
+//{
+//	if (keycode == KEY_W)
+//		p_game->key.move_forward = RELEASE;
+//	else if (keycode == KEY_S)
+//		p_game->key.move_backward = RELEASE;
+//	else if (keycode == KEY_A)
+//		p_game->key.move_left = RELEASE;
+//	else if (keycode == KEY_D)
+//		p_game->key.move_right = RELEASE;
+//	else if (keycode == KEY_LEFT)
+//		p_game->key.turn_left = RELEASE;
+//	else if (keycode == KEY_RIGHT)
+//		p_game->key.turn_right = RELEASE;
 
-	else if (keycode == KEY_ESC)
-		return (exit_game(p_game, EXIT_SUCCESS));
+//	else if (keycode == KEY_ESC)
+//		return (exit_game(p_game, EXIT_SUCCESS));
 
-	return (0);
-}
+//	return (0);
+//}
