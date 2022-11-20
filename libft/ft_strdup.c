@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyolee <kyolee@student.42.seoul.kr>        +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 22:36:02 by kyolee            #+#    #+#             */
-/*   Updated: 2021/12/02 01:52:39 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/20 14:25:24 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+
 #include <stddef.h>
+#include <stdlib.h>
 /*
 #include <string.h>
 #include <stdio.h>
@@ -45,11 +46,11 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-int	main(void)
-{
-	ft_strdup("");
-	return (0);
-}
+//int	main(void)
+//{
+//	ft_strdup("");
+//	return (0);
+//}
 
 /*
 int	main(int argc, char *argv[])

@@ -111,9 +111,9 @@ int	check_color_value(
 	while (idx < COLOR_NUM_MAX)
 	{
 		color_value = ft_atoi(splited_str[idx]);
-		if (color_value > COLOR_VALUE_MAX)
+		if ((color_value > COLOR_VALUE_MAX) || (color_value < COLOR_VALUE_MIN))
 		{
-			printf("Error\n: color value more than 255!\n");
+			printf("Error\n: color value more than 255 or less than 0!\n");
 			return (FAIL);
 		}
 		color_idx = 2 - idx;
@@ -126,18 +126,47 @@ int	check_color_value(
 	return (SUCCESS);
 }
 
-int	check_color_cnt(char **splited_str)
+
+
+
+int	check_color_cnt(char *color_str, char **splited_str)
 {
 	int	idx;
+	int	comma_cnt;
 
 	if (splited_str == 0)
 		return (FAIL);
+	
 	idx = 0;
 	while (splited_str[idx])
 		idx++;
-	if (idx > COLOR_NUM_MAX)
+	if (idx != COLOR_NUM_MAX)
 	{
-		printf("Error\n: too many color\n");
+		printf("Error\n: color should be only 3 colors\n");
+		return (FAIL);
+	}
+	return (SUCCESS);
+}
+
+
+int	check_color_comma(char *color_str)
+{
+	int	comma_cnt;
+	int	idx;
+
+	if (color_str == 0)
+		return (FAIL);
+	comma_cnt = 0;
+	idx = 0;
+	while (color_str[idx])
+	{
+		if (color_str[idx] == ',')
+				comma_cnt++;
+		idx++;
+	}
+	if (comma_cnt != 2)
+	{
+		printf("Error\n: comma cnt should be 2!");
 		return (FAIL);
 	}
 	return (SUCCESS);
@@ -146,6 +175,7 @@ int	check_color_cnt(char **splited_str)
 int	check_color(char *color_str, int found_idx, t_parse_info *p_parse)
 {
 	char 	**splited_str;
+	int		ret;
 
 	if ((color_str == 0) || (p_parse == 0))
 		return (FAIL);
@@ -155,12 +185,9 @@ int	check_color(char *color_str, int found_idx, t_parse_info *p_parse)
 		perror("Error\n");
 		return (FAIL);
 	}
-	if (check_color_cnt(splited_str) == FAIL)
-	{
-		free_split(splited_str);
-		return (FAIL);
-	}
-	if (check_color_value(splited_str, found_idx, p_parse) == FAIL)
+	if ((check_color_comma(color_str) == FAIL) ||
+			(check_color_cnt(color_str, splited_str) == FAIL) ||
+			(check_color_value(splited_str, found_idx, p_parse) == FAIL))
 	{
 		free_split(splited_str);
 		return (FAIL);

@@ -21,7 +21,7 @@
 #define	TEXTURE_MAX		4
 #define	COLOR_NUM_MAX	3
 #define	COLOR_VALUE_MAX	255
-
+#define	COLOR_VALUE_MIN 0
 typedef enum e_type_idx
 {
 	NORTH_IDX = 0,
