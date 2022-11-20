@@ -11,7 +11,6 @@
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
 
-
 /*
  * UTILS of s_game_info 
  */
@@ -40,6 +39,12 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+typedef enum e_key_staus
+{
+	PRESS,
+	RELEASE
+} t_key_status;
 
 /*
  * KEY STUCTS of s_game_info
@@ -70,11 +75,22 @@ typedef struct s_mlx
 	t_img		screen;
 }	t_mlx;
 
+typedef struct s_key
+{
+	t_key_status	move_forward;
+	t_key_status	move_left;
+	t_key_status	move_backward;
+	t_key_status	move_right;
+	t_key_status	turn_left;
+	t_key_status	turn_right;
+} t_key;
+
 typedef struct s_game_info
 {
 	t_parse_info		parse;
 	t_player_info		player;
 	t_mlx						mlx;
+	t_key						key;
 }	t_game_info;
 
 /*

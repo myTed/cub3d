@@ -99,14 +99,12 @@ int	draw_screen(t_game_info *p_game)
 	return (0);
 }
 
-int	game_loop(void *param)
+int	update_screen(t_game_info *p_game)
 {
-	t_game_info 	*p_game;
 	t_vector		ray;
 	t_wall_info		wall;
 	int				width_idx;
 
-	p_game = param;
 	width_idx = 0;
 	while (width_idx < SCREEN_WIDTH)
 	{
@@ -121,6 +119,37 @@ int	game_loop(void *param)
 	}
 	if (draw_screen(p_game) < 0)
 		return (-1);
+	return (0);
+}
+
+#define MOVE_SPEED 1
+
+int	update_player(t_game_info *p_game)
+{
+	t_key_status	is_updated;
+
+	is_updated = RELEASE;
+	if (p_game->key.move_forward == PRESS)
+	{
+		p_game->player.pos.x += (p_game->player.dir.x * MOVE_SPEED);
+		p_game->player.pos.y += (p_game->player.dir.y * MOVE_SPEED);
+		is_updated = PRESS;
+	}
+
+	return (is_updated);
+}
+
+int	game_loop(void *param)
+{
+	t_game_info		*p_game;
+	t_key_status	is_updated;
+
+	p_game = param;
+	is_updated = update_player(p_game);
+	if (is_updated == PRESS)
+	{
+		update_screen(p_game);
+	}
 	return (0);
 }
 
@@ -157,7 +186,16 @@ int	init_player_info(t_player_info *p_player)
 	p_player->view.y = 0;
 	return (0);
 }
+
 #include <stdio.h>
+
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_EXIT					17
+int	key_press(int keycode, t_game_info *p_game);
+int	key_release(int keycode, t_game_info *p_game);
+
+
 int main()
 {
 	t_game_info	game;
@@ -169,20 +207,10 @@ int main()
 	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
 		return (1);
 
-	 game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
-	 game.parse.north_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
-	
-	 game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
-	 game.parse.south_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
-
-	 game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
-	 game.parse.east_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
-	
-	 game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
-	 game.parse.west_img.addr = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
-
-	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
-	game_loop(&game);
+	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
+	//mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &exit, &game);
+	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	mlx_loop(game.mlx.mlx_ptr);	
 	return (0);
 }
