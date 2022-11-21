@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "../include/raycast.h"
 #include <math.h>
 
 int	set_pixel(t_img *pimg, int y, int x, t_color color);

@@ -2,33 +2,6 @@
 #include "../../include/parse.h"
 #include <stdio.h>
 
-int	is_valid_char(char c);
-int	is_ground(char c);
-int	is_ground_meet_outside(t_map_info *p_map, int x, int y);
-int	is_player(char c);
-
-static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
-{
-	if (is_valid_char(p_map->data[y][x]) == FALSE)
-	{
-		printf("Error\n: invalid character!!\n");
-		return (TRUE);
-	}
-	if (is_ground(p_map->data[y][x]) == TRUE && \
-		is_ground_meet_outside(p_map, x, y) == TRUE)
-	{
-		printf("Error\n: ground is not closed by the wall!!\n");
-		return (TRUE);
-	}
-	if (is_player(p_map->data[y][x]) == TRUE && \
-		init_player_info(p_game, p_map, x, y) == FAIL)
-	{
-		printf("Error\n: more than 1 player!!\n");
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 static void	init_player_dir(t_game_info *p_game, \
 	t_map_info *p_map, int x, int y)
 {
@@ -68,6 +41,33 @@ static int	init_player_info(t_game_info *p_game, \
 	init_player_dir(p_game, p_map, x, y);
 	is_done = TRUE;
 	return (SUCCESS);
+}
+
+int	is_valid_char(char c);
+int	is_ground(char c);
+int	is_ground_meet_outside(t_map_info *p_map, int x, int y);
+int	is_player(char c);
+
+static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
+{
+	if (is_valid_char(p_map->data[y][x]) == FALSE)
+	{
+		printf("Error\n: invalid character!!\n");
+		return (TRUE);
+	}
+	if (is_ground(p_map->data[y][x]) == TRUE && \
+		is_ground_meet_outside(p_map, x, y) == TRUE)
+	{
+		printf("Error\n: ground is not closed by the wall!!\n");
+		return (TRUE);
+	}
+	if (is_player(p_map->data[y][x]) == TRUE && \
+		init_player_info(p_game, p_map, x, y) == FAIL)
+	{
+		printf("Error\n: more than 1 player!!\n");
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 int	is_map_error(t_map_info *p_map, t_game_info *p_game)

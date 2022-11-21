@@ -1,5 +1,6 @@
 #include "../include/cub3d.h"
 #include "../include/parse.h"
+#include "../include/raycast.h"
 #include <math.h>
 #include <stdio.h>
 

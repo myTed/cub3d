@@ -13,7 +13,7 @@
 #define FAIL 1
 
 /*
- * UTILS of s_game_info 
+ * UTILS
  */
 
 typedef struct s_img
@@ -53,8 +53,14 @@ typedef union u_path_info
 	} texture;
 } t_path_info;
 
+typedef enum e_key_staus
+{
+	PRESS,
+	RELEASE
+} t_key_status;
+
 /*
- * KEY STUCTS of s_game_info
+ * KEY STUCTS
  */
 
 typedef struct s_map_info
@@ -79,7 +85,7 @@ typedef struct s_player_info
 	t_vector	view;
 }	t_player_info;
 
-typedef struct s_mlx
+typedef struct s_mlx_info
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -88,71 +94,24 @@ typedef struct s_mlx
 	t_img	south_img;
 	t_img	west_img;
 	t_img	east_img;
-}	t_mlx;
+}	t_mlx_info;
+
+typedef struct s_key_info
+{
+	t_key_status	move_forward;
+	t_key_status	move_backward;
+	t_key_status	move_left;
+	t_key_status	move_right;
+	t_key_status	turn_left;
+	t_key_status	turn_right;
+} t_key_info;
 
 typedef struct s_game_info
 {
 	t_parse_info		parse;
 	t_player_info		player;
-	t_mlx						mlx;
+	t_mlx_info			mlx;
+	t_key_info			key;
 }	t_game_info;
-
-/*
- * UTILS
- * of s_wall_dist_info, s_wall_info, s_slice_info
- */
-
-//typedef enum e_texture_kind
-//{
-//	NORTH,
-//	SOUTH,
-//	WEST,
-//	EAST
-//} t_texture_kind;
-
-typedef enum e_hit
-{
-	NO = 0,
-	HORIZON,
-	VERTICAL
-}	t_hit;
-
-typedef struct s_wall_pos
-{
-	int	x;
-	int	y;
-}	t_wall_pos;
-
-/*
- * KEY STRUCTS 
- * of s_wall_dist_info, s_wall_info, s_slice_info
- */
-
-typedef struct s_wall_dist_info
-{
-	double	vertical;
-	double	horizon;
-	double	delta_vertical;
-	double	delta_horizon;
-	int			step_vertical;
-	int			step_horizon;
-} t_wall_dist_info;
-
-typedef struct s_wall_info
-{
-	double 			corrected_distance;
-	t_wall_pos	pos;
-	t_hit				hit_side;
-}	t_wall_info;
-
-typedef struct s_slice_info//single slice to work at
-{
-	t_img			*p_texture_img;
-	int				draw_top;//start-pixel in screen
-	int				draw_bottom;
-	double		texture_offset_x;
-	double		texture_offset_y;//usually 0
-	double		texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
-} t_slice_info;
 
 #endif

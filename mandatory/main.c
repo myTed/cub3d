@@ -1,24 +1,26 @@
-#include "cub3d.h"
-#include "mlx.h"
-#include <math.h>
-#include <stdio.h>
 #include "../libft/libft.h"
+#include "mlx.h"
+#include "cub3d.h"
+#include "raycast.h"
+#include <stdio.h>
 
-int	parsing_file(t_game_info *p_game, char *file_name);
-int	init_mlx_info(t_mlx *p_mlx, t_img *p_screen, t_parse_info *p_parse);
+int		init_parse_and_player_info(t_game_info *p_game, char *file_name);
+int		init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, t_parse_info *p_parse);
+void	init_key_info(t_key_info *p_key);
 
 int	init_game_info(t_game_info *p_game, char *file_name)
 {
 	ft_memset(p_game, 0, sizeof(t_game_info));	
-	if (parsing_file(p_game, file_name) == FAIL)
+	if (init_parse_and_player_info(p_game, file_name) == FAIL)
 		return (FAIL);
 	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) == FAIL)
 		return (FAIL);
+	init_key_info(&(p_game->key));
 	return (SUCCESS);
 }
 
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
-void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
+int	set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
 int	find_wall_distance(t_game_info *pgi, t_vector *pray, t_hit *phit, t_wall_info *p_wall);
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx);
 int	draw_screen(t_game_info *p_game);
@@ -38,7 +40,8 @@ int	game_loop(void *param)
 			return (-1);
 		if (find_wall_distance(p_game, &ray, &wall.hit_side, &wall) < 0)
 			return (-1);
-		set_correct_wall_distance(p_game, &wall, &ray);
+		if (set_correct_wall_distance(p_game, &wall, &ray) == FAIL)
+			return (FAIL);
 		fill_wall_slice(p_game, &ray, &wall, width_idx);
 		width_idx++;
 	}

@@ -100,7 +100,7 @@ static int	get_map(int file_fd, char *file_name, \
 	return (SUCCESS);
 }
 
-int	parsing_file(t_game_info *p_game, char *file_name)
+int	init_parse_and_player_info(t_game_info *p_game, char *file_name)
 {
 	int	read_count;
 	int	file_fd;

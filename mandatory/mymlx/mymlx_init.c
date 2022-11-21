@@ -2,7 +2,7 @@
 #include "../include/parse.h"
 #include "mlx.h"
 
-static int	init_mlx_screen_image(t_mlx *p_mlx, t_img *p_screen)
+static int	init_mlx_screen_image(t_mlx_info *p_mlx, t_img *p_screen)
 {
 	p_screen->img_ptr = mlx_new_image(p_mlx->mlx_ptr, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
@@ -22,7 +22,7 @@ static int	init_mlx_screen_image(t_mlx *p_mlx, t_img *p_screen)
 	return (SUCCESS);
 }
 
-static int	set_texture_image(t_mlx *p_mlx, t_parse_info *p_parse)
+static int	set_texture_image(t_mlx_info *p_mlx, t_parse_info *p_parse)
 {
 	p_mlx->north_img.img_ptr = \
 		mlx_xpm_file_to_image(p_mlx->mlx_ptr, p_parse->path.arry[NORTH_IDX], \
@@ -42,7 +42,7 @@ static int	set_texture_image(t_mlx *p_mlx, t_parse_info *p_parse)
 	return (SUCCESS);
 }
 
-static void	set_texture_data(t_mlx *p_mlx)
+static void	set_texture_data(t_mlx_info *p_mlx)
 {
 	p_mlx->north_img.p_data = (unsigned int *)mlx_get_data_addr \
 		(p_mlx->north_img.img_ptr, &(p_mlx->north_img.bpp), \
@@ -58,7 +58,7 @@ static void	set_texture_data(t_mlx *p_mlx)
 		&(p_mlx->west_img.size_line), &(p_mlx->west_img.endian));
 }
 
-static int	init_mlx_texture_image(t_mlx *p_mlx, t_parse_info *p_parse)
+static int	init_mlx_texture_image(t_mlx_info *p_mlx, t_parse_info *p_parse)
 {
 	if (set_texture_image(p_mlx, p_parse) == FAIL)
 		return (FAIL);
@@ -66,7 +66,7 @@ static int	init_mlx_texture_image(t_mlx *p_mlx, t_parse_info *p_parse)
 	return (SUCCESS);
 }
 
-int	init_mlx_info(t_mlx *p_mlx, t_img *p_screen, t_parse_info *p_parse)
+int	init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, t_parse_info *p_parse)
 {
 	if (p_mlx == 0 || p_screen == 0)
 		return (FAIL);
