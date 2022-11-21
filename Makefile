@@ -1,7 +1,7 @@
-#CC=cc
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux -I/usr/include/X11
-#CFLAGS=-Wall -Wextra -Werror -g -I./include
+CC=cc
+#CC=gcc
+#CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux -I/usr/include/X11
+CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
 SRCS= main.c find_wall.c fill_wall_slice.c mlx_draw.c correct_wall_distance.c \
@@ -27,8 +27,8 @@ NAME=cub3D
 all:$(NAME)
 
 $(NAME):$(OBJECTS) $(LIB_SRCS)
-#	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
-	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
+	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
+#	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 # -fsanitize=address 
 $(LIB_SRCS) :
 	cd libft && make

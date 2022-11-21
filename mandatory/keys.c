@@ -1,7 +1,7 @@
 #include "cub3d.h"
 #include <stdlib.h>
 #include <stdio.h>
-/*
+
 # define KEY_W			13
 # define KEY_A			0
 # define KEY_S			1
@@ -9,7 +9,8 @@
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
 # define KEY_ESC		53
-*/
+
+/*
 # define KEY_W			119
 # define KEY_A			97
 # define KEY_S			115
@@ -17,7 +18,7 @@
 # define KEY_LEFT		65361
 # define KEY_RIGHT		65363
 # define KEY_ESC		53
-
+*/
 
 int	exit_game(t_game_info *p_game, int status)
 {
