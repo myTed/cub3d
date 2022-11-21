@@ -154,6 +154,7 @@ typedef struct s_slice_info//single slice to work at
 	t_img			*p_texture_img;
 	int				draw_top;//start-pixel in screen
 	int				draw_bottom;
+	int				draw_height;
 	double		texture_offset_x;
 	double		texture_offset_y;//usually 0
 	double		texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
