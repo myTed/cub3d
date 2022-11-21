@@ -54,8 +54,9 @@ static double get_texture_offset_y(t_slice_info *p_slice)
 
 void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
 {
+	double draw_height;
 
-	p_slice->draw_height = (double)(SCREEN_HEIGHT) / p_wall->corrected_distance;
+	draw_height = (double)(SCREEN_HEIGHT) / p_wall->corrected_distance;
 	
 	//동서남북
 	p_slice->p_texture_img = get_texture(p_game, p_wall, p_ray);
@@ -64,10 +65,10 @@ void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_in
 	p_slice->texture_offset_x = get_texture_offset_x(p_slice, p_wall, p_ray);
 	
 	//texture_step_y
-	p_slice->texture_step_y = p_slice->p_texture_img->height / p_slice->draw_height;
+	p_slice->texture_step_y = p_slice->p_texture_img->height / draw_height;
 	
 	//draw_top
-	p_slice->draw_top = (SCREEN_HEIGHT / 2) - (p_slice->draw_height / 2);
+	p_slice->draw_top = ((double)(SCREEN_HEIGHT) / 2) - (draw_height / 2);
 	
 	//texture_offset_y
 	p_slice->texture_offset_y = get_texture_offset_y(p_slice);
@@ -75,10 +76,9 @@ void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_in
 		p_slice->draw_top = 0;
 
 	//draw_bottom
-	p_slice->draw_bottom = (SCREEN_HEIGHT / 2) + (p_slice->draw_height / 2);
-	if (p_slice->draw_top > SCREEN_HEIGHT)
-		p_slice->draw_top = SCREEN_HEIGHT;
-
+	p_slice->draw_bottom = (SCREEN_HEIGHT / 2) + (draw_height / 2);
+	if (p_slice->draw_bottom > SCREEN_HEIGHT)
+		p_slice->draw_bottom = SCREEN_HEIGHT;
 }
 
 //--------------------------------------------------//
@@ -94,28 +94,26 @@ t_color get_pixel(t_img *p_img, const int x, const int y)
 
 void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_idx)
 {
-	int idx;
+	int height_idx;
 	t_color texture;
 
-	idx = 0;
-	while (idx < p_slice->draw_top)
+	height_idx = 0;
+	while (height_idx < p_slice->draw_top)
 	{
-		set_pixel(&p_game->mlx.screen, idx, width_idx, p_game->parse.ceiling);
-		idx++;
+		set_pixel(&p_game->mlx.screen, height_idx, width_idx, p_game->parse.ceiling);
+		height_idx++;
 	}
-	idx = 0;
-	while (idx < p_slice->draw_height)
+	while (height_idx < p_slice->draw_bottom)
 	{
 		texture = get_pixel(p_slice->p_texture_img, (int)p_slice->texture_offset_x, (int)p_slice->texture_offset_y);
-		set_pixel(&p_game->mlx.screen, p_slice->draw_top + idx, width_idx, texture);
-		idx++;
+		set_pixel(&p_game->mlx.screen, height_idx, width_idx, texture);
+		height_idx++;
 		p_slice->texture_offset_y += p_slice->texture_step_y;
 	}
-	idx = p_slice->draw_height;	
-	while (idx < SCREEN_HEIGHT)
+	while (height_idx < SCREEN_HEIGHT)
 	{
-		set_pixel(&p_game->mlx.screen, idx, width_idx, p_game->parse.floor);
-		idx++;
+		set_pixel(&p_game->mlx.screen, height_idx, width_idx, p_game->parse.floor);
+		height_idx++;
 	}
 }
 //#include <stdio.h>

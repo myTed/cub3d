@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
-#define MOVE_SPEED 0.3
-#define TURN_SPEED 0.3
+#define MOVE_SPEED 0.25
+#define TURN_SPEED 0.02
 #define TRUE 1
 #define FALSE 0
 
@@ -67,20 +67,39 @@ int	update_pos(t_game_info *p_game, t_vector *p_cur_pos, t_vector *p_new_pos)
 
 int	corrected_pos(t_game_info *p_game, t_vector *p_new_pos)
 {
+	t_vector	cur_pos;
+
+	cur_pos.x = p_game->player.pos.x;
+	cur_pos.y = p_game->player.pos.y;
 	if ((double)(p_new_pos->x) - (double)((int)(p_new_pos->x)) < 0.0001)
 	{
-		p_new_pos->x += (p_game->player.dir.x * 0.01);
+		printf("==============================\n");
+		printf("보정 전 거리 x: %lf\n", p_new_pos->x);
+		if (p_new_pos->x - cur_pos.x > 0)
+			p_new_pos->x += 0.1;
+		else
+			p_new_pos->x -= 0.1;
 		printf("보정 거리 x: %lf\n", p_new_pos->x);
 	}
-	printf(" double pos y: %lf\n", p_new_pos->y);
-	printf(" int pos y:  %d\n", (int)(p_new_pos->y));
-	printf(" delta y: %lf\n", (double)(p_new_pos->y) - (double)((int)(p_new_pos->y)));
 	if ((double)(p_new_pos->y) - (double)((int)(p_new_pos->y)) < 0.0001)
 	{
-		p_new_pos->y += (p_game->player.dir.y * 0.01);
+		printf("=====================================\n");
+		printf("보정 전 거리 y: %lf\n", p_new_pos->y);
+		if (p_new_pos->y - cur_pos.y > 0)
+			p_new_pos->y += 0.1;
+		else
+			p_new_pos->y -= 0.1;
 		printf("보정 거리 y: %lf\n", p_new_pos->y);
 	}
-	//printf("보정 안됨\n");
+	if (p_new_pos->x < 1.5)
+		p_new_pos->x = 1.5;
+	if (p_new_pos->x > MAP_SIZE_X - 1.5)
+		p_new_pos->x = MAP_SIZE_X - 1.5;
+	if (p_new_pos->y < 1.5)
+		p_new_pos->y = 1.5;
+	if (p_new_pos->y > MAP_SIZE_Y - 1.5)
+		p_new_pos->y = MAP_SIZE_Y - 1.5;
+	printf("player (y,x) (%lf, %lf)    dir(y,x) (%lf, %lf)\n", p_new_pos->y, p_new_pos->x, p_game->player.dir.y, p_game->player.dir.x);
 	return (0);
 }
 
@@ -97,6 +116,7 @@ int	move_player(t_game_info *p_game)
 		return (is_update);
 	corrected_pos(p_game, &new_pos);
 	is_update = TRUE;
+	
 	if (!is_wall(p_game, new_pos.y, new_pos.x))
 	{	
 		p_game->player.pos.x = new_pos.x;

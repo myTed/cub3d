@@ -1,6 +1,6 @@
 #CC=cc
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux
+CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux -I/usr/include/X11
 #CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/

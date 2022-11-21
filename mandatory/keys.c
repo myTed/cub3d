@@ -34,7 +34,6 @@ int	key_exit(t_game_info *game)
 
 int	key_press(int keycode, t_game_info *p_game)
 {
-	printf("%d\n", keycode);
 	if (keycode == KEY_W)
 		p_game->key.move_forward = PRESS;
 	else if (keycode == KEY_S)

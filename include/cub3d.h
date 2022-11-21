@@ -6,7 +6,7 @@
 
 #define PLAYER_DIR_X 0
 #define PLAYER_DIR_Y -1
-#define PLAYER_POS_X 15.5
+#define PLAYER_POS_X 16.5
 #define PLAYER_POS_Y 28.5
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
@@ -154,7 +154,6 @@ typedef struct s_slice_info//single slice to work at
 	t_img			*p_texture_img;
 	int				draw_top;//start-pixel in screen
 	int				draw_bottom;
-	int				draw_height;
 	double		texture_offset_x;
 	double		texture_offset_y;//usually 0
 	double		texture_step_y;//movement per screen pixel y (bigger step -> smaller at screen)
