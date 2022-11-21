@@ -1,7 +1,8 @@
-#include "cub3d.h"
+#include "../include/cub3d.h"
+#include "../include/parse.h"
 #include "mlx.h"
 
-static int	init_mlx_window(t_mlx *p_mlx, t_img *p_screen)
+static int	init_mlx_screen_image(t_mlx *p_mlx, t_img *p_screen)
 {
 	p_screen->img_ptr = mlx_new_image(p_mlx->mlx_ptr, SCREEN_WIDTH,
 			SCREEN_HEIGHT);

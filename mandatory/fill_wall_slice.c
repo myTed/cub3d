@@ -8,16 +8,16 @@ static t_img *get_texture(t_game_info *p_game, const t_wall_info *p_wall, const 
 	if (p_wall->hit_side == VERTICAL)
 	{
 		if (p_ray->x > 0)
-			return (&(p_game->parse.east_img));
+			return (&(p_game->mlx.east_img));
 		else
-			return (&(p_game->parse.west_img));
+			return (&(p_game->mlx.west_img));
 	}
 	else
 	{
 		if (p_ray->y > 0)
-			return (&(p_game->parse.south_img));
+			return (&(p_game->mlx.south_img));
 		else
-			return (&(p_game->parse.north_img));
+			return (&(p_game->mlx.north_img));
 	}
 }
 

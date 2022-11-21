@@ -12,8 +12,8 @@ int	init_game_info(t_game_info *p_game, char *file_name)
 	ft_memset(p_game, 0, sizeof(t_game_info));	
 	if (parsing_file(p_game, file_name) == FAIL)
 		return (FAIL);
-	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) < FAIL)
-		return (FAIL);
+	//if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) < FAIL)
+	//	return (FAIL);
 	return (SUCCESS);
 }
 
@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 		return (FAIL);
 
 	//key_hook
-	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	//game_loop(&game);
-	mlx_loop(game.mlx.mlx_ptr);	
+	//mlx_loop(game.mlx.mlx_ptr);	
 	return (0);
 }

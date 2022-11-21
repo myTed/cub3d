@@ -1,4 +1,5 @@
-#include "cub3d.h"
+#include "../include/cub3d.h"
+#include "../include/parse.h"
 #include <math.h>
 #include <stdio.h>
 

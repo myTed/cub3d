@@ -23,7 +23,7 @@ BONUS_SRCS=
 LIB_SRCS=libft/libft.a gnl/libgnl.a
 
 MANDATORY_OBJS=$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(notdir $(PARSE_SRCS:.c=.o)))
-#MANDATORY_OBJS+=$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o)))
+MANDATORY_OBJS+=$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o)))
 
 BONUS_OBJS=$(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(BONUS_SRCS)))
 

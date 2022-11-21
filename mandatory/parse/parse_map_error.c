@@ -35,7 +35,7 @@ static int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y
 	p_game->player.pos.x = x;
 	p_game->player.pos.y = y;
 	p_game->player.view.x = VIEW_X;
-	p_game->player.view.x = VIEW_Y;
+	p_game->player.view.y = VIEW_Y;
 	init_player_dir(p_game, p_map, x, y);
 	is_done = TRUE;
 	return (SUCCESS);
