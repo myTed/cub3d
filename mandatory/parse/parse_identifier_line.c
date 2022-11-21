@@ -1,10 +1,7 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
-#include <fcntl.h>
-#include <stdlib.h>
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
+#include "../../libft/libft.h"
 #include <stdio.h>
-#include <unistd.h>
 
 int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found);
 static int	check_line_cnt_by_delimiter(char **split_arry, int *p_empty_line)

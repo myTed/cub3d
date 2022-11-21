@@ -1,10 +1,8 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
-#include <fcntl.h>
+#include "../../include/cub3d.h"
+#include "../../libft/libft.h"
+#include "../../gnl/ft_gnl.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 int is_empty_line(char *line);
 

@@ -1,6 +1,6 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
+#include "../../libft/libft.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>

@@ -1,5 +1,5 @@
-#include "../include/cub3d.h"
-#include <stdio.h>
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
 
 int is_valid_char(char c)
 {

@@ -1,4 +1,5 @@
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
 #include <stdio.h>
 
 static void	init_player_dir(t_game_info *p_game, t_map_info *p_map, int x, int y)

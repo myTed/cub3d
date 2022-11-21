@@ -1,12 +1,10 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
-
+#include "../../include/cub3d.h"
+#include "../../libft/libft.h"
+#include "../../gnl/ft_gnl.h"
 #include <fcntl.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-
 
 static void go_nth_line(int fd, int n)
 {

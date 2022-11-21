@@ -4,64 +4,13 @@
 #define SCREEN_WIDTH	1000
 #define SCREEN_HEIGHT	1000
 
-#define VIEW_X 0.66
-#define VIEW_Y 0
+#define	TEXTURE_MAX		4
 
 #define TRUE 1
 #define FALSE 0
 
 #define SUCCESS 0
 #define FAIL 1
-
-/*
- * PARSE_IDENTIFI
- */
-
-#define	TYPE_MAX		6
-#define	TEXTURE_MAX		4
-#define	COLOR_NUM_MAX	3
-#define	COLOR_VALUE_MAX	255
-#define	COLOR_VALUE_MIN 0
-
-typedef enum e_type_idx
-{
-	NORTH_IDX = 0,
-	SOUTH_IDX,
-	WEST_IDX,
-	EAST_IDX,
-	FLOOR_IDX,
-	CEILING_IDX
-} t_type_idx;
-
-typedef enum e_charset
-{
-	WALL = '1',
-	GROUND = '0',
-	PLAYER_NORTH = 'N',
-	PLAYER_SOUTH = 'S',
-	PLAYER_WEST = 'W',
-	PLAYER_EAST = 'E',
-	OUTSIDE1 = ' ',
-	OUTSIDE2 = '\0'
-} t_charset;
-
-typedef union u_path_info
-{
-	char *arry[TEXTURE_MAX];
-	struct s_texture
-	{
-		char	*north;
-		char	*south;
-		char	*west;
-		char	*east;
-	} texture;
-} t_path_info;
-
-typedef struct s_type
-{
-	char 		*str[TYPE_MAX];
-	int			found[TYPE_MAX];
-} t_type_ident;
 
 /*
  * UTILS of s_game_info 
@@ -91,6 +40,18 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+typedef union u_path_info
+{
+	char *arry[TEXTURE_MAX];
+	struct s_texture
+	{
+		char	*north;
+		char	*south;
+		char	*west;
+		char	*east;
+	} texture;
+} t_path_info;
 
 /*
  * KEY STUCTS of s_game_info

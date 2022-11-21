@@ -1,10 +1,8 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
-#include <fcntl.h>
-#include <stdlib.h>
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
+#include "../../libft/libft.h"
+#include "../../gnl/ft_gnl.h"
 #include <stdio.h>
-#include <unistd.h>
 
 int	check_color_value(
 		char **splited_str,

@@ -1,6 +1,6 @@
-#include "../include/cub3d.h"
-#include "../libft/libft.h"
-#include "../gnl/ft_gnl.h"
+#include "../../include/cub3d.h"
+#include "../../include/parse.h"
+#include "../../gnl/ft_gnl.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -75,7 +75,6 @@ char *find_first_line(int file_fd, int *read_count);
 int set_map_size(int file_fd, t_map_info *p_map, int read_count);
 int set_map_data(char *file_name, t_map_info *p_map, int map_start_count);
 int is_map_error(t_map_info *p_map, t_game_info *p_game);
-
 static int	get_map(int file_fd, char *file_name, t_game_info *p_game, int read_count)
 {
 	char 				*line;
@@ -123,16 +122,3 @@ int	parsing_file(t_game_info *p_game, char *file_name)
 
 	return (SUCCESS);
 }
-
-// 그냥 예시용
-//void	display_result(t_parse_info *p_parse, int read_count)
-//{
-//	printf("north texture_path : %s\n", p_parse->path.texture.north);
-//	printf("south texture_path : %s\n", p_parse->path.texture.south);
-//	printf("west texture_path : %s\n", p_parse->path.texture.west);
-//	printf("east texture_path : %s\n", p_parse->path.texture.east);
-//	printf("floor color : r %d g %d b %d\n", p_parse->floor.red, p_parse->floor.green,
-//					p_parse->floor.blue);
-//	printf("ceiling color : r %d, g %d, b %d\n", p_parse->ceiling.red, p_parse->ceiling.green, p_parse->ceiling.blue);
-//	printf("total read_count: %d\n", read_count);
-//}
