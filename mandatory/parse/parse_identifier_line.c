@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found);
+
 static int	check_line_cnt_by_delimiter(char **split_arry, int *p_empty_line)
 {
 	int	line_cnt;
@@ -31,12 +32,14 @@ static int	check_line_cnt_by_delimiter(char **split_arry, int *p_empty_line)
 }
 
 int	check_color(char *color_str, int found_idx, t_parse_info *p_parse);
+
 int	check_texture_path(char *path_name, int found_idx, t_parse_info *p_parse);
+
 static int	check_valid_type_other(
-			char *type_other_str,
-			int found_type_idx,
-			t_type_ident *p_type,
-			t_parse_info *p_parse
+			char					*type_other_str,
+			int						found_type_idx,
+			t_type_ident	*p_type,
+			t_parse_info	*p_parse
 ){
 	if ((type_other_str == 0) || (p_type == 0) || (p_parse == 0))
 		return (FAIL);
@@ -55,7 +58,8 @@ static int	check_valid_type_other(
 	return (SUCCESS);
 }
 
-static int	check_valid_type(char *file_type_str, t_type_ident *p_type, int *p_found_idx)
+static int	check_valid_type(char *file_type_str, \
+	t_type_ident *p_type, int *p_found_idx)
 {
 	int	idx;
 	int	type_len;
@@ -81,9 +85,11 @@ static int	check_valid_type(char *file_type_str, t_type_ident *p_type, int *p_fo
 }
 
 int	free_split(char **split);
-int	parse_identifier_line(char *line, t_parse_info *p_parse, t_type_ident *p_type)
+
+int	parse_identifier_line(char *line, \
+	t_parse_info *p_parse, t_type_ident *p_type)
 {
-	char 	**split_arry;
+	char	**split_arry;
 	int		type_idx;
 	int		ret;
 	int		valid_line;
@@ -98,12 +104,12 @@ int	parse_identifier_line(char *line, t_parse_info *p_parse, t_type_ident *p_typ
 	split_arry = ft_split(line, ' ');
 	if (check_line_cnt_by_delimiter(split_arry, &empty_line) == FAIL)
 		ret = FAIL;
-	if ((ret == SUCCESS) && (empty_line == 0) &&\
+	if ((ret == SUCCESS) && (empty_line == 0) && \
 		(check_valid_type(split_arry[0], p_type, &type_idx) == FAIL))
 		ret = FAIL;
-	if ((ret == SUCCESS) && (empty_line == 0) &&\
-		(check_valid_type_other(split_arry[1], type_idx, p_type, p_parse)\
-		 == FAIL))
+	if ((ret == SUCCESS) && (empty_line == 0) && \
+		(check_valid_type_other(split_arry[1], type_idx, p_type, p_parse) \
+			== FAIL))
 		ret = FAIL;
 	free_split(split_arry);
 	return (ret);

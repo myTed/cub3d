@@ -26,6 +26,7 @@ static int	is_all_found_identifier(t_type_ident *p_type, int *p_all_found)
 }
 
 int	is_end_with_extension(char *file_name, char *extension, int *p_valid);
+
 int	is_valid_file_name(char *file_name, int *p_valid)
 {
 	if (file_name == 0)
@@ -41,12 +42,14 @@ int	is_valid_file_name(char *file_name, int *p_valid)
 }
 
 int	init_type_ident(t_type_ident *p_type);
-int	parse_identifier_line(char *line, t_parse_info *p_parse, t_type_ident *p_type);
+int	parse_identifier_line(char *line, \
+	t_parse_info *p_parse, t_type_ident *p_type);
+
 static int	parse_identifier(int fd, t_parse_info *p_parse, int *p_read_cnt)
 {
-	char 			*line;
+	char					*line;
 	t_type_ident	type;
-	int				all_found_identifier;
+	int						all_found_identifier;
 
 	if ((p_parse == 0) || (p_read_cnt == 0))
 		return (FAIL);
@@ -71,13 +74,15 @@ static int	parse_identifier(int fd, t_parse_info *p_parse, int *p_read_cnt)
 	return (SUCCESS);
 }
 
-char *find_first_line(int file_fd, int *read_count);
-int set_map_size(int file_fd, t_map_info *p_map, int read_count);
-int set_map_data(char *file_name, t_map_info *p_map, int map_start_count);
-int is_map_error(t_map_info *p_map, t_game_info *p_game);
-static int	get_map(int file_fd, char *file_name, t_game_info *p_game, int read_count)
+char	*find_first_line(int file_fd, int *read_count);
+int		set_map_size(int file_fd, t_map_info *p_map, int read_count);
+int		set_map_data(char *file_name, t_map_info *p_map, int map_start_count);
+int		is_map_error(t_map_info *p_map, t_game_info *p_game);
+
+static int	get_map(int file_fd, char *file_name, \
+	t_game_info *p_game, int read_count)
 {
-	char 				*line;
+	char	*line;
 
 	line = find_first_line(file_fd, &read_count);
 	if (line == 0)
@@ -97,9 +102,9 @@ static int	get_map(int file_fd, char *file_name, t_game_info *p_game, int read_c
 
 int	parsing_file(t_game_info *p_game, char *file_name)
 {
-	int			read_count;
-	int			file_fd;
-	int			valid_name;
+	int	read_count;
+	int	file_fd;
+	int	valid_name;
 
 	if (p_game == 0)
 		return (FAIL);
@@ -119,6 +124,5 @@ int	parsing_file(t_game_info *p_game, char *file_name)
 		return (FAIL);
 	if (get_map(file_fd, file_name, p_game, read_count) == FAIL)
 		return (FAIL);
-
 	return (SUCCESS);
 }

@@ -8,7 +8,7 @@
 
 int	free_split(char **split)
 {
-	int idx;
+	int	idx;
 
 	if (split == 0)
 		return (FAIL);
@@ -43,7 +43,7 @@ int	is_end_with_extension(char *file_name, char *extension, int *p_valid)
 
 	if ((file_name == 0) || (extension == 0) || (p_valid == 0))
 		return (FAIL);
-	file_len = ft_strlen(file_name);	
+	file_len = ft_strlen(file_name);
 	ext_len = ft_strlen(extension);
 	if (file_len < ext_len)
 		return (SUCCESS);
@@ -55,12 +55,11 @@ int	is_end_with_extension(char *file_name, char *extension, int *p_valid)
 
 int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found)
 {
-
 	if ((split_arry == 0) || (p_found == 0))
 		return (FAIL);
 	if (line_cnt == 0)
 		*p_found = 1;
-	else if ((line_cnt == 1) && (split_arry[0][0] == '\n')\
+	else if ((line_cnt == 1) && (split_arry[0][0] == '\n') \
 				&& (split_arry[0][1] == 0))
 		*p_found = 1;
 	return (SUCCESS);
@@ -85,7 +84,7 @@ int	check_texture_path(char *path_name, int found_idx, t_parse_info *p_parse)
 		perror("Error\n");
 		return (FAIL);
 	}
-	p_parse->path.arry[found_idx] = tmp_path; 
+	p_parse->path.arry[found_idx] = tmp_path;
 	close(fd);
 	return (SUCCESS);
 }

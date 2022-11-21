@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void go_nth_line(int fd, int n)
+static void	go_nth_line(int fd, int n)
 {
 	int	i;
 
@@ -18,11 +18,11 @@ static void go_nth_line(int fd, int n)
 	}
 }
 
-static int set_all_line(int file_fd, t_map_info *p_map)
+static int	set_all_line(int file_fd, t_map_info *p_map)
 {
-	char *line_dest;
-	char *line_src;
-	int i;
+	char	*line_dest;
+	char	*line_src;
+	int		i;
 
 	i = 0;
 	while (i < p_map->height)
@@ -43,9 +43,9 @@ static int set_all_line(int file_fd, t_map_info *p_map)
 	return (SUCCESS);
 }
 
-int set_map_data(char *file_name, t_map_info *p_map, int map_start_count)
+int	set_map_data(char *file_name, t_map_info *p_map, int map_start_count)
 {
-	int file_fd;
+	int	file_fd;
 
 	if (p_map->width < 3 || p_map->height < 3)
 	{

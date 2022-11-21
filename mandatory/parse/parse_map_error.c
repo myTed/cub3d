@@ -2,7 +2,35 @@
 #include "../../include/parse.h"
 #include <stdio.h>
 
-static void	init_player_dir(t_game_info *p_game, t_map_info *p_map, int x, int y)
+int	is_valid_char(char c);
+int	is_ground(char c);
+int	is_ground_meet_outside(t_map_info *p_map, int x, int y);
+int	is_player(char c);
+
+static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
+{
+	if (is_valid_char(p_map->data[y][x]) == FALSE)
+	{
+		printf("Error\n: invalid character!!\n");
+		return (TRUE);
+	}
+	if (is_ground(p_map->data[y][x]) == TRUE && \
+		is_ground_meet_outside(p_map, x, y) == TRUE)
+	{
+		printf("Error\n: ground is not closed by the wall!!\n");
+		return (TRUE);
+	}
+	if (is_player(p_map->data[y][x]) == TRUE && \
+		init_player_info(p_game, p_map, x, y) == FAIL)
+	{
+		printf("Error\n: more than 1 player!!\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+static void	init_player_dir(t_game_info *p_game, \
+	t_map_info *p_map, int x, int y)
 {
 	if (p_map->data[y][x] == 'N')
 	{
@@ -26,14 +54,15 @@ static void	init_player_dir(t_game_info *p_game, t_map_info *p_map, int x, int y
 	}
 }
 
-static int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y)
+static int	init_player_info(t_game_info *p_game, \
+	t_map_info *p_map, int x, int y)
 {
-	static int is_done = FALSE;
+	static int	is_done = FALSE;
 
 	if (is_done == 1)
 		return (FAIL);
-	p_game->player.pos.x = x;
-	p_game->player.pos.y = y;
+	p_game->player.pos.x = x + 0.5;
+	p_game->player.pos.y = y + 0.5;
 	p_game->player.view.x = VIEW_X;
 	p_game->player.view.y = VIEW_Y;
 	init_player_dir(p_game, p_map, x, y);
@@ -41,36 +70,10 @@ static int	init_player_info(t_game_info *p_game, t_map_info *p_map, int x, int y
 	return (SUCCESS);
 }
 
-int is_valid_char(char c);
-int	is_ground(char c);
-int is_ground_meet_outside(t_map_info *p_map, int x,  int y);
-int	is_player(char c);
-static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
+int	is_map_error(t_map_info *p_map, t_game_info *p_game)
 {
-	if (is_valid_char(p_map->data[y][x]) == FALSE)
-	{
-		printf("Error\n: invalid character!!\n");
-		return (TRUE);
-	}
-	if (is_ground(p_map->data[y][x]) == TRUE &&\
-		is_ground_meet_outside(p_map, x, y) == TRUE)
-	{
-		printf("Error\n: ground is not closed by the wall!!\n");
-		return (TRUE);
-	}
-	if (is_player(p_map->data[y][x]) == TRUE &&\
-		init_player_info(p_game, p_map, x, y) == FAIL)
-	{
-		printf("Error\n: more than 1 player!!\n");
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int is_map_error(t_map_info *p_map, t_game_info *p_game)
-{
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < p_map->height)
@@ -86,8 +89,8 @@ int is_map_error(t_map_info *p_map, t_game_info *p_game)
 	}
 	if (init_player_info(p_game, p_map, 0, 0) == SUCCESS)
 	{
-			printf("Error\n: no player!!\n");
-			return (FAIL);
+		printf("Error\n: no player!!\n");
+		return (FAIL);
 	}
 	return (SUCCESS);
 }

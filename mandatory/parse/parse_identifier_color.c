@@ -4,11 +4,8 @@
 #include "../../gnl/ft_gnl.h"
 #include <stdio.h>
 
-int	check_color_value(
-		char **splited_str,
-		int found_idx,
-		t_parse_info *p_parse
-){
+int	check_color_value(char **splited_str, int found_idx, t_parse_info *p_parse)
+{
 	int	idx;
 	int	color_value;
 	int	color_idx;
@@ -40,7 +37,6 @@ int	check_color_cnt(char **splited_str)
 
 	if (splited_str == 0)
 		return (FAIL);
-	
 	idx = 0;
 	while (splited_str[idx])
 		idx++;
@@ -51,7 +47,6 @@ int	check_color_cnt(char **splited_str)
 	}
 	return (SUCCESS);
 }
-
 
 int	check_color_comma(char *color_str)
 {
@@ -77,9 +72,10 @@ int	check_color_comma(char *color_str)
 }
 
 int	free_split(char **split);
+
 int	check_color(char *color_str, int found_idx, t_parse_info *p_parse)
 {
-	char 	**splited_str;
+	char	**splited_str;
 
 	if ((color_str == 0) || (p_parse == 0))
 		return (FAIL);
@@ -89,9 +85,9 @@ int	check_color(char *color_str, int found_idx, t_parse_info *p_parse)
 		perror("Error\n");
 		return (FAIL);
 	}
-	if ((check_color_comma(color_str) == FAIL) ||
-			(check_color_cnt(splited_str) == FAIL) ||
-			(check_color_value(splited_str, found_idx, p_parse) == FAIL))
+	if ((check_color_comma(color_str) == FAIL) || \
+		(check_color_cnt(splited_str) == FAIL) || \
+		(check_color_value(splited_str, found_idx, p_parse) == FAIL))
 	{
 		free_split(splited_str);
 		return (FAIL);

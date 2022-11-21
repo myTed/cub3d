@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int is_empty_line(char *line)
+int	is_empty_line(char *line)
 {
-	char *data;
+	char	*data;
 
 	if (line == 0)
 		return (TRUE);
@@ -17,9 +17,9 @@ int is_empty_line(char *line)
 		return (FALSE);
 }
 
-char *find_first_line(int file_fd, int *read_count)
+char	*find_first_line(int file_fd, int *read_count)
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(file_fd);
 	while (is_empty_line(line) == TRUE)
