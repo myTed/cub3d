@@ -4,9 +4,21 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
+int	parsing_file(t_game_info *p_game, char *file_name);
+int	init_mlx_info(t_mlx *p_mlx, t_img *p_screen, t_parse_info *p_parse);
+
+int	init_game_info(t_game_info *p_game, char *file_name)
+{
+	ft_memset(p_game, 0, sizeof(t_game_info));	
+	if (parsing_file(p_game, file_name) == FAIL)
+		return (FAIL);
+	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) < FAIL)
+		return (FAIL);
+	return (SUCCESS);
+}
+
 int	update_ray_vector(const t_player_info *p_player, int width_idx, t_vector *p_ray);
 void set_correct_wall_distance(t_game_info *p_game, t_wall_info *p_wall, t_vector *p_ray);
-int	init_mlx_info(t_mlx *p_mlx, t_img *p_screen, t_parse_info *p_parse);
 int	find_wall_distance(t_game_info *pgi, t_vector *pray, t_hit *phit, t_wall_info *p_wall);
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx);
 int	draw_screen(t_game_info *p_game);
@@ -33,17 +45,6 @@ int	game_loop(void *param)
 	if (draw_screen(p_game) < 0)
 		return (-1);
 	return (0);
-}
-
-int	parsing_file(t_game_info *p_game, char *file_name);
-int	init_game_info(t_game_info *p_game, char *file_name)
-{
-	ft_memset(p_game, 0, sizeof(t_game_info));	
-	if (parsing_file(p_game, file_name) == FAIL)
-		return (FAIL);
-	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) < FAIL)
-		return (FAIL);
-	return (SUCCESS);
 }
 
 int main(int argc, char *argv[])
