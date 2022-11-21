@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
-#define MOVE_SPEED 0.5
-#define TURN_SPEED 0.5
+#define MOVE_SPEED 0.3
+#define TURN_SPEED 0.3
 #define TRUE 1
 #define FALSE 0
 
@@ -26,29 +26,121 @@
 //		return (FALSE);
 //}
 
+int	is_wall(t_game_info *p_game, double new_pos_y, double new_pos_x)
+{
+	int	(*p_map)[MAP_SIZE_X];
+
+	p_map = (int(*)[MAP_SIZE_X])(p_game->parse.map);
+	return (p_map[(int)(new_pos_y)][(int)(new_pos_x)] != 0);
+}
+
+int	update_pos(t_game_info *p_game, t_vector *p_cur_pos, t_vector *p_new_pos)
+{
+	if (p_game->key.move_forward == PRESS)
+	{
+		p_new_pos->y = p_cur_pos->y + (p_game->player.dir.y * MOVE_SPEED);
+		p_new_pos->x = p_cur_pos->x + (p_game->player.dir.x * MOVE_SPEED);
+		p_game->key.move_forward = RELEASE;
+	}
+	else if (p_game->key.move_backward == PRESS)
+	{
+		p_new_pos->y = p_cur_pos->y - (p_game->player.dir.y * MOVE_SPEED);
+		p_new_pos->x = p_cur_pos->x - (p_game->player.dir.x * MOVE_SPEED);
+		p_game->key.move_backward = RELEASE;
+	}
+	else if (p_game->key.move_right == PRESS)
+	{
+		p_new_pos->y = p_cur_pos->y + (p_game->player.view.y * MOVE_SPEED);
+		p_new_pos->x = p_cur_pos->x + (p_game->player.view.x * MOVE_SPEED);
+		p_game->key.move_right = RELEASE;
+	}
+	else if (p_game->key.move_left == PRESS)
+	{
+		p_new_pos->y = p_cur_pos->y - (p_game->player.view.y * MOVE_SPEED);
+		p_new_pos->x = p_cur_pos->x - (p_game->player.view.x * MOVE_SPEED);
+		p_game->key.move_left = RELEASE;
+	}
+	else
+		return (FALSE);
+	return (TRUE);
+}
+
+int	corrected_pos(t_game_info *p_game, t_vector *p_new_pos)
+{
+	if ((double)(p_new_pos->x) - (double)((int)(p_new_pos->x)) < 0.0001)
+	{
+		p_new_pos->x += (p_game->player.dir.x * 0.01);
+		printf("보정 거리 x: %lf\n", p_new_pos->x);
+	}
+	printf(" double pos y: %lf\n", p_new_pos->y);
+	printf(" int pos y:  %d\n", (int)(p_new_pos->y));
+	printf(" delta y: %lf\n", (double)(p_new_pos->y) - (double)((int)(p_new_pos->y)));
+	if ((double)(p_new_pos->y) - (double)((int)(p_new_pos->y)) < 0.0001)
+	{
+		p_new_pos->y += (p_game->player.dir.y * 0.01);
+		printf("보정 거리 y: %lf\n", p_new_pos->y);
+	}
+	//printf("보정 안됨\n");
+	return (0);
+}
+
+int	move_player(t_game_info *p_game)
+{
+	t_vector	new_pos;
+	t_vector	cur_pos;
+	int			is_update;
+
+	cur_pos.x = p_game->player.pos.x;
+	cur_pos.y = p_game->player.pos.y;
+	is_update = FALSE;
+	if (update_pos(p_game, &cur_pos, &new_pos) == FALSE)
+		return (is_update);
+	corrected_pos(p_game, &new_pos);
+	is_update = TRUE;
+	if (!is_wall(p_game, new_pos.y, new_pos.x))
+	{	
+		p_game->player.pos.x = new_pos.x;
+		p_game->player.pos.y = new_pos.y;
+	}
+	else if (!is_wall(p_game, new_pos.y, cur_pos.x))
+	{
+		p_game->player.pos.x = cur_pos.x;
+		p_game->player.pos.y = new_pos.y;
+	}
+	else
+	{	
+		p_game->player.pos.x = new_pos.x;
+		p_game->player.pos.y = cur_pos.y;
+	}
+	return (is_update);
+}
+
+
+/*
 int	move_player(t_game_info *p_game)
 {
 	int	is_update;
 
 	is_update = TRUE;
-	if (p_game->key.move_forward == PRESS/* && \
-		is_wall(p_game, 0, p_game->player.dir.y * MOVE_SPEED) == FALSE*/)
+	
+	if (p_game->key.move_forward == PRESS
+		is_wall(p_game, 0, p_game->player.dir.y * MOVE_SPEED) == FALSE)
 	{
 			p_game->player.pos.y += (p_game->player.dir.y * MOVE_SPEED);
 			p_game->key.move_forward = RELEASE;
 	}
-	else if (p_game->key.move_backward == PRESS/* && is_wall() == FALSE*/)
+	else if (p_game->key.move_backward == PRESS && is_wall() == FALSE)
 	{
 		p_game->player.pos.y -= (p_game->player.dir.y * MOVE_SPEED);
 			p_game->key.move_backward = RELEASE;
 	}
-	else if (p_game->key.move_left == PRESS/* && is_wall() == FALSE*/)
+	else if (p_game->key.move_left == PRESS && is_wall() == FALSE)
 	{
 		p_game->player.pos.x -= (p_game->player.view.x * MOVE_SPEED);
 			p_game->key.move_left = RELEASE;
 
 	}
-	else if (p_game->key.move_right == PRESS/* && is_wall() == FALSE*/)
+	else if (p_game->key.move_right == PRESS && is_wall() == FALSE/)
 	{
 		p_game->player.pos.x += (p_game->player.view.x * MOVE_SPEED);
 			p_game->key.move_right = RELEASE;
@@ -58,7 +150,7 @@ int	move_player(t_game_info *p_game)
 	
 	return (is_update);
 }
-
+*/
 int	turn_player(t_game_info *p_game)
 {
 	int			is_update;

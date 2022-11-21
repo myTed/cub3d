@@ -229,24 +229,24 @@ int main()
 	if (init_mlx_lib(&game.mlx, &game.mlx.screen) < 0)
 		return (1);
 
-	game.key.move_forward = PRESS;
+	game.key.move_forward = RELEASE;
 	game.key.move_backward = RELEASE;
 	game.key.move_left = RELEASE;
 	game.key.move_right = RELEASE;
 	game.key.turn_left = RELEASE;
 	game.key.turn_right = RELEASE;
 
-game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
-	 game.parse.north_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
+	game.parse.north_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.north_img.width,  &game.parse.north_img.height);
+	game.parse.north_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.north_img.img_ptr, &(game.parse.north_img.bpp), &(game.parse.north_img.size_line), &(game.parse.north_img.endian));
 	
-	 game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
-	 game.parse.south_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
+	game.parse.south_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.south_img.width,  &game.parse.south_img.height);
+	game.parse.south_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.south_img.img_ptr, &(game.parse.south_img.bpp), &(game.parse.south_img.size_line), &(game.parse.south_img.endian));
 
-	 game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
-	 game.parse.east_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
+	game.parse.east_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.east_img.width,  &game.parse.east_img.height);
+	game.parse.east_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.east_img.img_ptr, &(game.parse.east_img.bpp), &(game.parse.east_img.size_line), &(game.parse.east_img.endian));
 	
-	 game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
-	 game.parse.west_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
+	game.parse.west_img.img_ptr = mlx_xpm_file_to_image(game.mlx.mlx_ptr, "numberset.xpm", &game.parse.west_img.width,  &game.parse.west_img.height);
+	game.parse.west_img.p_data = (unsigned int *)mlx_get_data_addr(game.parse.west_img.img_ptr, &(game.parse.west_img.bpp), &(game.parse.west_img.size_line), &(game.parse.west_img.endian));
 	 
 	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	//mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

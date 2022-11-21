@@ -6,8 +6,8 @@
 
 #define PLAYER_DIR_X 0
 #define PLAYER_DIR_Y -1
-#define PLAYER_POS_X 15
-#define PLAYER_POS_Y 28
+#define PLAYER_POS_X 15.5
+#define PLAYER_POS_Y 28.5
 #define MAP_SIZE_Y 30
 #define MAP_SIZE_X 30
 
