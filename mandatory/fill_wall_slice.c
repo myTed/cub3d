@@ -21,28 +21,37 @@ static t_img *get_texture(t_game_info *p_game, const t_wall_info *p_wall, const 
 			return (&(p_game->parse.north_img));
 	}
 }
-
-static int get_texture_offset_x(const t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
+#include <stdio.h>
+static int get_texture_offset_x(t_game_info *p_game, const t_slice_info *p_slice, const t_wall_info *p_wall, const t_vector *p_ray)
 {
-	double map_offset_x;
-	double wall_offset_x;
+	double	map_offset_x;
+	double	wall_offset_x;
+	int			texture_offset_x;
 
 	//1. map 상에서 어디인지
 	if (p_wall->hit_side == VERTICAL)
-		map_offset_x = p_wall->pos.y + (p_wall->corrected_distance * p_ray->y);
+		map_offset_x = p_game->player.pos.y + (p_wall->corrected_distance * p_ray->y);
 	else /* (hit_side == WALL_HORIZON) */
-		map_offset_x = p_wall->pos.x + (p_wall->corrected_distance * p_ray->x);
+		map_offset_x = p_game->player.pos.x + (p_wall->corrected_distance * p_ray->x);
 
 	//2. wall 상에서 어디인지
-	if ((p_wall->hit_side == VERTICAL && p_ray->x > 0) || \
-		(p_wall->hit_side == HORIZON && p_ray->y < 0))
-			wall_offset_x = map_offset_x - floor(map_offset_x);
-	else /* 보정 */
-			wall_offset_x = 1 - (map_offset_x - floor(map_offset_x));
+	wall_offset_x = map_offset_x - floor(map_offset_x);
 
 	//3. texture 상에서 어디인지
-	return ((int)(wall_offset_x * (double)(p_slice->p_texture_img->width)));
+	texture_offset_x = (int)(wall_offset_x * (double)(p_slice->p_texture_img->width));
+
+	if ((p_wall->hit_side == VERTICAL && p_ray->x < 0) || \
+		(p_wall->hit_side == HORIZON && p_ray->y > 0))
+		texture_offset_x = p_slice->p_texture_img->width - texture_offset_x - 1;
+	
+	if (p_wall->corrected_distance < 10)
+		printf("%d, %lf, %lf, %lf, %lf, %d\n", p_wall->pos.y, p_wall->corrected_distance, p_ray->y, map_offset_x, wall_offset_x, texture_offset_x);
+	// map_offset_x가 0.0* 정도가 나와야 하는데 0.55(중간)가 나옴
+
+	return (texture_offset_x);
 }
+
+
 
 static double get_texture_offset_y(t_slice_info *p_slice)
 {
@@ -62,7 +71,7 @@ void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_in
 	p_slice->p_texture_img = get_texture(p_game, p_wall, p_ray);
 	
 	//texture_offset_x
-	p_slice->texture_offset_x = get_texture_offset_x(p_slice, p_wall, p_ray);
+	p_slice->texture_offset_x = get_texture_offset_x(p_game, p_slice, p_wall, p_ray);
 	
 	//texture_step_y
 	p_slice->texture_step_y = p_slice->p_texture_img->height / draw_height;
@@ -116,7 +125,7 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 		height_idx++;
 	}
 }
-//#include <stdio.h>
+#include <stdio.h>
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx)
 {
 	t_slice_info slice;
@@ -124,5 +133,9 @@ void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_in
 	ft_memset(&slice, 0, sizeof(t_slice_info));
 	fill_slice_info(p_game, &slice, p_wall, p_ray);
 	//printf("width idx: %d, texture offset x: %d\n", width_idx, (int)slice.texture_offset_x);
+
+	//if (p_wall->corrected_distance < 10)
+	//	printf("%d, %lf\n", (int)slice.texture_offset_x, slice.texture_offset_x);
+
 	fill_buffer_x(p_game, &slice, width_idx);
 }
