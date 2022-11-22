@@ -1,37 +1,19 @@
 #include "cub3d.h"
+#include "parse.h"
 #include "mlx.h"
 #include <math.h>
 #include <stdio.h>
 #include "../libft/libft.h"
 
-#define MOVE_SPEED 0.25
-#define TURN_SPEED 0.02
-#define TRUE 1
-#define FALSE 0
+#define MOVE_SPEED 0.3
+#define TURN_SPEED 0.05
 
-#define WALL 1
-
-//int	is_wall(t_game_info *p_game, double delta_x, double delta_y)
-//{
-//	int	new_x;
-//	int	new_y;
-
-//	printf("%s\n", (char *)p_game->parse.map.data[0]);
-
-//	new_x = (int)(p_game->player.pos.x + delta_x);
-//	new_y = (int)(p_game->player.pos.y + delta_y);
-//	if (p_game->parse.map.data[new_y][new_x] == WALL)
-//		return (TRUE);
-//	else
-//		return (FALSE);
-//}
-
-int	is_wall(t_game_info *p_game, double new_pos_y, double new_pos_x)
+int	is_ground(t_game_info *p_game, double new_pos_y, double new_pos_x)
 {
-	int	(*p_map)[MAP_SIZE_X];
+	char	**p_map;
 
-	p_map = (int(*)[MAP_SIZE_X])(p_game->parse.map);
-	return (p_map[(int)(new_pos_y)][(int)(new_pos_x)] != 0);
+	p_map = p_game->parse.map.data;
+	return (p_map[(int)(new_pos_y)][(int)(new_pos_x)] == GROUND);
 }
 
 int	update_pos(t_game_info *p_game, t_vector *p_cur_pos, t_vector *p_new_pos)
@@ -73,33 +55,30 @@ int	corrected_pos(t_game_info *p_game, t_vector *p_new_pos)
 	cur_pos.y = p_game->player.pos.y;
 	if ((double)(p_new_pos->x) - (double)((int)(p_new_pos->x)) < 0.0001)
 	{
-		printf("==============================\n");
-		printf("보정 전 거리 x: %lf\n", p_new_pos->x);
 		if (p_new_pos->x - cur_pos.x > 0)
-			p_new_pos->x += 0.1;
+			p_new_pos->x += 0.001;
 		else
-			p_new_pos->x -= 0.1;
-		printf("보정 거리 x: %lf\n", p_new_pos->x);
+			p_new_pos->x -= 0.001;
 	}
 	if ((double)(p_new_pos->y) - (double)((int)(p_new_pos->y)) < 0.0001)
 	{
-		printf("=====================================\n");
-		printf("보정 전 거리 y: %lf\n", p_new_pos->y);
 		if (p_new_pos->y - cur_pos.y > 0)
-			p_new_pos->y += 0.1;
+			p_new_pos->y += 0.001;
 		else
-			p_new_pos->y -= 0.1;
-		printf("보정 거리 y: %lf\n", p_new_pos->y);
+			p_new_pos->y -= 0.001;
 	}
-	if (p_new_pos->x < 1.5)
-		p_new_pos->x = 1.5;
-	if (p_new_pos->x > MAP_SIZE_X - 1.5)
-		p_new_pos->x = MAP_SIZE_X - 1.5;
-	if (p_new_pos->y < 1.5)
-		p_new_pos->y = 1.5;
-	if (p_new_pos->y > MAP_SIZE_Y - 1.5)
-		p_new_pos->y = MAP_SIZE_Y - 1.5;
-	printf("player (y,x) (%lf, %lf)    dir(y,x) (%lf, %lf)\n", p_new_pos->y, p_new_pos->x, p_game->player.dir.y, p_game->player.dir.x);
+	//if (p_new_pos->x < 1.5)
+	//	p_new_pos->x = 1.5;
+	//if (p_new_pos->x > MAP_SIZE_X - 1.5)
+	//	p_new_pos->x = MAP_SIZE_X - 1.5;
+	//if (p_new_pos->y < 1.5)
+	//	p_new_pos->y = 1.5;
+	//if (p_new_pos->y > MAP_SIZE_Y - 1.5)
+	//	p_new_pos->y = MAP_SIZE_Y - 1.5;
+
+	//맵 사이즈 8*25
+	//printf("player (y,x) (%lf, %lf)    dir(y,x) (%lf, %lf)   curpos(y,x)  (%lf, %lf), newpos(y,x)  (%lf, %lf)\n", \
+	//p_new_pos->y, p_new_pos->x, p_game->player.dir.y, p_game->player.dir.x, cur_pos.y, cur_pos.x, p_new_pos->y, p_new_pos->x);
 	return (0);
 }
 
@@ -117,17 +96,17 @@ int	move_player(t_game_info *p_game)
 	corrected_pos(p_game, &new_pos);
 	is_update = TRUE;
 	
-	if (!is_wall(p_game, new_pos.y, new_pos.x))
+	if (is_ground(p_game, new_pos.y, new_pos.x) == TRUE)
 	{	
 		p_game->player.pos.x = new_pos.x;
 		p_game->player.pos.y = new_pos.y;
 	}
-	else if (!is_wall(p_game, new_pos.y, cur_pos.x))
+	else if (is_ground(p_game, new_pos.y, cur_pos.x) == TRUE)
 	{
 		p_game->player.pos.x = cur_pos.x;
 		p_game->player.pos.y = new_pos.y;
 	}
-	else
+	else if (is_ground(p_game, cur_pos.y, new_pos.x) == TRUE)
 	{	
 		p_game->player.pos.x = new_pos.x;
 		p_game->player.pos.y = cur_pos.y;
@@ -144,23 +123,23 @@ int	move_player(t_game_info *p_game)
 	is_update = TRUE;
 	
 	if (p_game->key.move_forward == PRESS
-		is_wall(p_game, 0, p_game->player.dir.y * MOVE_SPEED) == FALSE)
+		is_ground(p_game, 0, p_game->player.dir.y * MOVE_SPEED) == FALSE)
 	{
 			p_game->player.pos.y += (p_game->player.dir.y * MOVE_SPEED);
 			p_game->key.move_forward = RELEASE;
 	}
-	else if (p_game->key.move_backward == PRESS && is_wall() == FALSE)
+	else if (p_game->key.move_backward == PRESS && is_ground() == FALSE)
 	{
 		p_game->player.pos.y -= (p_game->player.dir.y * MOVE_SPEED);
 			p_game->key.move_backward = RELEASE;
 	}
-	else if (p_game->key.move_left == PRESS && is_wall() == FALSE)
+	else if (p_game->key.move_left == PRESS && is_ground() == FALSE)
 	{
 		p_game->player.pos.x -= (p_game->player.view.x * MOVE_SPEED);
 			p_game->key.move_left = RELEASE;
 
 	}
-	else if (p_game->key.move_right == PRESS && is_wall() == FALSE/)
+	else if (p_game->key.move_right == PRESS && is_ground() == FALSE/)
 	{
 		p_game->player.pos.x += (p_game->player.view.x * MOVE_SPEED);
 			p_game->key.move_right = RELEASE;

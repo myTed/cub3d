@@ -1,4 +1,6 @@
-#include "cub3d.h"
+#include "../include/cub3d.h"
+#include "../include/parse.h"
+#include "../include/raycast.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -26,17 +28,13 @@ static int	init_distance_info(
 	p_wall_dist->delta_horizon = fabs(1/p_ray->y);
 	p_wall_dist->delta_vertical = fabs(1/p_ray->x);
 	if (p_ray->y < 0)
-		p_wall_dist->horizon = p_wall_dist->delta_horizon *\
-							(p_game->player.pos.y - p_wall->pos.y);
+		p_wall_dist->horizon = p_wall_dist->delta_horizon * (p_game->player.pos.y - p_wall->pos.y);
 	else
-		p_wall_dist->horizon = p_wall_dist->delta_horizon *\
-							(p_wall->pos.y + 1 - p_game->player.pos.y);
+		p_wall_dist->horizon = p_wall_dist->delta_horizon * (p_wall->pos.y + 1 - p_game->player.pos.y);
 	if (p_ray->x < 0)
-		p_wall_dist->vertical = p_wall_dist->delta_vertical *\
-							 (p_game->player.pos.x - p_wall->pos.x);
+		p_wall_dist->vertical = p_wall_dist->delta_vertical * (p_game->player.pos.x - p_wall->pos.x);
 	else
-		p_wall_dist->vertical = p_wall_dist->delta_vertical *\
-							 (p_wall->pos.x + 1- p_game->player.pos.x);
+		p_wall_dist->vertical = p_wall_dist->delta_vertical * (p_wall->pos.x + 1- p_game->player.pos.x);
 	return (0);
 }
 
@@ -65,12 +63,13 @@ int	get_step_distance_and_side_to_nearest_wall(
 		t_vector *p_ray
 ){
 	int		hitted;
-	int		(*p_map)[MAP_SIZE_X];
+	char	**p_map;
+
 	(void)p_ray;
 	if ((p_wall_dist == 0) || (p_hit_side == 0))
 		return (-1);
 	hitted = 0;
-	p_map = (int(*)[MAP_SIZE_X])(p_parse->map);
+	p_map = p_parse->map.data;
 	while (hitted == 0)
 	{
 		if (p_wall_dist->horizon < p_wall_dist->vertical)
@@ -85,11 +84,8 @@ int	get_step_distance_and_side_to_nearest_wall(
 			p_wall->pos.x += p_wall_dist->step_vertical;
 			*p_hit_side = VERTICAL;
 		}
-		if (p_map[p_wall->pos.y][p_wall->pos.x] == 1)
-		{
-			//printf("p_wall.y : %d, x : %d ray_y : %f ray_x: %f\n", p_wall->pos.y, p_wall->pos.x, p_ray->y, p_ray->x);
+		if (p_map[p_wall->pos.y][p_wall->pos.x] == WALL)
 			hitted = 1;
-		}
 	}
 	return (0);
 }

@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "../include/raycast.h"
 #include <math.h>
 #include "../libft/libft.h"
 
@@ -9,16 +10,16 @@ static t_img *get_texture(t_game_info *p_game, const t_wall_info *p_wall, const 
 	if (p_wall->hit_side == VERTICAL)
 	{
 		if (p_ray->x > 0)
-			return (&(p_game->parse.east_img));
+			return (&(p_game->mlx.east_img));
 		else
-			return (&(p_game->parse.west_img));
+			return (&(p_game->mlx.west_img));
 	}
 	else
 	{
 		if (p_ray->y > 0)
-			return (&(p_game->parse.south_img));
+			return (&(p_game->mlx.south_img));
 		else
-			return (&(p_game->parse.north_img));
+			return (&(p_game->mlx.north_img));
 	}
 }
 #include <stdio.h>
@@ -28,30 +29,17 @@ static int get_texture_offset_x(t_game_info *p_game, const t_slice_info *p_slice
 	double	wall_offset_x;
 	int			texture_offset_x;
 
-	//1. map 상에서 어디인지
 	if (p_wall->hit_side == VERTICAL)
 		map_offset_x = p_game->player.pos.y + (p_wall->corrected_distance * p_ray->y);
 	else /* (hit_side == WALL_HORIZON) */
 		map_offset_x = p_game->player.pos.x + (p_wall->corrected_distance * p_ray->x);
-
-	//2. wall 상에서 어디인지
 	wall_offset_x = map_offset_x - floor(map_offset_x);
-
-	//3. texture 상에서 어디인지
 	texture_offset_x = (int)(wall_offset_x * (double)(p_slice->p_texture_img->width));
-
 	if ((p_wall->hit_side == VERTICAL && p_ray->x < 0) || \
 		(p_wall->hit_side == HORIZON && p_ray->y > 0))
 		texture_offset_x = p_slice->p_texture_img->width - texture_offset_x - 1;
-	
-	if (p_wall->corrected_distance < 10)
-		printf("%d, %lf, %lf, %lf, %lf, %d\n", p_wall->pos.y, p_wall->corrected_distance, p_ray->y, map_offset_x, wall_offset_x, texture_offset_x);
-	// map_offset_x가 0.0* 정도가 나와야 하는데 0.55(중간)가 나옴
-
 	return (texture_offset_x);
 }
-
-
 
 static double get_texture_offset_y(t_slice_info *p_slice)
 {
@@ -125,17 +113,11 @@ void fill_buffer_x(t_game_info *p_game, t_slice_info *p_slice, const int width_i
 		height_idx++;
 	}
 }
-#include <stdio.h>
 void fill_wall_slice(t_game_info *p_game, const t_vector *p_ray, const t_wall_info *p_wall, const int width_idx)
 {
 	t_slice_info slice;
 
 	ft_memset(&slice, 0, sizeof(t_slice_info));
 	fill_slice_info(p_game, &slice, p_wall, p_ray);
-	//printf("width idx: %d, texture offset x: %d\n", width_idx, (int)slice.texture_offset_x);
-
-	//if (p_wall->corrected_distance < 10)
-	//	printf("%d, %lf\n", (int)slice.texture_offset_x, slice.texture_offset_x);
-
 	fill_buffer_x(p_game, &slice, width_idx);
 }

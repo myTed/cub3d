@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kyolee <kyolee@student.42.seoul.kr>        +#+  +:+       +#+         #
+#    By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 20:15:15 by kyolee            #+#    #+#              #
-#    Updated: 2022/11/21 20:34:55 by kyolee           ###   ########.fr        #
+#    Updated: 2022/11/22 13:22:10 by yehan            ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
-CC=gcc
+CC=cc
 CFLAGS=-Wall -Wextra -Werror
 
 SRCS=ft_atoi.c     ft_isascii.c  ft_memcpy.c   ft_strdup.c   ft_strncmp.c  ft_tolower.c\

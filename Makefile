@@ -4,16 +4,36 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c find_wall.c fill_wall_slice.c mlx_draw.c correct_wall_distance.c \
-			keys.c update_player.c
+SRCS= main.c find_wall.c fill_wall_slice.c correct_wall_distance.c keys.c update_player.c \
 
+PARSE_DIR		=	parse/
+PARSE_SRCS	=	parse_main.c \
+							parse_identifier_line.c \
+							parse_identifier_color.c \
+							parse_identifier_utils.c \
+							parse_map_size.c \
+							parse_map_data.c \
+							parse_map_error.c \
+							parse_map_utils.c \
+							parse_map_error_utils.c
+
+MYMLX_DIR		=	mymlx/
+MYMLX_SRCS	=	mymlx_init.c \
+							mymlx_utils.c
+
+KEY_DIR		=	key/
+KEY_SRCS	=	key_init.c
 
 BONUS_DIR=bonus/
 BONUS_SRCS=
 
 LIB_SRCS=libft/libft.a gnl/libgnl.a
 
-MANDATORY_OBJS=$(addprefix $(MANDATORY_DIR), $(patsubst %.c, %.o, $(SRCS)))
+MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o))) \
+									$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(notdir $(PARSE_SRCS:.c=.o))) \
+									$(addprefix $(MANDATORY_DIR)$(MYMLX_DIR), $(notdir $(MYMLX_SRCS:.c=.o))) \
+									$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(notdir $(KEY_SRCS:.c=.o)))
+
 BONUS_OBJS=$(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(BONUS_SRCS)))
 
 ifeq ($(BONUS), 1)
