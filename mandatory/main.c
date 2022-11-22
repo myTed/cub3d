@@ -1,4 +1,4 @@
-#include "../libft/libft.h"
+#include "libft.h"
 #include "mlx.h"
 #include "cub3d.h"
 #include "raycast.h"
@@ -8,6 +8,9 @@
 int		init_parse_and_player_info(t_game_info *p_game, char *file_name);
 int		init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, t_parse_info *p_parse);
 void	init_key_info(t_key_info *p_key);
+int		update_screen(t_game_info *p_game);
+int		update_player(t_game_info *p_game);
+
 
 int	init_game_info(t_game_info *p_game, char *file_name)
 {
@@ -19,9 +22,6 @@ int	init_game_info(t_game_info *p_game, char *file_name)
 	init_key_info(&(p_game->key));
 	return (SUCCESS);
 }
-
-int	update_screen(t_game_info *p_game);
-int	update_player(t_game_info *p_game);
 
 int	game_loop(void *param)
 {
@@ -48,6 +48,7 @@ void leaks(void)
 {
 	system("leaks cub3D");
 }
+
 int main(int argc, char *argv[])
 {
 	t_game_info	game;
@@ -61,10 +62,10 @@ int main(int argc, char *argv[])
 	if (init_game_info(&game, argv[1]) == FAIL)
 		return (FAIL);
 
-	//mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
-	//mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
-	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
-	//mlx_loop(game.mlx.mlx_ptr);	
+	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
+	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	mlx_loop(game.mlx.mlx_ptr);	
 //atexit(leaks);
 	return (0);
 }

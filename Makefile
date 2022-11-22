@@ -6,6 +6,10 @@ CFLAGS += -Wall -Wextra -Werror
 CFLAGS += -I ./include
 CFLAGS += -I ./libft
 CFLAGS += -I ./gnl
+CFLAGS += -I ./parse
+CFLAGS += -I ./mymlx
+CFLAGS += -I ./key
+CFLAGS += -I ./raycast
 
 MANDATORY_DIR=mandatory/
 SRCS= main.c free_memory.c\
@@ -49,6 +53,7 @@ MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o)))
 MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(notdir $(PARSE_SRCS:.c=.o)))
 MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(MYMLX_DIR), $(notdir $(MYMLX_SRCS:.c=.o)))
 MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(notdir $(KEY_SRCS:.c=.o)))
+MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(RAYCAST_DIR), $(notdir $(RAYCAST_SRCS:.c=.o)))
 
 BONUS_OBJS=$(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(BONUS_SRCS)))
 

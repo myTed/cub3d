@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:28 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:30:55 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 19:03:19 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-#include "../../include/parse.h"
+#include "cub3d.h"
+#include "parse.h"
 #include <stdio.h>
 
 static void	init_player_dir(

@@ -6,13 +6,13 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:34 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:45:58 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 19:03:54 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-#include "../../libft/libft.h"
-#include "../../gnl/ft_gnl.h"
+#include "cub3d.h"
+#include "libft.h"
+#include "ft_gnl.h"
 #include <stdio.h>
 #include <stdlib.h>
 

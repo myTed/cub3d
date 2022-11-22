@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:02 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:06:15 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 19:01:16 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-#include "../../include/raycast.h"
+#include "cub3d.h"
+#include "raycast.h"
 
 int	set_correct_wall_distance(t_game_info *p_game, \
 	t_wall_info *p_wall, t_vector *p_ray)

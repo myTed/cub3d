@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:33:45 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:33:46 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 19:04:53 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
-#include "../include/parse.h"
+#include "cub3d.h"
+#include "parse.h"
 #include "mlx.h"
 
 static int	init_mlx_screen_image(
