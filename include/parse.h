@@ -7,7 +7,7 @@
 #define SUCCESS 0
 #define FAIL 1
 
-#define VIEW_X 0.66
+#define VIEW_X -0.66
 #define VIEW_Y 0
 
 #define	TYPE_MAX		6

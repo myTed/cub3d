@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:28 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:03:19 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/22 20:54:15 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,29 @@ static void	init_player_dir(
 	{
 		p_game->player.dir.x = 0;
 		p_game->player.dir.y = -1;
+		p_game->player.view.x = 0.66;
+		p_game->player.view.y = 0;
 	}
 	else if (p_map->data[y][x] == 'S')
 	{
 		p_game->player.dir.x = 0;
 		p_game->player.dir.y = 1;
+		p_game->player.view.x = -0.66;
+		p_game->player.view.y = 0;
 	}
 	else if (p_map->data[y][x] == 'W')
 	{
 		p_game->player.dir.x = -1;
 		p_game->player.dir.y = 0;
+		p_game->player.view.x = 0;
+		p_game->player.view.y = -0.66;
 	}
 	else
 	{
 		p_game->player.dir.x = 1;
 		p_game->player.dir.y = 0;
+		p_game->player.view.x = 0;
+		p_game->player.view.y = 0.66;
 	}
 	p_map->data[y][x] = GROUND;
 }
@@ -57,8 +65,11 @@ static int	init_player_info(
 		return (FAIL);
 	p_game->player.pos.x = x + 0.5;
 	p_game->player.pos.y = y + 0.5;
-	p_game->player.view.x = VIEW_X;
-	p_game->player.view.y = VIEW_Y;
+	//p_game->player.view.x = VIEW_X;
+	//p_game->player.view.y = VIEW_Y;
+
+	
+
 	init_player_dir(p_game, p_map, x, y);
 	is_done = TRUE;
 	return (SUCCESS);

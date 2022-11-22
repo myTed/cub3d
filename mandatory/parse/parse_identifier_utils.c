@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:14 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:02:39 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/22 20:49:21 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	check_texture_path(
 	fd = open(path_name, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error\n");
+		printf("Error\n: no such texture file!");
 		return (FAIL);
 	}
 	tmp_path = ft_strdup(path_name);
