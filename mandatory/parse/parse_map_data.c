@@ -34,12 +34,20 @@ static int	set_all_line(int file_fd, t_map_info *p_map)
 			return (FAIL);
 		}
 		line_src = get_next_line(file_fd);
-		line_src = ft_strtrim(line_src, "\n");
+		if (line_src == 0)
+		{
+			perror("Error\n");
+			return (FAIL);
+		}
 		ft_strlcpy(line_dest, line_src, ft_strlen(line_src) + 1);
 		p_map->data[i] = line_dest;
+
+					
+
 		free(line_src);
 		i++;
 	}
+
 	return (SUCCESS);
 }
 
@@ -59,7 +67,7 @@ int	set_map_data(char *file_name, t_map_info *p_map, int map_start_count)
 		return (FAIL);
 	}
 	go_nth_line(file_fd, map_start_count);
-	p_map->data = ft_calloc(sizeof(int *), p_map->height);
+	p_map->data = ft_calloc(sizeof(char *), p_map->height);
 	if (p_map->data == 0)
 	{
 		perror("Error\n");

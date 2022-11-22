@@ -35,7 +35,8 @@ typedef enum e_charset
 	PLAYER_WEST = 'W',
 	PLAYER_EAST = 'E',
 	OUTSIDE1 = ' ',
-	OUTSIDE2 = '\0'
+	OUTSIDE2 = '\0',
+	OUTSIDE3 = '\n',
 } t_charset;
 
 typedef struct s_type

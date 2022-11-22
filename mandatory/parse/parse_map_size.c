@@ -35,7 +35,6 @@ int	set_map_size(int file_fd, t_map_info *p_map, int read_count)
 	read_count++;
 	while (line != 0 && is_empty_line(line) == FALSE)
 	{
-		line = ft_strtrim(line, "\n");
 		line_len = ft_strlen(line);
 		if (p_map->width < line_len)
 			p_map->width = line_len;

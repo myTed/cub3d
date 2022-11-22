@@ -6,7 +6,7 @@ int	is_valid_char(char c)
 	if (c == WALL || c == GROUND || \
 		c == PLAYER_NORTH || c == PLAYER_SOUTH || \
 		c == PLAYER_WEST || c == PLAYER_EAST || \
-		c == OUTSIDE1 || c == OUTSIDE2)
+		c == OUTSIDE1 || c == OUTSIDE2 || c == OUTSIDE3)
 		return (TRUE);
 	return (FALSE);
 }
@@ -22,7 +22,7 @@ int	is_map_ground(char c)
 
 static int	is_outside(char c)
 {
-	if (c == OUTSIDE1 || c == OUTSIDE2)
+	if (c == OUTSIDE1 || c == OUTSIDE2 || c == OUTSIDE3)
 		return (TRUE);
 	else
 		return (FALSE);
