@@ -19,3 +19,12 @@ int	draw_screen(t_game_info *p_game)
 		p_game->mlx.win_ptr, p_game->mlx.screen.img_ptr, 0, 0);
 	return (0);
 }
+
+t_color get_pixel(t_img *p_img, const int x, const int y)
+{
+	int rgb;
+
+	rgb = *(p_img->p_data + (y * (p_img->size_line / (p_img->bpp / 8))) + x);
+	return (*(t_color *)&rgb);
+
+}

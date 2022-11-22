@@ -4,7 +4,7 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c find_wall.c fill_wall_slice.c correct_wall_distance.c keys.c update_player.c \
+SRCS= main.c keys.c update_player.c \
 
 PARSE_DIR		=	parse/
 PARSE_SRCS	=	parse_main.c \
@@ -24,6 +24,14 @@ MYMLX_SRCS	=	mymlx_init.c \
 KEY_DIR		=	key/
 KEY_SRCS	=	key_init.c
 
+RAYCAST_DIR		=	raycast/
+RAYCAST_SRCS	=	raycast_main.c \
+								correct_wall_distance.c \
+								find_wall.c \
+								fill_wall_slice.c \
+								fill_wall_slice_utils.c \
+								
+
 BONUS_DIR=bonus/
 BONUS_SRCS=
 
@@ -32,7 +40,8 @@ LIB_SRCS=libft/libft.a gnl/libgnl.a
 MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o))) \
 									$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(notdir $(PARSE_SRCS:.c=.o))) \
 									$(addprefix $(MANDATORY_DIR)$(MYMLX_DIR), $(notdir $(MYMLX_SRCS:.c=.o))) \
-									$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(notdir $(KEY_SRCS:.c=.o)))
+									$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(notdir $(KEY_SRCS:.c=.o))) \
+									$(addprefix $(MANDATORY_DIR)$(RAYCAST_DIR), $(notdir $(RAYCAST_SRCS:.c=.o)))
 
 BONUS_OBJS=$(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(BONUS_SRCS)))
 
