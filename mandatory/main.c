@@ -42,6 +42,11 @@ int	key_press(int keycode, t_game_info *p_game);
 int	key_release(int keycode, t_game_info *p_game);
 int	key_exit(t_game_info *game);
 
+#include <stdlib.h>
+void leaks(void)
+{
+	system("leaks cub3D");
+}
 int main(int argc, char *argv[])
 {
 	t_game_info	game;
@@ -55,10 +60,10 @@ int main(int argc, char *argv[])
 	if (init_game_info(&game, argv[1]) == FAIL)
 		return (FAIL);
 
-	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
-	mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
-	mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
-	mlx_loop(game.mlx.mlx_ptr);	
-
+	//mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	//mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
+	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
+	//mlx_loop(game.mlx.mlx_ptr);	
+//atexit(leaks);
 	return (0);
 }

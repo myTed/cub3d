@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:34 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:31:11 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 17:45:58 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_empty_line(
 		return (FALSE);
 }
 
-char	*find_first_line(
+int	find_first_line(
 			int file_fd,
 			int *read_count
 		)
@@ -45,11 +45,12 @@ char	*find_first_line(
 		{
 			printf("Error\n: no map!!");
 			free(line);
-			return (0);
+			return (FAIL);
 		}
 		free(line);
 		line = get_next_line(file_fd);
 		(*read_count)++;
 	}
-	return (line);
+	free(line);
+	return (SUCCESS);
 }

@@ -4,7 +4,7 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -g -I./include
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c keys.c update_player.c \
+SRCS= main.c free_memory.c keys.c update_player.c \
 
 PARSE_DIR		=	parse/
 PARSE_SRCS	=	parse_main.c \

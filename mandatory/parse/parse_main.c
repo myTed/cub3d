@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:31:50 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 18:00:48 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,12 @@ static int	parse_identifier(
 	return (SUCCESS);
 }
 
-char	*find_first_line(int file_fd, int *read_count);
-int		set_map_size(int file_fd, t_map_info *p_map, int read_count);
-int		set_map_data(char *file_name, t_map_info *p_map, \
+int	find_first_line(int file_fd, int *read_count);
+int	set_map_size(int file_fd, t_map_info *p_map, int read_count);
+int	set_map_data(char *file_name, t_map_info *p_map, \
 	int map_start_count);
-int		is_map_error(t_map_info *p_map, t_game_info *p_game);
+int	is_map_error(t_map_info *p_map, t_game_info *p_game);
+void	free_map(t_map_info *p_map);
 
 static int	get_map(
 				int file_fd,
@@ -109,21 +110,19 @@ static int	get_map(
 				int read_count
 			)
 {
-	char	*line;
-
-	line = find_first_line(file_fd, &read_count);
-	if (line == 0)
-		return (FAIL);
-	if (set_map_size(file_fd, &(p_game->parse.map), read_count) == FAIL)
+	if (find_first_line(file_fd, &read_count) == FAIL || \
+		set_map_size(file_fd, &(p_game->parse.map), read_count) == FAIL)
 	{
 		close(file_fd);
 		return (FAIL);
 	}
 	close(file_fd);
-	if (set_map_data(file_name, &(p_game->parse.map), read_count) == FAIL)
-		return (FAIL);
-	if (is_map_error(&(p_game->parse.map), p_game) == FAIL)
-		return (FAIL);
+	if (set_map_data(file_name, &(p_game->parse.map), read_count) == FAIL || \
+		is_map_error(&(p_game->parse.map), p_game) == FAIL)
+		{
+			free_map(&(p_game->parse.map));
+			return (FAIL);
+		}
 	return (SUCCESS);
 }
 

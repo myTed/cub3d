@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:23 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 17:31:59 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/22 17:59:19 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static void	go_nth_line(
 				int n
 			)
 {
-	int	i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while (i < n)
 	{
-		get_next_line(fd);
+		line = get_next_line(fd);
+		free(line);
 		i++;
 	}
 }
@@ -73,11 +75,6 @@ int	set_map_data(
 {
 	int	file_fd;
 
-	if (p_map->width < 3 || p_map->height < 3)
-	{
-		printf("Error\n: less than minimum size!!");
-		return (FAIL);
-	}
 	file_fd = open(file_name, O_RDONLY);
 	if (file_fd < 0)
 	{
@@ -92,7 +89,11 @@ int	set_map_data(
 		close(file_fd);
 		return (FAIL);
 	}
-	set_all_line(file_fd, p_map);
+	if (set_all_line(file_fd, p_map) == FAIL)
+	{
+		close(file_fd);
+		return (FAIL);
+	}
 	close(file_fd);
 	return (SUCCESS);
 }
