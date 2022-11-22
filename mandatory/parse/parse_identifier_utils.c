@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_identifier_utils.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:14 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:29:55 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../include/parse.h"
 #include "../../libft/libft.h"
@@ -6,7 +18,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int	free_split(char **split)
+int	free_split(
+		char **split
+	)
 {
 	int	idx;
 
@@ -22,7 +36,9 @@ int	free_split(char **split)
 	return (SUCCESS);
 }
 
-int	init_type_ident(t_type_ident *p_type)
+int	init_type_ident(
+		t_type_ident *p_type
+	)
 {
 	if (p_type == 0)
 		return (FAIL);
@@ -36,7 +52,11 @@ int	init_type_ident(t_type_ident *p_type)
 	return (SUCCESS);
 }
 
-int	is_end_with_extension(char *file_name, char *extension, int *p_valid)
+int	is_end_with_extension(
+		char *file_name,
+		char *extension,
+		int *p_valid
+	)
 {
 	size_t	file_len;
 	size_t	ext_len;
@@ -53,7 +73,11 @@ int	is_end_with_extension(char *file_name, char *extension, int *p_valid)
 	return (SUCCESS);
 }
 
-int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found)
+int	is_space_or_newline(
+		char **split_arry,
+		int line_cnt,
+		int *p_found
+	)
 {
 	if ((split_arry == 0) || (p_found == 0))
 		return (FAIL);
@@ -65,7 +89,11 @@ int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found)
 	return (SUCCESS);
 }
 
-int	check_texture_path(char *path_name, int found_idx, t_parse_info *p_parse)
+int	check_texture_path(
+		char *path_name,
+		int found_idx,
+		t_parse_info *p_parse
+	)
 {
 	int		fd;
 	char	*tmp_path;

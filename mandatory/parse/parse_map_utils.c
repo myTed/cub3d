@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:34 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:31:11 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../libft/libft.h"
 #include "../../gnl/ft_gnl.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-int	is_empty_line(char *line)
+int	is_empty_line(
+		char *line
+	)
 {
 	char	*data;
 
@@ -17,7 +31,10 @@ int	is_empty_line(char *line)
 		return (FALSE);
 }
 
-char	*find_first_line(int file_fd, int *read_count)
+char	*find_first_line(
+			int file_fd,
+			int *read_count
+		)
 {
 	char	*line;
 

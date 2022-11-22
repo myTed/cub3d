@@ -1,10 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_identifier_color.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:10 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:29:00 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../include/parse.h"
 #include "../../libft/libft.h"
 #include "../../gnl/ft_gnl.h"
 #include <stdio.h>
 
-int	check_color_value(char **splited_str, int found_idx, t_parse_info *p_parse)
+static int	check_color_value(
+			char **splited_str,
+			int found_idx,
+			t_parse_info *p_parse
+		)
 {
 	int	idx;
 	int	color_value;
@@ -31,7 +47,9 @@ int	check_color_value(char **splited_str, int found_idx, t_parse_info *p_parse)
 	return (SUCCESS);
 }
 
-int	check_color_cnt(char **splited_str)
+static int	check_color_cnt(
+				char **splited_str
+			)
 {
 	int	idx;
 
@@ -48,7 +66,9 @@ int	check_color_cnt(char **splited_str)
 	return (SUCCESS);
 }
 
-int	check_color_comma(char *color_str)
+static int	check_color_comma(
+				char *color_str
+			)
 {
 	int	comma_cnt;
 	int	idx;
@@ -73,7 +93,11 @@ int	check_color_comma(char *color_str)
 
 int	free_split(char **split);
 
-int	check_color(char *color_str, int found_idx, t_parse_info *p_parse)
+int	check_color(
+		char *color_str,
+		int found_idx,
+		t_parse_info *p_parse
+	)
 {
 	char	**splited_str;
 
