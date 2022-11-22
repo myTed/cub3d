@@ -8,30 +8,38 @@ CFLAGS += -I ./libft
 CFLAGS += -I ./gnl
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c find_wall.c fill_wall_slice.c correct_wall_distance.c \
+SRCS= main.c free_memory.c\
 
-PARSE_DIR		=	parse/
-PARSE_SRCS	=	parse_main.c \
-							parse_identifier_line.c \
-							parse_identifier_color.c \
-							parse_identifier_utils.c \
-							parse_map_size.c \
-							parse_map_data.c \
-							parse_map_error.c \
-							parse_map_utils.c \
-							parse_map_error_utils.c
+PARSE_DIR	=		parse/
+PARSE_SRCS	=		parse_main.c \
+					parse_identifier_line.c \
+					parse_identifier_color.c \
+					parse_identifier_utils.c \
+					parse_map_size.c \
+					parse_map_data.c \
+					parse_map_error.c \
+					parse_map_utils.c \
+					parse_map_error_utils.c
 
-MYMLX_DIR		=	mymlx/
-MYMLX_SRCS	=	mymlx_init.c \
-							mymlx_utils.c
+MYMLX_DIR	=		mymlx/
+MYMLX_SRCS	=		mymlx_init.c \
+					mymlx_utils.c
 
-KEY_DIR		=	key/
-KEY_SRCS	=	key_init.c\
-				key_calculate_pos.c\
-				key_move_player.c\
-				key_press.c\
-				key_update_player.c
+KEY_DIR		=		key/
+KEY_SRCS	=		key_init.c\
+					key_calculate_pos.c\
+					key_move_player.c\
+					key_press.c\
+					key_update_player.c
 				
+
+RAYCAST_DIR		=	raycast/
+RAYCAST_SRCS	=	raycast_main.c \
+					correct_wall_distance.c \
+					find_wall.c \
+					fill_wall_slice.c \
+					fill_wall_slice_utils.c \
+
 BONUS_DIR=bonus/
 BONUS_SRCS=
 

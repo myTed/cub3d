@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_size.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:31 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:31:05 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../libft/libft.h"
 #include "../../gnl/ft_gnl.h"
@@ -6,7 +18,10 @@
 
 int	is_empty_line(char *line);
 
-static int	is_remains(int file_fd, char *line)
+static int	is_remains(
+				int file_fd,
+				char *line
+			)
 {
 	while (is_empty_line(line) == TRUE)
 	{
@@ -23,7 +38,11 @@ static int	is_remains(int file_fd, char *line)
 	return (TRUE);
 }
 
-int	set_map_size(int file_fd, t_map_info *p_map, int read_count)
+int	set_map_size(
+		int file_fd,
+		t_map_info *p_map,
+		int read_count
+	)
 {
 	char	*line;
 	int		line_len;

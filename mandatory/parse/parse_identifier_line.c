@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_identifier_line.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:12 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:29:34 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../include/parse.h"
 #include "../../libft/libft.h"
@@ -5,7 +17,10 @@
 
 int	is_space_or_newline(char **split_arry, int line_cnt, int *p_found);
 
-static int	check_line_cnt_by_delimiter(char **split_arry, int *p_empty_line)
+static int	check_line_cnt_by_delimiter(
+				char **split_arry,
+				int *p_empty_line
+			)
 {
 	int	line_cnt;
 
@@ -32,15 +47,15 @@ static int	check_line_cnt_by_delimiter(char **split_arry, int *p_empty_line)
 }
 
 int	check_color(char *color_str, int found_idx, t_parse_info *p_parse);
-
 int	check_texture_path(char *path_name, int found_idx, t_parse_info *p_parse);
 
 static int	check_valid_type_other(
-			char					*type_other_str,
-			int						found_type_idx,
-			t_type_ident	*p_type,
-			t_parse_info	*p_parse
-){
+				char *type_other_str,
+				int found_type_idx,
+				t_type_ident *p_type,
+				t_parse_info *p_parse
+			)
+{
 	if ((type_other_str == 0) || (p_type == 0) || (p_parse == 0))
 		return (FAIL);
 	type_other_str[ft_strlen(type_other_str) - 1] = 0;
@@ -86,8 +101,11 @@ static int	check_valid_type(char *file_type_str, \
 
 int	free_split(char **split);
 
-int	parse_identifier_line(char *line, \
-	t_parse_info *p_parse, t_type_ident *p_type)
+int	parse_identifier_line(
+		char *line,
+		t_parse_info *p_parse,
+		t_type_ident *p_type
+	)
 {
 	char	**split_arry;
 	int		type_idx;

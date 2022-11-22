@@ -1,9 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map_error.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 17:25:28 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/22 17:30:55 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 #include "../../include/parse.h"
 #include <stdio.h>
 
-static void	init_player_dir(t_game_info *p_game, \
-	t_map_info *p_map, int x, int y)
+static void	init_player_dir(
+				t_game_info *p_game,
+				t_map_info *p_map,
+				int x,
+				int y
+			)
 {
 	if (p_map->data[y][x] == 'N')
 	{
@@ -28,8 +44,12 @@ static void	init_player_dir(t_game_info *p_game, \
 	p_map->data[y][x] = GROUND;
 }
 
-static int	init_player_info(t_game_info *p_game, \
-	t_map_info *p_map, int x, int y)
+static int	init_player_info(
+				t_game_info *p_game,
+				t_map_info *p_map,
+				int x,
+				int y
+			)
 {
 	static int	is_done = FALSE;
 
@@ -49,7 +69,12 @@ int	is_map_ground(char c);
 int	is_map_ground_meet_outside(t_map_info *p_map, int x, int y);
 int	is_player(char c);
 
-static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
+static int	is_error(
+				t_game_info *p_game,
+				t_map_info *p_map,
+				int x,
+				int y
+			)
 {
 	if (is_valid_char(p_map->data[y][x]) == FALSE)
 	{
@@ -72,7 +97,10 @@ static int	is_error(t_game_info *p_game, t_map_info *p_map, int x, int y)
 	return (FALSE);
 }
 
-int	is_map_error(t_map_info *p_map, t_game_info *p_game)
+int	is_map_error(
+		t_map_info *p_map,
+		t_game_info *p_game
+	)
 {
 	int	x;
 	int	y;
