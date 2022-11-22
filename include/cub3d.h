@@ -11,7 +11,7 @@
 
 #define SUCCESS 0
 #define FAIL 1
-
+#include "key.h"
 /*
  * UTILS
  */
@@ -53,15 +53,6 @@ typedef union u_path_info
 	} texture;
 } t_path_info;
 
-typedef enum e_key_staus
-{
-	PRESS,
-	RELEASE
-} t_key_status;
-
-/*
- * KEY STUCTS
- */
 
 typedef struct s_map_info
 {
@@ -95,26 +86,6 @@ typedef struct s_mlx_info
 	t_img	west_img;
 	t_img	east_img;
 }	t_mlx_info;
-
-typedef struct s_key_info
-{
-	t_key_status	move_forward;
-	t_key_status	move_backward;
-	t_key_status	move_left;
-	t_key_status	move_right;
-	t_key_status	turn_left;
-	t_key_status	turn_right;
-} t_key_info;
-
-typedef struct s_key
-{
-	t_key_status	move_forward;
-	t_key_status	move_left;
-	t_key_status	move_backward;
-	t_key_status	move_right;
-	t_key_status	turn_left;
-	t_key_status	turn_right;
-} t_key;
 
 typedef struct s_game_info
 {

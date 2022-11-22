@@ -3,6 +3,7 @@
 #include "cub3d.h"
 #include "raycast.h"
 #include <stdio.h>
+#include "key.h"
 
 int		init_parse_and_player_info(t_game_info *p_game, char *file_name);
 int		init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, t_parse_info *p_parse);
