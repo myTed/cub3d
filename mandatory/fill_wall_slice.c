@@ -56,7 +56,7 @@ void fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, const t_wall_in
 {
 	double draw_height;
 
-	draw_height = (double)(SCREEN_HEIGHT) / p_wall->corrected_distance;
+	draw_height = (double)SCREEN_HEIGHT / ((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT / 2) / p_wall->corrected_distance;
 	
 	//동서남북
 	p_slice->p_texture_img = get_texture(p_game, p_wall, p_ray);
