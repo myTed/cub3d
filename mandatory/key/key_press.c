@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:37 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/23 11:20:31 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 11:39:15 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@ int	key_press(
 void	destory_mlx_info(
 			t_mlx_info *p_mlx
 		);
+void	free_map_info(
+			t_map_info *p_map
+		);
+
+		
 int	exit_game(
 		t_game_info *p_game,
 		int status
 	)
 {
 	(void)p_game;
-	free_parse_info(&(p_game->parse));
+	free_map_info(&(p_game->parse.map));
 	destory_mlx_info(&(p_game->mlx));
 	exit(status);
 	return (status);

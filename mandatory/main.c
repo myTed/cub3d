@@ -8,6 +8,7 @@
 
 int		init_parse_and_player_info(t_game_info *p_game, char *file_name);
 int		init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, t_parse_info *p_parse);
+int free_path_info_texture(t_path_info *p_path);
 void	init_key_info(t_key_info *p_key);
 int		update_screen(t_game_info *p_game);
 int		update_player(t_game_info *p_game);
@@ -18,7 +19,11 @@ int	init_game_info(t_game_info *p_game, char *file_name)
 	if (init_parse_and_player_info(p_game, file_name) == FAIL)
 		return (FAIL);
 	if (init_mlx_info(&(p_game->mlx), &(p_game->mlx.screen), &(p_game->parse)) == FAIL)
+	{
+		free_path_info_texture(&(p_game->parse.path));
 		return (FAIL);
+	}
+	free_path_info_texture(&(p_game->parse.path));
 	init_key_info(&(p_game->key));
 	return (SUCCESS);
 }
@@ -45,7 +50,6 @@ int	key_exit(t_game_info *game);
 #include <stdio.h>
 void leaks(void)
 {
-	printf("leaks");
 	system("leaks cub3D");
 }
 
@@ -77,7 +81,7 @@ int main(int argc, char *argv[])
 	//mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
 	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	//mlx_loop(game.mlx.mlx_ptr);
-atexit(leaks);
-//system("leaks cub3D");
+	atexit(leaks);
+	//system("leaks cub3D");
 	return (0);
 }
