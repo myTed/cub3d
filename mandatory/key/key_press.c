@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:37 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:57:41 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 15:05:29 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 #include <stdio.h>
 #include "key.h"
 
-int	key_press(
-		int keycode,
-		t_game_info *p_game
-		);
+int		key_press(int keycode, t_game_info *p_game);
+void	destory_mlx_info(t_mlx_info *p_mlx);
+void	free_map_info(t_map_info *p_map);
 
 int	exit_game(
 		t_game_info *p_game,
@@ -26,8 +25,10 @@ int	exit_game(
 	)
 {
 	(void)p_game;
+	free_map_info(&(p_game->parse.map));
+	destory_mlx_info(&(p_game->mlx));
 	exit(status);
-	return (status);
+	return (FAIL);
 }
 
 int	key_exit(
@@ -56,5 +57,5 @@ int	key_press(
 		p_game->key.turn_right = PRESS;
 	else if (keycode == KEY_ESC)
 		return (exit_game(p_game, EXIT_SUCCESS));
-	return (0);
+	return (SUCCESS);
 }

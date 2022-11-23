@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 14:58:26 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/23 14:59:34 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
-#define PARSE_H
+# define PARSE_H
 
-#define TRUE 1
-#define FALSE 0
+# define TRUE 1
+# define FALSE 0
 
-#define SUCCESS 0
-#define FAIL 1
+# define SUCCESS 0
+# define FAIL 1
 
-#define VIEW_X -0.66
-#define VIEW_Y 0
+# define VIEW_X -0.66
+# define VIEW_Y 0
 
-#define	TYPE_MAX		6
+# define TYPE_MAX		6
 
-#define	COLOR_NUM_MAX	3
-#define	COLOR_VALUE_MAX	255
-#define	COLOR_VALUE_MIN 0
+# define COLOR_NUM_MAX	3
+# define COLOR_VALUE_MAX	255
+# define COLOR_VALUE_MIN 0
 
 typedef enum e_type_idx
 {
@@ -24,7 +36,7 @@ typedef enum e_type_idx
 	EAST_IDX,
 	FLOOR_IDX,
 	CEILING_IDX
-} t_type_idx;
+}	t_type_idx;
 
 typedef enum e_charset
 {
@@ -37,12 +49,12 @@ typedef enum e_charset
 	OUTSIDE1 = ' ',
 	OUTSIDE2 = '\0',
 	OUTSIDE3 = '\n',
-} t_charset;
+}	t_charset;
 
 typedef struct s_type
 {
-	char 		*str[TYPE_MAX];
-	int			found[TYPE_MAX];
-} t_type_ident;
+	char	*str[TYPE_MAX];
+	int		found[TYPE_MAX];
+}	t_type_ident;
 
 #endif

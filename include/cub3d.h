@@ -6,15 +6,15 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:25:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 11:27:37 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 15:13:24 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define SCREEN_WIDTH	1000
-# define SCREEN_HEIGHT	1000
+# define SCREEN_WIDTH	2560
+# define SCREEN_HEIGHT	1440
 
 # define TEXTURE_MAX	4
 
@@ -54,6 +54,10 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+/*
+ * STRUCTS
+ */
 
 typedef union u_path_info
 {
@@ -102,10 +106,10 @@ typedef struct s_mlx_info
 
 typedef struct s_game_info
 {
-	t_parse_info		parse;
-	t_player_info		player;
-	t_mlx_info			mlx;
-	t_key_info			key;
+	t_parse_info	parse;
+	t_player_info	player;
+	t_mlx_info		mlx;
+	t_key_info		key;
 }	t_game_info;
 
 #endif

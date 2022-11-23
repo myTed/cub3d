@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:33:45 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:04:53 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 12:20:43 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	set_texture_image(
 		mlx_xpm_file_to_image(p_mlx->mlx_ptr, p_parse->path.arry[WEST_IDX], \
 			&p_mlx->west_img.width, &p_mlx->west_img.height);
 	if (p_mlx->north_img.img_ptr == 0 || p_mlx->south_img.img_ptr == 0 || \
-		p_mlx->north_img.img_ptr == 0 || p_mlx->south_img.img_ptr == 0)
+		p_mlx->east_img.img_ptr == 0 || p_mlx->west_img.img_ptr == 0)
 		return (FAIL);
 	return (SUCCESS);
 }

@@ -12,7 +12,7 @@ CFLAGS += -I ./key
 CFLAGS += -I ./raycast
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c free_memory.c\
+SRCS= main.c
 
 PARSE_DIR	=		parse/
 PARSE_SRCS	=		parse_main.c \
@@ -22,8 +22,8 @@ PARSE_SRCS	=		parse_main.c \
 					parse_map_size.c \
 					parse_map_data.c \
 					parse_map_error.c \
-					parse_map_utils.c \
-					parse_map_error_utils.c
+					parse_map_error_utils.c \
+					parse_utils.c \
 
 MYMLX_DIR	=		mymlx/
 MYMLX_SRCS	=		mymlx_init.c \
@@ -35,7 +35,6 @@ KEY_SRCS	=		key_init.c\
 					key_move_player.c\
 					key_press.c\
 					key_update_player.c
-				
 
 RAYCAST_DIR		=	raycast/
 RAYCAST_SRCS	=	raycast_main.c \
@@ -68,7 +67,7 @@ NAME=cub3D
 all:$(NAME)
 
 $(NAME):$(OBJECTS) $(LIB_SRCS)
-	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -v -o $@ $^ -lmlx -framework OpenGL -framework AppKit
 #	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 # -fsanitize=address 
 $(LIB_SRCS) :

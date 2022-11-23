@@ -1,10 +1,10 @@
-NO ./texture/wall1.xpm
-SO ./texture/wall2.xpm
-WE ./texture/wall3.xpm
-EA ./texture/wall4.xpm
+NO ./texture/numberset.xpm
+SO ./texture/numberset.xpm
+WE ./texture/numberset.xpm
+EA ./texture/numberset.xpm
 
-F 153,102,51
-C 204,230,255
+F 230,230,230
+C 230,230,230
 
         11111111111111111
         111111111000000001

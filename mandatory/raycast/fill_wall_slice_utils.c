@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:05 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:01:44 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 15:09:13 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	fill_slice_info(
 
 	draw_height = (double)SCREEN_HEIGHT / p_wall->corrected_distance;
 	draw_height = \
-		draw_height * ((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT / 2);
+		draw_height * ((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT * 0.75);
 	p_slice->p_texture_img = get_texture(p_game, p_wall, p_ray);
 	p_slice->texture_offset_x = \
 		get_texture_offset_x(p_game, p_slice, p_wall, p_ray);
