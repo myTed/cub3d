@@ -2,7 +2,7 @@ CC=cc
 #CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux -I/usr/include/X11
 
-CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -Wall -Wextra -Werror #-O3
 CFLAGS += -I ./include
 CFLAGS += -I ./libft
 CFLAGS += -I ./gnl
@@ -44,17 +44,20 @@ RAYCAST_SRCS	=	raycast_main.c \
 					fill_wall_slice_utils.c \
 
 BONUS_DIR=bonus/
-BONUS_SRCS=
 
 LIB_SRCS=libft/libft.a gnl/libgnl.a
 
-MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(notdir $(SRCS:.c=.o)))
-MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(notdir $(PARSE_SRCS:.c=.o)))
-MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(MYMLX_DIR), $(notdir $(MYMLX_SRCS:.c=.o)))
-MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(notdir $(KEY_SRCS:.c=.o)))
-MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(RAYCAST_DIR), $(notdir $(RAYCAST_SRCS:.c=.o)))
+MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(SRCS:.c=.o))
+MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(PARSE_SRCS:.c=.o))
+MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(MYMLX_DIR), $(MYMLX_SRCS:.c=.o))
+MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(KEY_DIR), $(KEY_SRCS:.c=.o))
+MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(RAYCAST_DIR), $(RAYCAST_SRCS:.c=.o))
 
-BONUS_OBJS=$(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(BONUS_SRCS)))
+BONUS_OBJS += $(addprefix $(BONUS_DIR), $(patsubst %.c, %.o, $(addsuffix .c, $(addsuffix _bonus, $(basename $(SRCS))))))
+BONUS_OBJS += $(addprefix $(BONUS_DIR)$(PARSE_DIR), $(patsubst %.c, %.o, $(addsuffix .c, $(addsuffix _bonus, $(basename $(PARSE_SRCS))))))
+BONUS_OBJS += $(addprefix $(BONUS_DIR)$(MYMLX_DIR), $(patsubst %.c, %.o, $(addsuffix .c, $(addsuffix _bonus, $(basename $(MYMLX_SRCS))))))
+BONUS_OBJS += $(addprefix $(BONUS_DIR)$(KEY_DIR), $(patsubst %.c, %.o, $(addsuffix .c, $(addsuffix _bonus, $(basename $(KEY_SRCS))))))
+BONUS_OBJS += $(addprefix $(BONUS_DIR)$(RAYCAST_DIR), $(patsubst %.c, %.o, $(addsuffix .c, $(addsuffix _bonus, $(basename $(RAYCAST_SRCS))))))
 
 ifeq ($(BONUS), 1)
 	OBJECTS=$(BONUS_OBJS)
@@ -65,11 +68,11 @@ endif
 NAME=cub3D
 
 all:$(NAME)
-
-$(NAME):$(OBJECTS) $(LIB_SRCS)
+	
+$(NAME): $(OBJECTS) $(LIB_SRCS)
 	$(CC) $(CFLAGS) -v -o $@ $^ -lmlx -framework OpenGL -framework AppKit
 #	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
-# -fsanitize=address 
+
 $(LIB_SRCS) :
 	cd libft && make
 	cd gnl && make
@@ -88,7 +91,7 @@ clean:
 fclean:
 	cd libft && make fclean
 	cd gnl && make fclean
-	rm -rf $(MANDATORY_OBJS) $(BONSU_OBJS)
+	rm -rf $(MANDATORY_OBJS) $(BONUS_OBJS)
 	rm -rf $(NAME)
 
 re:fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:58:26 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 14:59:34 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 19:43:59 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 # define SUCCESS 0
 # define FAIL 1
 
-# define VIEW_X -0.66
-# define VIEW_Y 0
-
+# define VIEW			0.66
 # define TYPE_MAX		6
 
 # define COLOR_NUM_MAX	3

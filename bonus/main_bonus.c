@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:59:46 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 19:43:30 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 15:05:15 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	init_game_info(t_game_info *p_game, char *file_name)
 	if (init_mlx_info(&(p_game->mlx), \
 		&(p_game->mlx.screen), &(p_game->parse)) == FAIL)
 	{
-		printf("Error\n: mlx fail!\n");
 		free_path_info_texture(&(p_game->parse.path));
 		destory_mlx_info(&(p_game->mlx));
 		return (FAIL);
