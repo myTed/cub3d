@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:07 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:01:29 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 10:30:00 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "raycast.h"
 
 int			set_pixel(t_img *p_img, int y, int x, t_color color);
-t_color	get_pixel(t_img *p_img, const int x, const int y);
+t_color		get_pixel(t_img *p_img, const int x, const int y);
 
 void	fill_buffer_x(
 				t_game_info *p_game,
@@ -49,8 +49,8 @@ void	fill_buffer_x(
 	}
 }
 
-void	fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, \
-			const t_wall_info *p_wall, const t_vector *p_ray);
+void		fill_slice_info(t_game_info *p_game, t_slice_info *p_slice, \
+		const t_wall_info *p_wall, const t_vector *p_ray);
 
 void	fill_wall_slice(
 				t_game_info *p_game,
