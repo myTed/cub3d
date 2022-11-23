@@ -41,11 +41,13 @@ int	key_press(int keycode, t_game_info *p_game);
 int	key_release(int keycode, t_game_info *p_game);
 int	key_exit(t_game_info *game);
 
-//#include <stdlib.h>
-//void leaks(void)
-//{
-//	system("leaks cub3D");
-//}
+#include <stdlib.h>
+#include <stdio.h>
+void leaks(void)
+{
+	printf("leaks");
+	system("leaks cub3D");
+}
 
 void	destory_mlx_info(
 			t_mlx_info *p_mlx
@@ -75,6 +77,7 @@ int main(int argc, char *argv[])
 	//mlx_hook(game.mlx.win_ptr, X_EVENT_EXIT, 0, &key_exit, &game);//동작안함
 	//mlx_loop_hook(game.mlx.mlx_ptr, game_loop, &game);
 	//mlx_loop(game.mlx.mlx_ptr);
-//atexit(leaks);
+atexit(leaks);
+//system("leaks cub3D");
 	return (0);
 }

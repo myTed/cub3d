@@ -12,18 +12,18 @@ CFLAGS += -I ./key
 CFLAGS += -I ./raycast
 
 MANDATORY_DIR=mandatory/
-SRCS= main.c free_memory.c\
+SRCS= main.c
 
 PARSE_DIR	=		parse/
 PARSE_SRCS	=		parse_main.c \
-					parse_identifier_line.c \
-					parse_identifier_color.c \
-					parse_identifier_utils.c \
 					parse_map_size.c \
 					parse_map_data.c \
 					parse_map_error.c \
 					parse_map_utils.c \
 					parse_map_error_utils.c
+#parse_identifier_line.c \
+#parse_identifier_color.c \
+#parse_identifier_utils.c \
 
 MYMLX_DIR	=		mymlx/
 MYMLX_SRCS	=		mymlx_init.c \

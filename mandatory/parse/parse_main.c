@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 20:45:57 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 11:20:16 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	set_map_size(int file_fd, t_map_info *p_map, int read_count);
 int	set_map_data(char *file_name, t_map_info *p_map, \
 	int map_start_count);
 int	is_map_error(t_map_info *p_map, t_game_info *p_game);
-void	free_map(t_map_info *p_map);
+void	free_map_info(t_map_info *p_map);
 
 static int	get_map(
 				int file_fd,
@@ -120,7 +120,7 @@ static int	get_map(
 	if (set_map_data(file_name, &(p_game->parse.map), read_count) == FAIL || \
 		is_map_error(&(p_game->parse.map), p_game) == FAIL)
 		{
-			free_map(&(p_game->parse.map));
+			free_map_info(&(p_game->parse.map));
 			return (FAIL);
 		}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:34 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 10:18:49 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 11:20:21 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ int	is_empty_line(
 		return (TRUE);
 	data = ft_strtrim(line, " \n");
 	if (ft_strlen(data) == 0)
+	{
+		free(data);
 		return (TRUE);
+	}
 	else
+	{
+		free(data);
 		return (FALSE);
+	}
 }
 
 int	find_first_line(
