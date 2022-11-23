@@ -41,7 +41,7 @@ typedef enum e_charset
 
 typedef struct s_type
 {
-	char 		*str[TYPE_MAX];
+	char 		*str[TYPE_MAX];/*할당*/
 	int			found[TYPE_MAX];
 } t_type_ident;
 

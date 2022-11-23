@@ -11,20 +11,22 @@
 
 #define SUCCESS 0
 #define FAIL 1
+
 #include "key.h"
+
 /*
  * UTILS
  */
 
 typedef struct s_img
 {
-	void					*img_ptr;
+	void			*img_ptr;
 	unsigned int	*p_data;
-	int						width;
-	int						height;
-	int						bpp;
-	int						size_line;
-	int						endian;
+	int				width;
+	int				height;
+	int				bpp;
+	int				size_line;
+	int				endian;
 }	t_img;
 
 typedef struct s_color
@@ -41,12 +43,16 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+/*
+ * STRUCTS
+ */
+
 typedef union u_path_info
 {
 	char *arry[TEXTURE_MAX];
 	struct s_texture
 	{
-		char	*north;
+		char	*north;/*할당*/
 		char	*south;
 		char	*west;
 		char	*east;
@@ -56,17 +62,17 @@ typedef union u_path_info
 
 typedef struct s_map_info
 {
-	char	**data;
+	char	**data;/*할당*/
 	int		width;
 	int		height;
 } t_map_info;
 
 typedef struct s_parse_info
 {
-		t_path_info	path;
-    t_color			floor;
-    t_color			ceiling;
-		t_map_info	map;
+	t_path_info	path;
+    t_color		floor;
+    t_color		ceiling;
+	t_map_info	map;
 } t_parse_info;
 
 typedef struct s_player_info

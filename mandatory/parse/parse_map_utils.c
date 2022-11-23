@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:34 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:03:54 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 10:18:49 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,22 @@ int	find_first_line(
 	}
 	free(line);
 	return (SUCCESS);
+}
+
+void	free_map_info(
+			t_map_info *p_map
+		)
+{
+	int	i;
+
+	i = 0;
+	if (p_map != 0)
+	{
+		while (i < p_map->height)
+		{
+			free(p_map->data[i]);
+			i++;
+		}
+		free(p_map->data);
+	}
 }

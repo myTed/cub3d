@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:37 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:57:41 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/23 10:17:52 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	exit_game(
 	)
 {
 	(void)p_game;
+	//free_parse_info(&(p_game->parse));
+	destory_mlx_info(p_game->mlx);
 	exit(status);
 	return (status);
 }
@@ -56,5 +58,5 @@ int	key_press(
 		p_game->key.turn_right = PRESS;
 	else if (keycode == KEY_ESC)
 		return (exit_game(p_game, EXIT_SUCCESS));
-	return (0);
+	return (SUCCESS);
 }
