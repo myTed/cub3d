@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 11:30:17 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/23 11:30:18 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RAYCAST_H
-#define RAYCAST_H
+# define RAYCAST_H
 
 /*
  * UTILS
@@ -28,25 +40,25 @@ typedef struct s_wall_dist_info
 	double	horizon;
 	double	delta_vertical;
 	double	delta_horizon;
-	int			step_vertical;
-	int			step_horizon;
-} t_wall_dist_info;
+	int		step_vertical;
+	int		step_horizon;
+}	t_wall_dist_info;
 
 typedef struct s_wall_info
 {
-	double 			corrected_distance;
+	double		corrected_distance;
 	t_wall_pos	pos;
-	t_hit				hit_side;
+	t_hit		hit_side;
 }	t_wall_info;
 
 typedef struct s_slice_info
 {
-	t_img			*p_texture_img;
-	int				draw_top;
-	int				draw_bottom;
-	double		texture_offset_x;
-	double		texture_offset_y;
-	double		texture_step_y;
-} t_slice_info;
+	t_img	*p_texture_img;
+	int		draw_top;
+	int		draw_bottom;
+	double	texture_offset_x;
+	double	texture_offset_y;
+	double	texture_step_y;
+}	t_slice_info;
 
 #endif

@@ -1,30 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 11:25:17 by yehan             #+#    #+#             */
+/*   Updated: 2022/11/23 11:27:37 by yehan            ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#define SCREEN_WIDTH	1000
-#define SCREEN_HEIGHT	1000
+# define SCREEN_WIDTH	1000
+# define SCREEN_HEIGHT	1000
 
-#define	TEXTURE_MAX		4
+# define TEXTURE_MAX	4
 
-#define TRUE 1
-#define FALSE 0
+# define TRUE	1
+# define FALSE	0
 
-#define SUCCESS 0
-#define FAIL 1
-#include "key.h"
+# define SUCCESS	0
+# define FAIL		1
+
+# include "key.h"
+
 /*
  * UTILS
  */
 
 typedef struct s_img
 {
-	void					*img_ptr;
+	void			*img_ptr;
 	unsigned int	*p_data;
-	int						width;
-	int						height;
-	int						bpp;
-	int						size_line;
-	int						endian;
+	int				width;
+	int				height;
+	int				bpp;
+	int				size_line;
+	int				endian;
 }	t_img;
 
 typedef struct s_color
@@ -43,7 +57,7 @@ typedef struct s_vector
 
 typedef union u_path_info
 {
-	char *arry[TEXTURE_MAX];
+	char	*arry[TEXTURE_MAX];
 	struct s_texture
 	{
 		char	*north;
@@ -51,23 +65,22 @@ typedef union u_path_info
 		char	*west;
 		char	*east;
 	} texture;
-} t_path_info;
-
+}	t_path_info;
 
 typedef struct s_map_info
 {
 	char	**data;
 	int		width;
 	int		height;
-} t_map_info;
+}	t_map_info;
 
 typedef struct s_parse_info
 {
-		t_path_info	path;
-    t_color			floor;
-    t_color			ceiling;
-		t_map_info	map;
-} t_parse_info;
+	t_path_info	path;
+	t_color		floor;
+	t_color		ceiling;
+	t_map_info	map;
+}	t_parse_info;
 
 typedef struct s_player_info
 {
