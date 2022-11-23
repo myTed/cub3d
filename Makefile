@@ -35,7 +35,6 @@ KEY_SRCS	=		key_init.c\
 					key_move_player.c\
 					key_press.c\
 					key_update_player.c
-				
 
 RAYCAST_DIR		=	raycast/
 RAYCAST_SRCS	=	raycast_main.c \
@@ -68,7 +67,7 @@ NAME=cub3D
 all:$(NAME)
 
 $(NAME):$(OBJECTS) $(LIB_SRCS)
-	$(CC) $(CFLAGS) -v -o $@ $^ -L. -lmlx -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -v -o $@ $^ -lmlx -framework OpenGL -framework AppKit
 #	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 # -fsanitize=address 
 $(LIB_SRCS) :

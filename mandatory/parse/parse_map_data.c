@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:23 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 20:49:44 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 12:09:55 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	set_all_line(
 	i = 0;
 	while (i < p_map->height)
 	{
-		line_dest = ft_calloc(1, p_map->width);
+		line_dest = ft_calloc(1, p_map->width + 1);
 		if (line_dest == 0)
 		{
 			perror("Error\n");

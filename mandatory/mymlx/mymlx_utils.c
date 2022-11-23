@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:33:43 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 11:03:54 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 14:44:32 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,18 @@ void	destory_mlx_info(
 			t_mlx_info *p_mlx
 		)
 {
-	mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->north_img.img_ptr);
-	mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->south_img.img_ptr);
-	mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->west_img.img_ptr);
-	mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->east_img.img_ptr);
-	mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->screen.img_ptr);
-	mlx_destroy_window(p_mlx->mlx_ptr, p_mlx->win_ptr);
+	if (p_mlx->mlx_ptr != 0 && p_mlx->win_ptr != 0)
+	{
+		if (p_mlx->north_img.img_ptr != 0)
+			mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->north_img.img_ptr);
+		if (p_mlx->south_img.img_ptr != 0)
+			mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->south_img.img_ptr);
+		if (p_mlx->west_img.img_ptr != 0)
+			mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->west_img.img_ptr);
+		if (p_mlx->east_img.img_ptr != 0)
+			mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->east_img.img_ptr);
+		if (p_mlx->screen.img_ptr != 0)
+			mlx_destroy_image(p_mlx->mlx_ptr, p_mlx->screen.img_ptr);
+		mlx_destroy_window(p_mlx->mlx_ptr, p_mlx->win_ptr);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:37 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/23 11:39:15 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/23 14:45:48 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,9 @@
 #include <stdio.h>
 #include "key.h"
 
-int	key_press(
-		int keycode,
-		t_game_info *p_game
-		);
-void	destory_mlx_info(
-			t_mlx_info *p_mlx
-		);
-void	free_map_info(
-			t_map_info *p_map
-		);
-
+int		key_press(int keycode, t_game_info *p_game);
+void	destory_mlx_info(t_mlx_info *p_mlx);
+void	free_map_info(t_map_info *p_map);
 		
 int	exit_game(
 		t_game_info *p_game,
@@ -36,7 +28,7 @@ int	exit_game(
 	free_map_info(&(p_game->parse.map));
 	destory_mlx_info(&(p_game->mlx));
 	exit(status);
-	return (status);
+	return (FAIL);
 }
 
 int	key_exit(
