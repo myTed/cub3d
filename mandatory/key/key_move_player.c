@@ -6,12 +6,14 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:33 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/23 11:23:48 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 20:15:04 by yehan            ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "parse.h"
+#include "raycast.h"
+#include <math.h>
 
 int	move_player(
 		t_game_info *p_game
@@ -63,28 +65,40 @@ static int	corrected_new_pos(
 	return (TRUE);
 }
 
+#include <unistd.h>
+int	find_wall_distance(
+			t_game_info *p_game,
+			t_vector *p_ray,
+			t_hit *p_hit_side,
+			t_wall_info *p_wall
+		);
 static int	update_player_pos(
 		t_game_info *p_game,
 		t_vector new_pos,
 		t_vector cur_pos
 	)
 {
+	t_wall_info wall;
+
 	if (p_game == 0)
 		return (FALSE);
-	if (is_ground(p_game, new_pos.y, new_pos.x) == TRUE)
-	{	
-		p_game->player.pos.x = new_pos.x;
+	if (is_ground(p_game, new_pos.y, cur_pos.x) == TRUE)
 		p_game->player.pos.y = new_pos.y;
-	}
-	else if (is_ground(p_game, new_pos.y, cur_pos.x) == TRUE)
+	if (is_ground(p_game, cur_pos.y, new_pos.x) == TRUE)
+		p_game->player.pos.x = new_pos.x;
+	if (is_ground(p_game, new_pos.y, new_pos.x) == FALSE)
 	{
-		p_game->player.pos.x = cur_pos.x;
-		p_game->player.pos.y = new_pos.y;
-	}
-	else if (is_ground(p_game, cur_pos.y, new_pos.x) == TRUE)
-	{	
-		p_game->player.pos.x = new_pos.x;
-		p_game->player.pos.y = cur_pos.y;
+		find_wall_distance(p_game, &(p_game->player.dir), &(wall.hit_side), &wall);
+		if (wall.hit_side == VERTICAL)
+		{
+			write(1, "V ", 2);
+			p_game->player.pos.x = cur_pos.x;
+		}
+		else
+		{
+			write(1, "H ", 2);
+			p_game->player.pos.y = cur_pos.y;
+		}
 	}
 	return (TRUE);
 }
