@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.h                                          :+:      :+:    :+:   */
+/*   raycast_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: kyolee <kyolee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 11:30:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 11:30:18 by yehan            ###   ########seoul.kr  */
+/*   Created: 2022/11/24 19:10:13 by kyolee            #+#    #+#             */
+/*   Updated: 2022/11/24 19:35:26 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCAST_H
-# define RAYCAST_H
+#ifndef RAYCAST_BONUS_H
+# define RAYCAST_BONUS_H
 
 /*
  * UTILS

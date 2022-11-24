@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:33:43 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 14:44:32 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 19:30:59 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "parse.h"
+#include "cub3d_bonus.h"
+#include "parse_bonus.h"
 #include "mlx.h"
 
 int	set_pixel(

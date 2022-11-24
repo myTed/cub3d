@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:11 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:00:46 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:33:37 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "raycast.h"
+#include "cub3d_bonus.h"
+#include "raycast_bonus.h"
 
 int		update_ray_vector(const t_player_info *p_player, \
 	int width_idx, t_vector *p_ray);

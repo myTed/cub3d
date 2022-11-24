@@ -6,13 +6,13 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:09 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 20:31:04 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:33:29 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "parse.h"
-#include "raycast.h"
+#include "cub3d_bonus.h"
+#include "parse_bonus.h"
+#include "raycast_bonus.h"
 #include <math.h>
 
 int	update_ray_vector(

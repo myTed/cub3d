@@ -6,12 +6,12 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 15:06:26 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 19:31:49 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "parse.h"
+#include "cub3d_bonus.h"
+#include "parse_bonus.h"
 #include "ft_gnl.h"
 #include <fcntl.h>
 #include <stdlib.h>

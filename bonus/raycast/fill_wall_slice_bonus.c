@@ -6,13 +6,13 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:06:07 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 10:30:00 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 19:33:07 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
-#include "raycast.h"
+#include "cub3d_bonus.h"
+#include "raycast_bonus.h"
 
 int			set_pixel(t_img *p_img, int y, int x, t_color color);
 t_color		get_pixel(t_img *p_img, const int x, const int y);

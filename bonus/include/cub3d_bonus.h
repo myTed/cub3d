@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: kyolee <kyolee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 11:25:17 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 15:13:24 by yehan            ###   ########seoul.kr  */
+/*   Created: 2022/11/24 19:09:14 by kyolee            #+#    #+#             */
+/*   Updated: 2022/11/24 19:38:01 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define SCREEN_WIDTH	2560
 # define SCREEN_HEIGHT	1440
@@ -24,7 +23,7 @@
 # define SUCCESS	0
 # define FAIL		1
 
-# include "key.h"
+# include "key_bonus.h"
 
 /*
  * UTILS
