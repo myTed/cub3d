@@ -6,12 +6,12 @@
 /*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:28 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 17:06:52 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:32:08 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "parse.h"
+#include "cub3d_bonus.h"
+#include "parse_bonus.h"
 #include <stdio.h>
 
 int	is_valid_char(char c);

@@ -6,11 +6,11 @@
 /*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:25 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/22 18:06:29 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:15:04 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	calculate_forward_new_pos(
 		t_game_info *p_game,

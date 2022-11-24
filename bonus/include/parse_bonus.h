@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   parse_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyolee <kyolee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 14:58:26 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 19:43:59 by kyolee           ###   ########.fr       */
+/*   Created: 2022/11/24 19:09:48 by kyolee            #+#    #+#             */
+/*   Updated: 2022/11/24 19:35:05 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef PARSE_BONUS_H
+# define PARSE_BONUS_H
 
 # define TRUE 1
 # define FALSE 0

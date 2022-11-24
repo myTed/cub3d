@@ -6,11 +6,11 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:25:31 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/22 19:03:41 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:32:26 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "libft.h"
 #include "ft_gnl.h"
 #include <stdio.h>

@@ -6,17 +6,17 @@
 /*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:41 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/22 18:07:16 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:15:54 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "parse.h"
+#include "cub3d_bonus.h"
+#include "parse_bonus.h"
 #include "mlx.h"
 #include <math.h>
 #include <stdio.h>
 #include "libft.h"
-#include "key.h"
+#include "key_bonus.h"
 
 int	update_player(
 		t_game_info *p_game

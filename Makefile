@@ -3,13 +3,13 @@ CC=cc
 #CFLAGS=-Wall -Wextra -Werror -g -I./include -I../minilibx-linux -I/usr/include/X11
 
 CFLAGS += -Wall -Wextra -Werror #-O3
-CFLAGS += -I ./include
 CFLAGS += -I ./libft
 CFLAGS += -I ./gnl
 CFLAGS += -I ./parse
 CFLAGS += -I ./mymlx
 CFLAGS += -I ./key
 CFLAGS += -I ./raycast
+CFLAGS += -I ./minilibx
 
 MANDATORY_DIR=mandatory/
 SRCS= main.c
@@ -45,7 +45,7 @@ RAYCAST_SRCS	=	raycast_main.c \
 
 BONUS_DIR=bonus/
 
-LIB_SRCS=libft/libft.a gnl/libgnl.a
+LIB_SRCS=libft/libft.a gnl/libgnl.a minilibx/libmlx.a
 
 MANDATORY_OBJS	=	$(addprefix $(MANDATORY_DIR), $(SRCS:.c=.o))
 MANDATORY_OBJS	+=	$(addprefix $(MANDATORY_DIR)$(PARSE_DIR), $(PARSE_SRCS:.c=.o))
@@ -61,8 +61,10 @@ BONUS_OBJS += $(addprefix $(BONUS_DIR)$(RAYCAST_DIR), $(patsubst %.c, %.o, $(add
 
 ifeq ($(BONUS), 1)
 	OBJECTS=$(BONUS_OBJS)
+	CFLAGS += -I ./bonus/include
 else		
 	OBJECTS=$(MANDATORY_OBJS)
+	CFLAGS += -I ./mandatory/include
 endif
 
 NAME=cub3D
@@ -70,13 +72,13 @@ NAME=cub3D
 all:$(NAME)
 	
 $(NAME): $(OBJECTS) $(LIB_SRCS)
-	$(CC) $(CFLAGS) -v -o $@ $^ -lmlx -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -v -o $@ $^ -L./minilibx -lmlx -framework OpenGL -framework AppKit
 #	$(CC) $(CFLAGS) -o $@ $^ -L../minilibx-linux -lmlx -lXext -lX11 -lm
 
 $(LIB_SRCS) :
 	cd libft && make
 	cd gnl && make
-
+	cd minilibx && make
 %.o:%.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 
@@ -86,11 +88,13 @@ bonus:
 clean:
 	cd libft && make clean
 	cd gnl && make clean
+	cd minilibx && make clean
 	rm -rf $(MANDATORY_OBJS) $(BONUS_OBJS)
 
 fclean:
-	cd libft && make fclean
-	cd gnl && make fclean
+	cd libft && make clean
+	cd gnl && make clean
+	cd minilibx && make clean
 	rm -rf $(MANDATORY_OBJS) $(BONUS_OBJS)
 	rm -rf $(NAME)
 

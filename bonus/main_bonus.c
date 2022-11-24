@@ -6,18 +6,18 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:59:46 by yehan             #+#    #+#             */
-/*   Updated: 2022/11/23 15:05:15 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 19:37:41 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mlx.h"
-#include "cub3d.h"
-#include "raycast.h"
+#include "cub3d_bonus.h"
+#include "raycast_bonus.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "key.h"
-#include "parse.h"
+#include "key_bonus.h"
+#include "parse_bonus.h"
 
 int		init_parse_and_player_info(t_game_info *p_game, char *file_name);
 int		init_mlx_info(t_mlx_info *p_mlx, t_img *p_screen, \

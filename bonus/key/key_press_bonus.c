@@ -6,14 +6,14 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:37 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/23 15:05:29 by yehan            ###   ########seoul.kr  */
+/*   Updated: 2022/11/24 19:15:29 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "key.h"
+#include "key_bonus.h"
 
 int		key_press(int keycode, t_game_info *p_game);
 void	destory_mlx_info(t_mlx_info *p_mlx);

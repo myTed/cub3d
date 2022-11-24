@@ -6,11 +6,11 @@
 /*   By: kyolee <kyolee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:53:08 by kyolee            #+#    #+#             */
-/*   Updated: 2022/11/22 17:54:09 by kyolee           ###   ########.fr       */
+/*   Updated: 2022/11/24 19:15:11 by kyolee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_key_info(t_key_info *p_key)
 {
